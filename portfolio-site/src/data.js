@@ -34,7 +34,7 @@ export const projects = [
         period: "2025/12 リリース",
         description: "ふるさと納税における電子感謝券（現地決済型返礼品）の導入を支援。利用ガイド、決済POP、運用フロー構築を一括でディレクション。",
         metrics: ["転売防止", "手数料削減", "工数削減"],
-        images: ["/images/kusatsu_pop.jpg", "/images/kusatsu_guide.png"],
+        images: ["images/kusatsu_pop.jpg", "images/kusatsu_guide.png"],
     },
     {
         title: "AI活用: 業務効率化ツール群",
@@ -45,7 +45,7 @@ export const projects = [
             "広告分析＆提案自動化レポート生成ツール",
             "社内図解文化浸透のための専用プロンプト設計"
         ],
-        image: "/images/ai_tools.png",
+        image: "images/ai_tools.png",
     },
     {
         title: "業務自動化 (GAS)",
@@ -57,7 +57,7 @@ export const projects = [
             "Googleドキュメント図解生成機能"
         ],
         metrics: ["月間40-60h削減", "ミス率 5% → 1%"],
-        image: "/images/gas_automation.png",
+        image: "images/gas_automation.png",
     }
 ];
 
