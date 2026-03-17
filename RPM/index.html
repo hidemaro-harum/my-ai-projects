@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPM ― 利益と手法の革命</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+  <style>
+    /* =========================================
+       カスタムテーマ：プロフェッショナル・ダーク
+       全社員（経営層含む）向けの上品で読みやすいデザイン
+       ========================================= */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
+
+    :root {
+      --primary: #4fc3f7;
+      --primary-dark: #0288d1;
+      --accent: #7c4dff;
+      --accent-light: #b388ff;
+      --success: #66bb6a;
+      --warning: #ffa726;
+      --danger: #ef5350;
+      --bg-dark: #0a0e27;
+      --bg-card: rgba(255,255,255,0.04);
+      --text-main: #e0e0e0;
+      --text-dim: #9e9e9e;
+      --gradient-primary: linear-gradient(135deg, #4fc3f7 0%, #7c4dff 100%);
+      --gradient-accent: linear-gradient(135deg, #7c4dff 0%, #e040fb 100%);
+      --gradient-warm: linear-gradient(135deg, #ffa726 0%, #ef5350 100%);
+    }
+
+    .reveal {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 28px;
+      color: var(--text-main);
+    }
+    .reveal .slides { text-align: left; }
+    .reveal .slides section { padding: 40px 60px; }
+    .reveal .slide-background { background: var(--bg-dark); }
+    body { background: var(--bg-dark); }
+
+    /* ── ヘッディング ── */
+    .reveal h1 {
+      font-size: 2.4em;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.3em;
+      line-height: 1.3;
+    }
+    .reveal h2 {
+      font-size: 1.5em;
+      font-weight: 700;
+      color: var(--primary);
+      border-bottom: 2px solid rgba(79,195,247,0.3);
+      padding-bottom: 0.2em;
+      margin-bottom: 0.5em;
+    }
+    .reveal h3 {
+      font-size: 1.05em;
+      font-weight: 700;
+      color: var(--accent-light);
+      margin-bottom: 0.3em;
+    }
+
+    /* ── テキスト ── */
+    .reveal p, .reveal li {
+      font-size: 0.78em;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+    .reveal ul { list-style: none; padding-left: 0; }
+    .reveal ul li::before {
+      content: "▸ ";
+      color: var(--primary);
+      font-weight: bold;
+    }
+    .reveal ul ul li::before {
+      content: "◦ ";
+      color: var(--accent-light);
+    }
+    .reveal strong {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .reveal em {
+      color: var(--accent-light);
+      font-style: normal;
+    }
+
+    /* ── カード ── */
+    .card-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .card-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .card-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .card-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 20px 22px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(79,195,247,0.12);
+    }
+    .card .card-icon { font-size: 1.8em; margin-bottom: 6px; }
+    .card h3 { font-size: 0.88em; margin: 4px 0 6px; }
+    .card p, .card li { font-size: 0.66em; color: var(--text-dim); line-height: 1.7; }
+    .card ul li::before { content: "• "; color: var(--primary); }
+    .card.accent  { border-left: 3px solid var(--accent); }
+    .card.primary { border-left: 3px solid var(--primary); }
+    .card.success { border-left: 3px solid var(--success); }
+    .card.warning { border-left: 3px solid var(--warning); }
+    .card.danger  { border-left: 3px solid var(--danger); }
+
+    /* ── ハイライトボックス ── */
+    .key-message {
+      background: linear-gradient(135deg, rgba(79,195,247,0.1), rgba(124,77,255,0.1));
+      border: 1px solid rgba(79,195,247,0.25);
+      border-radius: 12px;
+      padding: 22px 28px;
+      margin: 16px 0;
+      text-align: center;
+    }
+    .key-message p {
+      font-size: 1em !important;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    .key-message .sub {
+      font-size: 0.72em !important;
+      font-weight: 400;
+      color: var(--text-dim);
+      margin-top: 6px;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(79,195,247,0.08), rgba(124,77,255,0.08));
+      border: 1px solid rgba(79,195,247,0.18);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 12px 0;
+    }
+    .highlight-box.warm {
+      background: linear-gradient(135deg, rgba(255,167,38,0.08), rgba(239,83,80,0.08));
+      border-color: rgba(255,167,38,0.18);
+    }
+
+    /* ── ステップフロー ── */
+    .step-flow {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: nowrap;
+      margin: 16px 0;
+    }
+    .step {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 12px 10px;
+      text-align: center;
+      font-size: 0.62em;
+      flex: 1;
+      min-width: 0;
+    }
+    .step .step-num {
+      display: inline-block;
+      width: 26px; height: 26px; line-height: 26px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      color: #fff;
+      font-size: 0.85em;
+      font-weight: 700;
+      text-align: center;
+    }
+    .step .step-title {
+      font-weight: 700;
+      color: var(--primary);
+      margin: 5px 0 3px;
+      font-size: 1.05em;
+    }
+    .step-arrow {
+      font-size: 1.1em;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* ── 表紙 ── */
+    .title-slide {
+      text-align: center !important;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .title-slide h1 { font-size: 2.8em; margin-bottom: 0.1em; }
+    .title-slide .subtitle {
+      font-size: 1.0em;
+      color: var(--text-dim);
+      margin-bottom: 1.5em;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    .title-slide .meta {
+      font-size: 0.7em;
+      color: var(--text-dim);
+      margin-top: 1em;
+    }
+    .badge-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 16px 0;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.7em;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--bg-card);
+    }
+
+    /* ── セクション区切り ── */
+    .section-divider {
+      text-align: center !important;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .section-divider .section-num {
+      font-size: 3.5em;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .section-divider h2 {
+      border: none;
+      font-size: 1.8em;
+      text-align: center;
+    }
+    .section-divider p {
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    /* ── テーブル ── */
+    .reveal table {
+      font-size: 0.7em;
+      border-collapse: collapse;
+      width: 100%;
+      margin: 14px 0;
+    }
+    .reveal table th {
+      background: rgba(79,195,247,0.15);
+      color: var(--primary);
+      font-weight: 700;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: left;
+    }
+    .reveal table td {
+      padding: 9px 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--text-main);
+    }
+    .reveal table tr:nth-child(even) td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    /* ── 数値カード ── */
+    .stat-card {
+      text-align: center;
+      padding: 20px 14px;
+    }
+    .stat-card .stat-value {
+      font-size: 2em;
+      font-weight: 900;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-card .stat-label {
+      font-size: 0.72em;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* ── Mermaid ── */
+    .mermaid { text-align: center; margin: 16px 0; }
+
+    /* ── 注釈 ── */
+    .footnote {
+      font-size: 0.55em;
+      color: var(--text-dim);
+      margin-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 8px;
+    }
+
+    /* ── リスト調整 ── */
+    .reveal ul ul { margin-left: 20px; margin-top: 4px; }
+
+    /* ── 印刷用 ── */
+    @media print {
+      .reveal .slides section { page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ============================================
+           スライド 1: 表紙
+           ============================================ -->
+      <section class="title-slide">
+        <h1>RPM</h1>
+        <p style="font-size:1.4em; font-weight:700; background:var(--gradient-accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin:0 0 0.3em;">利益と手法の革命</p>
+        <p class="subtitle">ふるさと納税 返礼品データ<br>マルチサイト自動連携システム</p>
+        <div class="badge-row">
+          <span class="badge">🏗️ Google Apps Script</span>
+          <span class="badge">🤖 AI 搭載</span>
+          <span class="badge">📊 4サイト対応</span>
+        </div>
+        <p class="meta">社内共有資料 ｜ 2026年3月</p>
+      </section>
+
+      <!-- ============================================
+           スライド 2: このシステムが解決する課題
+           ============================================ -->
+      <section>
+        <h2>🎯 このシステムが解決する課題</h2>
+        <div class="card-grid cols-2">
+          <div class="card danger">
+            <div class="card-icon">😰</div>
+            <h3>これまでの課題</h3>
+            <ul>
+              <li>返礼品を<strong>サイトごとに手入力</strong><br>→ 時間がかかる</li>
+              <li>サイトごとに<strong>フォーマットが異なる</strong><br>→ 入力ミス・アップロードエラー</li>
+              <li>ジャンル・カテゴリ選びが<strong>大変でエラーが出る</strong></li>
+            </ul>
+          </div>
+          <div class="card success">
+            <div class="card-icon">🎉</div>
+            <h3>自動化で解決</h3>
+            <ul>
+              <li><strong>ワンクリック</strong>で4サイト分を自動出力</li>
+              <li>入力ミス・フォーマットエラーを<br><strong>事前に自動チェック</strong></li>
+              <li>AIが最適なジャンル・カテゴリを<br><strong>自動判定</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="key-message" style="margin-top: 24px;">
+          <p>誰でも簡単に、ミスなく、4サイト分のデータが作れる</p>
+        </div>
+      </section>
+
+      <!-- ============================================
+           スライド 3: できることの全体像（図）
+           ============================================ -->
+      <section>
+        <h2>🏗️ できることの全体像</h2>
+        <div class="mermaid">
+graph LR
+  A["📋 ヒアリングシート<br>(Excel)"] -->|自動取込| B["🗄️ マスターデータ<br>（1か所に集約）"]
+  B --> C["⚙️ 自動変換<br>エンジン"]
+  C --> D["🟢 チョイス"]
+  C --> E["🔵 楽天"]
+  C --> F["🟠 さとふる"]
+  C --> G["🟡 ふるなび"]
+  H["🤖 AI"] -.->|ジャンル<br>自動判定| C
+  I["✅ 自動<br>チェック"] -.->|エラー<br>防止| C
+
+  style A fill:#1a237e,stroke:#4fc3f7,color:#e0e0e0
+  style B fill:#0d47a1,stroke:#4fc3f7,color:#e0e0e0
+  style C fill:#4a148c,stroke:#b388ff,color:#e0e0e0
+  style D fill:#1b5e20,stroke:#66bb6a,color:#e0e0e0
+  style E fill:#1565c0,stroke:#42a5f5,color:#e0e0e0
+  style F fill:#e65100,stroke:#ffa726,color:#e0e0e0
+  style G fill:#f9a825,stroke:#fff176,color:#212121
+  style H fill:#4a148c,stroke:#e040fb,color:#e0e0e0
+  style I fill:#1b5e20,stroke:#66bb6a,color:#e0e0e0
+        </div>
+        <div class="key-message">
+          <p>1つのデータを入れるだけで、4サイト分の登録データが自動で完成します</p>
+        </div>
+      </section>
+
+      <!-- ============================================
+           スライド 4: セクション区切り ― 3つの設計思想
+           ============================================ -->
+      <section class="section-divider">
+        <div class="section-num">01</div>
+        <h2>このシステムの<br>3つの設計思想</h2>
+      </section>
+
+      <!-- ============================================
+           スライド 5: 設計思想① マスターデータ中心
+           ============================================ -->
+      <section>
+        <h2>💡 設計思想① ― 入力は1か所だけ</h2>
+        <div class="key-message">
+          <p>入力は1か所だけ。修正も1か所だけ。</p>
+          <p class="sub">すべてのサイト向けデータは、1つの「マスターデータ」から自動で作られます</p>
+        </div>
+
+        <div class="mermaid" style="margin-top: 20px;">
+graph LR
+  M["🗄️ マスターデータ<br>（1か所）"]
+  M --> C1["🟢 チョイス"]
+  M --> C2["🔵 楽天"]
+  M --> C3["🟠 さとふる"]
+  M --> C4["🟡 ふるなび"]
+
+  style M fill:#0d47a1,stroke:#4fc3f7,color:#e0e0e0
+  style C1 fill:#1b5e20,stroke:#66bb6a,color:#e0e0e0
+  style C2 fill:#1565c0,stroke:#42a5f5,color:#e0e0e0
+  style C3 fill:#e65100,stroke:#ffa726,color:#e0e0e0
+  style C4 fill:#f9a825,stroke:#fff176,color:#212121
+        </div>
+
+        <div class="card-grid cols-3" style="margin-top: 12px;">
+          <div class="card primary">
+            <div class="card-icon">📝</div>
+            <h3>1回入力</h3>
+            <p>マスターデータに1回入力するだけで、4サイト分のデータが自動で生成されます</p>
+          </div>
+          <div class="card accent">
+            <div class="card-icon">🔄</div>
+            <h3>1か所修正</h3>
+            <p>修正もマスターデータの1か所を直すだけ。修正漏れが起きません</p>
+          </div>
+          <div class="card success">
+            <div class="card-icon">🚫</div>
+            <h3>二重入力ゼロ</h3>
+            <p>同じ情報を複数のサイトに入力する必要が完全になくなります</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           スライド 6: 設計思想② ノーコード拡張
+           ============================================ -->
+      <section>
+        <h2>💡 設計思想② ― コード不要のカスタマイズ</h2>
+        <div class="key-message">
+          <p>プログラム修正は不要。スプレッドシートの1行で対応完了。</p>
+          <p class="sub">各サイトへの出力ルールは、スプレッドシート上の「マッピング定義」で管理します</p>
+        </div>
+
+        <table style="margin-top: 20px;">
+          <thead>
+            <tr>
+              <th>出力先サイト</th>
+              <th>出力する項目</th>
+              <th>マスターの参照先</th>
+              <th>変換ルール</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>🟢 チョイス</td>
+              <td>お礼の品名</td>
+              <td>返礼品名</td>
+              <td>そのまま転記</td>
+            </tr>
+            <tr>
+              <td>🔵 楽天</td>
+              <td>商品名</td>
+              <td>返礼品名</td>
+              <td>先頭に「ふるさと納税」を自動付加</td>
+            </tr>
+            <tr>
+              <td>🟠 さとふる</td>
+              <td>発送種別</td>
+              <td>配送温度帯</td>
+              <td>値を自動で変換</td>
+            </tr>
+            <tr>
+              <td>🟡 ふるなび</td>
+              <td>在庫数</td>
+              <td>在庫_ふるなび</td>
+              <td>そのまま転記</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card-grid cols-2" style="margin-top: 16px;">
+          <div class="card primary">
+            <h3>✨ こんなときに便利</h3>
+            <ul>
+              <li>新しい出力項目の追加 → <strong>1行追記するだけ</strong></li>
+              <li>既定値の変更 → シート上で即座に反映</li>
+              <li>サイト側の仕様変更 → 開発を待たずに対応可能</li>
+            </ul>
+          </div>
+          <div class="card accent">
+            <h3>🎯 つまり</h3>
+            <ul>
+              <li>出力ルールが<strong>見えるシート</strong>上で管理される</li>
+              <li>プログラムの知識がなくても調整できる</li>
+              <li>担当者自身が運用をコントロールできる</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           スライド 7: 設計思想③ エラーを出さない仕組み
+           ============================================ -->
+      <section>
+        <h2>💡 設計思想③ ― エラーを出さない仕組み</h2>
+        <div class="key-message">
+          <p>データを出力する前に、自動でチェック。エラーは事前にブロック。</p>
+          <p class="sub">サイトにアップロードしてからエラーに気づく…をなくします</p>
+        </div>
+
+        <div class="card-grid cols-3" style="margin-top: 20px;">
+          <div class="card danger">
+            <div class="card-icon">🚫</div>
+            <h3>致命的エラー → 出力停止</h3>
+            <p>必須情報が未入力の場合、データファイルを<strong>生成しません</strong>。<br>問題のある箇所を日本語で具体的に通知します。</p>
+          </div>
+          <div class="card warning">
+            <div class="card-icon">⚠️</div>
+            <h3>警告 → 通知して続行</h3>
+            <p>修正が推奨される項目は<strong>警告を表示</strong>しつつ、出力は続行。<br>後から修正できるレベルのものです。</p>
+          </div>
+          <div class="card success">
+            <div class="card-icon">✅</div>
+            <h3>自動修正</h3>
+            <p>機械的に直せるもの（特殊文字の変換、日付の統一など）は<strong>自動で修正</strong>。<br>人の手を煩わせません。</p>
+          </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 20px;">
+          <p style="font-size:0.76em; text-align:center;">
+            <strong>💡 効果：</strong>「出力 → アップロード → エラー発覚 → 修正 → 再アップロード」のやり直しサイクルをなくし、<br>
+            <strong>一発でアップロードが通るデータ</strong>を作ります
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================
+           スライド 8: セクション区切り ― 自動化される作業
+           ============================================ -->
+      <section class="section-divider">
+        <div class="section-num">02</div>
+        <h2>具体的に何が<br>自動化されるのか</h2>
+      </section>
+
+      <!-- ============================================
+           スライド 9: 自動化される作業の一覧
+           ============================================ -->
+      <section>
+        <h2>⚡ 自動化される作業の一覧</h2>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:28%;">作業内容</th>
+              <th style="width:34%;">これまで</th>
+              <th style="width:38%;">自動化後</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ヒアリングシート取込</strong></td>
+              <td>Excelを目視で転記</td>
+              <td>🟢 ワンクリックで自動取込</td>
+            </tr>
+            <tr>
+              <td><strong>各サイト向けデータ変換</strong></td>
+              <td>手動またはCSVで担当者が入力</td>
+              <td>🟢 マッピングルールで自動変換</td>
+            </tr>
+            <tr>
+              <td><strong>ジャンル・カテゴリ選定</strong></td>
+              <td>担当者が手動で選択</td>
+              <td>🟢 AIが自動判定</td>
+            </tr>
+            <tr>
+              <td><strong>文字コード変換</strong></td>
+              <td>手動変換 or エラー後に気付く</td>
+              <td>🟢 自動変換＆事前チェック</td>
+            </tr>
+            <tr>
+              <td><strong>バリエーション登録</strong></td>
+              <td>親子関係を手動で構築</td>
+              <td>🟢 自動で親子構造を生成<br>（チョイス・楽天対応）</td>
+            </tr>
+            <tr>
+              <td><strong>データチェック</strong></td>
+              <td>アップロード後にエラーで発覚</td>
+              <td>🟢 出力前に自動バリデーション</td>
+            </tr>
+            <tr>
+              <td><strong>4サイト一括出力</strong></td>
+              <td>サイトごとに個別作業</td>
+              <td>🟢 <strong>ワンクリックで全サイト一括</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="key-message" style="margin-top: 16px;">
+          <p>ほぼすべての定型作業が自動化されます</p>
+        </div>
+      </section>
+
+      <!-- ============================================
+           スライド 10: ここがすごい ― AI自動判定
+           ============================================ -->
+      <section>
+        <h2>🤖 ここがすごい ― AIによるジャンル自動判定</h2>
+        <div class="key-message">
+          <p>商品名を入れるだけで、最適なジャンルをAIが自動で選びます</p>
+        </div>
+
+        <div class="step-flow" style="margin-top: 20px;">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-title">キーワード整理</div>
+            <div>商品名を分析して<br>検索しやすく整理</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-title">実績参照</div>
+            <div>過去に確定した<br>データを優先参照</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-title">候補リスト</div>
+            <div>ジャンルの候補を<br>自動でリストアップ</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-title">AI選択</div>
+            <div>AIが最適な<br>1つを選択</div>
+          </div>
+          <div class="step-arrow">→</div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-title">検証</div>
+            <div>選んだ結果を<br>自動で検証</div>
+          </div>
+        </div>
+
+        <div class="card-grid cols-2" style="margin-top: 16px;">
+          <div class="card accent">
+            <div class="card-icon">📚</div>
+            <h3>辞書データ 2,800件超</h3>
+            <p>水産・精肉・米・青果・菓子・飲料・酒・調味料・日用品・伝統工芸品まで、<strong>あらゆる返礼品を網羅</strong>する辞書を搭載</p>
+          </div>
+          <div class="card primary">
+            <div class="card-icon">🧠</div>
+            <h3>使うほど賢くなる</h3>
+            <p>手動で修正した結果は<strong>自動的に辞書へ反映</strong>。使い続けるほど判定精度が向上する学習サイクルを内蔵</p>
+          </div>
+        </div>
+        <div class="footnote">使用AI：Gemini 2.5</div>
+      </section>
+
+      <!-- ============================================
+           スライド 11: 導入効果
+           ============================================ -->
+      <section>
+        <h2>📈 導入効果</h2>
+        <div class="card-grid cols-4">
+          <div class="card stat-card primary">
+            <div class="stat-value">90%↓</div>
+            <div class="stat-label">手作業時間の削減</div>
+          </div>
+          <div class="card stat-card accent">
+            <div class="stat-value" style="font-size:1.8em;">4 → 1</div>
+            <div class="stat-label">データ入力回数</div>
+          </div>
+          <div class="card stat-card success">
+            <div class="stat-value" style="font-size:1.8em;">≒ 0</div>
+            <div class="stat-label">アップロードエラー率</div>
+          </div>
+          <div class="card stat-card warning">
+            <div class="stat-value" style="font-size:1.6em;">2,800+</div>
+            <div class="stat-label">AI辞書エントリ数</div>
+          </div>
+        </div>
+
+        <div class="card-grid cols-2" style="margin-top: 20px;">
+          <div class="card primary">
+            <div class="card-icon">🎯</div>
+            <h3>定量的効果</h3>
+            <ul>
+              <li>1商品の登録作業：<strong>数十分 → 数クリック</strong></li>
+              <li>4サイト同時エクスポートに対応</li>
+              <li>フォーマットエラーを出力前に防止</li>
+            </ul>
+          </div>
+          <div class="card accent">
+            <div class="card-icon">🌱</div>
+            <h3>定性的効果</h3>
+            <ul>
+              <li>属人化の解消：ルールが<strong>シート上で可視化</strong>される</li>
+              <li>スケーラビリティ：新サイト追加が容易</li>
+              <li>AI辞書が使うほど成長し続ける</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================
+           スライド 12: まとめ & 今後
+           ============================================ -->
+      <section>
+        <h2>📌 まとめ &amp; 今後のステップ</h2>
+        <div class="card-grid cols-2">
+          <div class="highlight-box" style="margin:0;">
+            <h3 style="margin-bottom:12px;">✅ RPM でできること</h3>
+            <ul style="font-size:0.82em;">
+              <li><strong>マスターデータ一元管理</strong>で二重入力を完全排除</li>
+              <li><strong>マッピングシート</strong>でコード不要のカスタマイズ</li>
+              <li><strong>AI</strong>が最適なジャンル・カテゴリを自動判定</li>
+              <li><strong>多重チェック</strong>でミスを出力前にブロック</li>
+              <li><strong>ワンクリック</strong>で4サイト一括出力</li>
+            </ul>
+          </div>
+          <div class="highlight-box warm" style="margin:0;">
+            <h3 style="margin-bottom:12px;">🚀 今後のステップ</h3>
+            <ul style="font-size:0.82em;">
+              <li><strong>操作マニュアル</strong>の作成</li>
+              <li>実際の<strong>レクチャー・研修</strong>の実施</li>
+              <li>新規プラットフォームへの拡張</li>
+              <li>画像管理機能の強化</li>
+            </ul>
+            <p style="font-size:0.72em; color:var(--text-dim); margin-top:12px;">
+              マニュアルの準備ができ次第、<br>操作方法のレクチャーに移行します
+            </p>
+          </div>
+        </div>
+
+        <div class="key-message" style="margin-top: 24px;">
+          <p>誰でも簡単に、カスタマイズ性高く、ミスなくデータが作れる</p>
+          <p class="sub">それが RPM ― 利益と手法の革命 です</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- reveal.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <!-- Mermaid CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+
+  <script>
+    // Mermaid 初期化
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#4a148c',
+        primaryTextColor: '#e0e0e0',
+        primaryBorderColor: '#7c4dff',
+        lineColor: '#4fc3f7',
+        secondaryColor: '#1a237e',
+        tertiaryColor: '#0d47a1',
+        fontFamily: 'Noto Sans JP, sans-serif',
+        fontSize: '14px'
+      },
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      }
+    });
+
+    // reveal.js 初期化
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      width: 1280,
+      height: 720,
+      margin: 0.04,
+      transition: 'slide',
+      transitionSpeed: 'default',
+      backgroundTransition: 'fade',
+      center: false,
+      plugins: []
+    }).then(() => {
+      mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+    });
+  </script>
+</body>
+</html>
