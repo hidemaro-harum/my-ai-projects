@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,7 @@
       --warning: #ffa726;
       --danger: #ef5350;
       --bg-dark: #0a0e27;
-      --bg-card: rgba(255,255,255,0.04);
+      --bg-card: rgba(255, 255, 255, 0.04);
       --text-main: #e0e0e0;
       --text-dim: #9e9e9e;
       --gradient-primary: linear-gradient(135deg, #4fc3f7 0%, #7c4dff 100%);
@@ -35,10 +36,22 @@
       font-size: 28px;
       color: var(--text-main);
     }
-    .reveal .slides { text-align: left; }
-    .reveal .slides section { padding: 40px 60px; }
-    .reveal .slide-background { background: var(--bg-dark); }
-    body { background: var(--bg-dark); }
+
+    .reveal .slides {
+      text-align: left;
+    }
+
+    .reveal .slides section {
+      padding: 40px 60px;
+    }
+
+    .reveal .slide-background {
+      background: var(--bg-dark);
+    }
+
+    body {
+      background: var(--bg-dark);
+    }
 
     /* ── ヘッディング ── */
     .reveal h1 {
@@ -51,14 +64,16 @@
       margin-bottom: 0.3em;
       line-height: 1.3;
     }
+
     .reveal h2 {
       font-size: 1.5em;
       font-weight: 700;
       color: var(--primary);
-      border-bottom: 2px solid rgba(79,195,247,0.3);
+      border-bottom: 2px solid rgba(79, 195, 247, 0.3);
       padding-bottom: 0.2em;
       margin-bottom: 0.5em;
     }
+
     .reveal h3 {
       font-size: 1.05em;
       font-weight: 700;
@@ -67,25 +82,34 @@
     }
 
     /* ── テキスト ── */
-    .reveal p, .reveal li {
+    .reveal p,
+    .reveal li {
       font-size: 0.78em;
       line-height: 1.8;
       color: var(--text-main);
     }
-    .reveal ul { list-style: none; padding-left: 0; }
+
+    .reveal ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
     .reveal ul li::before {
       content: "▸ ";
       color: var(--primary);
       font-weight: bold;
     }
+
     .reveal ul ul li::before {
       content: "◦ ";
       color: var(--accent-light);
     }
+
     .reveal strong {
       color: var(--primary);
       font-weight: 700;
     }
+
     .reveal em {
       color: var(--accent-light);
       font-style: normal;
@@ -97,47 +121,92 @@
       gap: 16px;
       margin-top: 16px;
     }
-    .card-grid.cols-2 { grid-template-columns: 1fr 1fr; }
-    .card-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-    .card-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+    .card-grid.cols-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .card-grid.cols-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .card-grid.cols-4 {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 
     .card {
       background: var(--bg-card);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       padding: 20px 22px;
       backdrop-filter: blur(10px);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(79,195,247,0.12);
+      box-shadow: 0 8px 30px rgba(79, 195, 247, 0.12);
     }
-    .card .card-icon { font-size: 1.8em; margin-bottom: 6px; }
-    .card h3 { font-size: 0.88em; margin: 4px 0 6px; }
-    .card p, .card li { font-size: 0.66em; color: var(--text-dim); line-height: 1.7; }
-    .card ul li::before { content: "• "; color: var(--primary); }
-    .card.accent  { border-left: 3px solid var(--accent); }
-    .card.primary { border-left: 3px solid var(--primary); }
-    .card.success { border-left: 3px solid var(--success); }
-    .card.warning { border-left: 3px solid var(--warning); }
-    .card.danger  { border-left: 3px solid var(--danger); }
+
+    .card .card-icon {
+      font-size: 1.8em;
+      margin-bottom: 6px;
+    }
+
+    .card h3 {
+      font-size: 0.88em;
+      margin: 4px 0 6px;
+    }
+
+    .card p,
+    .card li {
+      font-size: 0.66em;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    .card ul li::before {
+      content: "• ";
+      color: var(--primary);
+    }
+
+    .card.accent {
+      border-left: 3px solid var(--accent);
+    }
+
+    .card.primary {
+      border-left: 3px solid var(--primary);
+    }
+
+    .card.success {
+      border-left: 3px solid var(--success);
+    }
+
+    .card.warning {
+      border-left: 3px solid var(--warning);
+    }
+
+    .card.danger {
+      border-left: 3px solid var(--danger);
+    }
 
     /* ── ハイライトボックス ── */
     .key-message {
-      background: linear-gradient(135deg, rgba(79,195,247,0.1), rgba(124,77,255,0.1));
-      border: 1px solid rgba(79,195,247,0.25);
+      background: linear-gradient(135deg, rgba(79, 195, 247, 0.1), rgba(124, 77, 255, 0.1));
+      border: 1px solid rgba(79, 195, 247, 0.25);
       border-radius: 12px;
       padding: 22px 28px;
       margin: 16px 0;
       text-align: center;
     }
+
     .key-message p {
       font-size: 1em !important;
       font-weight: 700;
       color: #fff;
       margin: 0;
     }
+
     .key-message .sub {
       font-size: 0.72em !important;
       font-weight: 400;
@@ -146,15 +215,16 @@
     }
 
     .highlight-box {
-      background: linear-gradient(135deg, rgba(79,195,247,0.08), rgba(124,77,255,0.08));
-      border: 1px solid rgba(79,195,247,0.18);
+      background: linear-gradient(135deg, rgba(79, 195, 247, 0.08), rgba(124, 77, 255, 0.08));
+      border: 1px solid rgba(79, 195, 247, 0.18);
       border-radius: 12px;
       padding: 18px 22px;
       margin: 12px 0;
     }
+
     .highlight-box.warm {
-      background: linear-gradient(135deg, rgba(255,167,38,0.08), rgba(239,83,80,0.08));
-      border-color: rgba(255,167,38,0.18);
+      background: linear-gradient(135deg, rgba(255, 167, 38, 0.08), rgba(239, 83, 80, 0.08));
+      border-color: rgba(255, 167, 38, 0.18);
     }
 
     /* ── ステップフロー ── */
@@ -165,9 +235,10 @@
       flex-wrap: nowrap;
       margin: 16px 0;
     }
+
     .step {
       background: var(--bg-card);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
       padding: 12px 10px;
       text-align: center;
@@ -175,9 +246,12 @@
       flex: 1;
       min-width: 0;
     }
+
     .step .step-num {
       display: inline-block;
-      width: 26px; height: 26px; line-height: 26px;
+      width: 26px;
+      height: 26px;
+      line-height: 26px;
       border-radius: 50%;
       background: var(--gradient-primary);
       color: #fff;
@@ -185,12 +259,14 @@
       font-weight: 700;
       text-align: center;
     }
+
     .step .step-title {
       font-weight: 700;
       color: var(--primary);
       margin: 5px 0 3px;
       font-size: 1.05em;
     }
+
     .step-arrow {
       font-size: 1.1em;
       color: var(--primary);
@@ -205,7 +281,12 @@
       align-items: center;
       justify-content: center;
     }
-    .title-slide h1 { font-size: 2.8em; margin-bottom: 0.1em; }
+
+    .title-slide h1 {
+      font-size: 2.8em;
+      margin-bottom: 0.1em;
+    }
+
     .title-slide .subtitle {
       font-size: 1.0em;
       color: var(--text-dim);
@@ -213,17 +294,20 @@
       font-weight: 300;
       line-height: 1.6;
     }
+
     .title-slide .meta {
       font-size: 0.7em;
       color: var(--text-dim);
       margin-top: 1em;
     }
+
     .badge-row {
       display: flex;
       gap: 12px;
       justify-content: center;
       margin: 16px 0;
     }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -232,7 +316,7 @@
       border-radius: 30px;
       font-size: 0.7em;
       font-weight: 500;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       background: var(--bg-card);
     }
 
@@ -244,6 +328,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .section-divider .section-num {
       font-size: 3.5em;
       font-weight: 900;
@@ -253,11 +338,13 @@
       background-clip: text;
       line-height: 1;
     }
+
     .section-divider h2 {
       border: none;
       font-size: 1.8em;
       text-align: center;
     }
+
     .section-divider p {
       color: var(--text-dim);
       text-align: center;
@@ -270,21 +357,24 @@
       width: 100%;
       margin: 14px 0;
     }
+
     .reveal table th {
-      background: rgba(79,195,247,0.15);
+      background: rgba(79, 195, 247, 0.15);
       color: var(--primary);
       font-weight: 700;
       padding: 10px 16px;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       text-align: left;
     }
+
     .reveal table td {
       padding: 9px 16px;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       color: var(--text-main);
     }
+
     .reveal table tr:nth-child(even) td {
-      background: rgba(255,255,255,0.02);
+      background: rgba(255, 255, 255, 0.02);
     }
 
     /* ── 数値カード ── */
@@ -292,6 +382,7 @@
       text-align: center;
       padding: 20px 14px;
     }
+
     .stat-card .stat-value {
       font-size: 2em;
       font-weight: 900;
@@ -300,6 +391,7 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+
     .stat-card .stat-label {
       font-size: 0.72em;
       color: var(--text-dim);
@@ -307,26 +399,35 @@
     }
 
     /* ── Mermaid ── */
-    .mermaid { text-align: center; margin: 16px 0; }
+    .mermaid {
+      text-align: center;
+      margin: 16px 0;
+    }
 
     /* ── 注釈 ── */
     .footnote {
       font-size: 0.55em;
       color: var(--text-dim);
       margin-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
       padding-top: 8px;
     }
 
     /* ── リスト調整 ── */
-    .reveal ul ul { margin-left: 20px; margin-top: 4px; }
+    .reveal ul ul {
+      margin-left: 20px;
+      margin-top: 4px;
+    }
 
     /* ── 印刷用 ── */
     @media print {
-      .reveal .slides section { page-break-after: always; }
+      .reveal .slides section {
+        page-break-after: always;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="reveal">
     <div class="slides">
@@ -336,7 +437,9 @@
            ============================================ -->
       <section class="title-slide">
         <h1>RPM</h1>
-        <p style="font-size:1.4em; font-weight:700; background:var(--gradient-accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin:0 0 0.3em;">利益と手法の革命</p>
+        <p
+          style="font-size:1.4em; font-weight:700; background:var(--gradient-accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin:0 0 0.3em;">
+          利益と手法の革命</p>
         <p class="subtitle">ふるさと納税 返礼品データ<br>マルチサイト自動連携システム</p>
         <div class="badge-row">
           <span class="badge">🏗️ Google Apps Script</span>
@@ -376,39 +479,106 @@
         </div>
       </section>
 
-      <!-- ============================================
-           スライド 3: できることの全体像（図）
-           ============================================ -->
-      <section>
-        <h2>🏗️ できることの全体像</h2>
-        <div class="mermaid">
-graph LR
-  A["📋 ヒアリングシート<br>(Excel)"] -->|自動取込| B["🗄️ マスターデータ<br>（1か所に集約）"]
-  B --> C["⚙️ 自動変換<br>エンジン"]
-  C --> D["🟢 チョイス"]
-  C --> E["🔵 楽天"]
-  C --> F["🟠 さとふる"]
-  C --> G["🟡 ふるなび"]
-  H["🤖 AI"] -.->|ジャンル<br>自動判定| C
-  I["✅ 自動<br>チェック"] -.->|エラー<br>防止| C
 
-  style A fill:#1a237e,stroke:#4fc3f7,color:#e0e0e0
-  style B fill:#0d47a1,stroke:#4fc3f7,color:#e0e0e0
-  style C fill:#4a148c,stroke:#b388ff,color:#e0e0e0
-  style D fill:#1b5e20,stroke:#66bb6a,color:#e0e0e0
-  style E fill:#1565c0,stroke:#42a5f5,color:#e0e0e0
-  style F fill:#e65100,stroke:#ffa726,color:#e0e0e0
-  style G fill:#f9a825,stroke:#fff176,color:#212121
-  style H fill:#4a148c,stroke:#e040fb,color:#e0e0e0
-  style I fill:#1b5e20,stroke:#66bb6a,color:#e0e0e0
-        </div>
-        <div class="key-message">
-          <p>1つのデータを入れるだけで、4サイト分の登録データが自動で完成します</p>
+      <!-- ============================================
+           スライド 4: サービスの流れ（詳細プロセスフロー）
+           ============================================ -->
+      <section style="padding:30px 40px;">
+        <h2>🔄 サービスの流れ</h2>
+
+        <!-- 縦フロー図（HTML/CSS） -->
+        <div style="display:flex; gap:16px; align-items:flex-start;">
+
+          <!-- 左カラム: フロー図 -->
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:0;">
+
+            <!-- STEP 1: ヒアリングシート -->
+            <div
+              style="background:#1565c0; border:2px solid #42a5f5; border-radius:10px; padding:10px 20px; text-align:center; width:80%;">
+              <div style="font-size:0.65em; font-weight:700; color:#e0e0e0;">📋 ヒアリングシート（Excel）</div>
+            </div>
+            <div style="color:var(--primary); font-size:0.8em; line-height:1.4;">▼ <span
+                style="font-size:0.6em; color:var(--text-dim);">抽出・取込</span></div>
+
+            <!-- STEP 2: マスターデータ -->
+            <div
+              style="background:#0d47a1; border:2px solid #4fc3f7; border-radius:10px; padding:10px 20px; text-align:center; width:80%;">
+              <div style="font-size:0.65em; font-weight:700; color:#e0e0e0;">🗄️ マスターデータ（Google スプレッドシート）</div>
+            </div>
+            <div style="color:var(--primary); font-size:0.8em; line-height:1.4;">▼ <span
+                style="font-size:0.6em; color:var(--text-dim);">データ参照</span></div>
+
+            <!-- STEP 3: マッピングエンジン + API連携 -->
+            <div
+              style="background:rgba(74,20,140,0.6); border:2px solid #b388ff; border-radius:12px; padding:10px 16px; text-align:center; width:90%; position:relative;">
+              <div style="font-size:0.72em; font-weight:700; color:#b388ff;">⚙️ マッピングエンジン</div>
+              <div style="display:flex; gap:6px; margin-top:6px; justify-content:center; flex-wrap:wrap;">
+                <span
+                  style="background:#6a1b9a; border:1px solid #e040fb; border-radius:6px; padding:3px 8px; font-size:0.5em; color:#e0e0e0;">🤖
+                  Gemini API<br><span style="color:#ce93d8;">ジャンル自動判定</span></span>
+                <span
+                  style="background:#e65100; border:1px solid #ffa726; border-radius:6px; padding:3px 8px; font-size:0.5em; color:#e0e0e0;">🌐
+                  楽天 API<br><span style="color:#ffcc80;">カテゴリ属性取得</span></span>
+                <span
+                  style="background:#1b5e20; border:1px solid #66bb6a; border-radius:6px; padding:3px 8px; font-size:0.5em; color:#e0e0e0;">✅
+                  バリデーション<br><span style="color:#a5d6a7;">品質チェック</span></span>
+              </div>
+            </div>
+            <div style="color:var(--primary); font-size:0.8em; line-height:1.4;">▼ <span
+                style="font-size:0.6em; color:var(--text-dim);">自動変換・出力</span></div>
+
+            <!-- STEP 4: 4サイト出力 -->
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:5px; width:100%;">
+              <div
+                style="background:#2e7d32; border:1px solid #66bb6a; border-radius:8px; padding:6px; text-align:center;">
+                <div style="font-size:0.55em; font-weight:700; color:#e0e0e0;">🟢 チョイス</div>
+                <div style="font-size:0.45em; color:#a5d6a7;">TSV</div>
+              </div>
+              <div
+                style="background:#1565c0; border:1px solid #42a5f5; border-radius:8px; padding:6px; text-align:center;">
+                <div style="font-size:0.55em; font-weight:700; color:#e0e0e0;">🔵 楽天</div>
+                <div style="font-size:0.45em; color:#90caf9;">CSV</div>
+              </div>
+              <div
+                style="background:#e65100; border:1px solid #ffa726; border-radius:8px; padding:6px; text-align:center;">
+                <div style="font-size:0.55em; font-weight:700; color:#e0e0e0;">🟠 さとふる</div>
+                <div style="font-size:0.45em; color:#ffcc80;">CSV</div>
+              </div>
+              <div
+                style="background:#f9a825; border:1px solid #fff176; border-radius:8px; padding:6px; text-align:center;">
+                <div style="font-size:0.55em; font-weight:700; color:#212121;">🟡 ふるなび</div>
+                <div style="font-size:0.45em; color:#424242;">CSV</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 右カラム: ステップ解説 -->
+          <div style="flex:1; min-width:0;">
+            <div class="card primary" style="margin-bottom:8px; padding:14px 18px;">
+              <h3 style="font-size:0.82em; margin:0 0 4px;">① 抽出・取込</h3>
+              <p style="font-size:0.6em; margin:0;">事業者から届く<strong>ヒアリングシート（Excel）</strong>を、ワンクリックでマスターデータに取り込みます。</p>
+            </div>
+            <div class="card accent" style="margin-bottom:8px; padding:14px 18px;">
+              <h3 style="font-size:0.82em; margin:0 0 4px;">② マッピング＆AI連携</h3>
+              <p style="font-size:0.6em; margin:0 0 4px;">マスターデータを参照し、<strong>マッピングルール</strong>に従って自動変換：</p>
+              <ul style="margin:0;">
+                <li style="font-size:0.58em;"><strong>Gemini API</strong> がジャンル・カテゴリを自動判定</li>
+                <li style="font-size:0.58em;"><strong>楽天 API</strong> がカテゴリ固有の属性を自動取得</li>
+              </ul>
+            </div>
+            <div class="card success" style="margin-bottom:0; padding:14px 18px;">
+              <h3 style="font-size:0.82em; margin:0 0 4px;">③ 自動変換・出力</h3>
+              <p style="font-size:0.6em; margin:0;">バリデーション通過後、<strong>4サイト分のデータファイル</strong>（TSV / CSV）をGoogle
+                Driveに自動出力。</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
       <!-- ============================================
-           スライド 4: セクション区切り ― 3つの設計思想
+           スライド 5: セクション区切り ― 3つの設計思想
            ============================================ -->
       <section class="section-divider">
         <div class="section-num">01</div>
@@ -426,18 +596,18 @@ graph LR
         </div>
 
         <div class="mermaid" style="margin-top: 20px;">
-graph LR
-  M["🗄️ マスターデータ<br>（1か所）"]
-  M --> C1["🟢 チョイス"]
-  M --> C2["🔵 楽天"]
-  M --> C3["🟠 さとふる"]
-  M --> C4["🟡 ふるなび"]
+          graph LR
+          M["🗄️ マスターデータ<br>（1か所）"]
+          M --> C1["🟢 チョイス"]
+          M --> C2["🔵 楽天"]
+          M --> C3["🟠 さとふる"]
+          M --> C4["🟡 ふるなび"]
 
-  style M fill:#0d47a1,stroke:#4fc3f7,color:#e0e0e0
-  style C1 fill:#1b5e20,stroke:#66bb6a,color:#e0e0e0
-  style C2 fill:#1565c0,stroke:#42a5f5,color:#e0e0e0
-  style C3 fill:#e65100,stroke:#ffa726,color:#e0e0e0
-  style C4 fill:#f9a825,stroke:#fff176,color:#212121
+          style M fill:#0d47a1,stroke:#4fc3f7,color:#e0e0e0
+          style C1 fill:#1b5e20,stroke:#66bb6a,color:#e0e0e0
+          style C2 fill:#1565c0,stroke:#42a5f5,color:#e0e0e0
+          style C3 fill:#e65100,stroke:#ffa726,color:#e0e0e0
+          style C4 fill:#f9a825,stroke:#fff176,color:#212121
         </div>
 
         <div class="card-grid cols-3" style="margin-top: 12px;">
@@ -811,4 +981,5 @@ graph LR
     });
   </script>
 </body>
+
 </html>
