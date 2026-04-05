@@ -46,19 +46,27 @@
             justify-content: center;
             padding: 60px 80px;
             opacity: 0;
-            transform: translateX(60px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            visibility: hidden;
+            transform: translateX(0);
+            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
             pointer-events: none;
             overflow-y: auto;
         }
         .slide.active {
             opacity: 1;
+            visibility: visible;
             transform: translateX(0);
             pointer-events: auto;
         }
         .slide.prev {
             opacity: 0;
+            visibility: hidden;
             transform: translateX(-60px);
+        }
+        .slide.next {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(60px);
         }
 
         /* ── 背景グラデーション ── */
@@ -1020,24 +1028,28 @@
         let currentSlide = 0;
 
         function updateSlide(newIndex, direction = 'next') {
-            if (newIndex < 0 || newIndex >= totalSlides) return;
-            
-            const oldSlide = slides[currentSlide];
-            const newSlideEl = slides[newIndex];
+            if (newIndex < 0 || newIndex >= totalSlides || newIndex === currentSlide) return;
 
-            oldSlide.classList.remove('active');
-            oldSlide.classList.add(direction === 'next' ? 'prev' : '');
-            
-            // Reset all
+            // 全スライドから遷移クラスを除去
             slides.forEach(s => {
-                s.classList.remove('active', 'prev');
+                s.classList.remove('active', 'prev', 'next');
             });
 
+            // 古いスライドを退場方向に配置
+            const oldSlide = slides[currentSlide];
+            if (direction === 'next') {
+                oldSlide.classList.add('prev');   // 左に退場
+            } else {
+                oldSlide.classList.add('next');   // 右に退場
+            }
+
+            // 新しいスライドをアクティブ化
+            const newSlideEl = slides[newIndex];
             newSlideEl.classList.add('active');
             newSlideEl.scrollTop = 0;
             currentSlide = newIndex;
 
-            // Update UI
+            // UI更新
             document.getElementById('progressFill').style.width = 
                 ((currentSlide / (totalSlides - 1)) * 100) + '%';
             document.getElementById('pageIndicator').textContent = 
