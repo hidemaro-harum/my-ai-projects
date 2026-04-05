@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eBay輸出ビジネス 完全入門ガイド</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --gold: #f0c040;
+            --green: #2ecc71;
+            --blue-light: #3498db;
+            --text: #ecf0f1;
+            --text-dim: #95a5a6;
+            --card-bg: rgba(255,255,255,0.06);
+            --card-border: rgba(255,255,255,0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+        }
+        /* ── スライドエンジン ── */
+        .slide-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 80px;
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+            overflow-y: auto;
+        }
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+        .slide.prev {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        /* ── 背景グラデーション ── */
+        .bg-default { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+        .bg-warm { background: linear-gradient(135deg, #2c1338 0%, #3d1c47 40%, #4a1942 100%); }
+        .bg-ocean { background: linear-gradient(135deg, #0a192f 0%, #0d2137 50%, #172a45 100%); }
+        .bg-forest { background: linear-gradient(135deg, #0b1a0b 0%, #133a1b 50%, #1c4d2a 100%); }
+        .bg-sunset { background: linear-gradient(135deg, #2d1b00 0%, #4a2c00 50%, #5a3500 100%); }
+        .bg-night { background: linear-gradient(135deg, #0a0a1a 0%, #111133 50%, #1a1a3e 100%); }
+
+        /* ── 見出し ── */
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--highlight);
+            text-transform: uppercase;
+        }
+        h1 {
+            font-size: 2.6em;
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 30%, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        h2 {
+            font-size: 1.9em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--gold);
+        }
+        .subtitle {
+            font-size: 1.1em;
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* ── コンテンツ ── */
+        .content {
+            max-width: 1100px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 22px 24px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(233, 69, 96, 0.15);
+        }
+        .card .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .card p, .card li {
+            font-size: 0.92em;
+            line-height: 1.7;
+            color: var(--text-dim);
+        }
+        .card h3 + p {
+            margin-top: 6px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 6px;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
+        p {
+            line-height: 1.8;
+            font-size: 0.98em;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(233,69,96,0.15), rgba(240,192,64,0.1));
+            border-left: 4px solid var(--highlight);
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 16px 0;
+        }
+        .warning-box {
+            background: linear-gradient(135deg, rgba(231,76,60,0.15), rgba(192,57,43,0.1));
+            border-left: 4px solid #e74c3c;
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 16px 0;
+        }
+        .tip-box {
+            background: linear-gradient(135deg, rgba(46,204,113,0.12), rgba(39,174,96,0.08));
+            border-left: 4px solid var(--green);
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 16px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 4px;
+        }
+        .badge-red { background: rgba(233,69,96,0.25); color: #ff6b8a; }
+        .badge-blue { background: rgba(52,152,219,0.25); color: #5dade2; }
+        .badge-green { background: rgba(46,204,113,0.25); color: #58d68d; }
+        .badge-gold { background: rgba(240,192,64,0.25); color: #f5d76e; }
+
+        .step-list {
+            counter-reset: step;
+            list-style: none;
+            padding-left: 0;
+        }
+        .step-list li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 48px;
+            margin-bottom: 14px;
+        }
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--highlight), #c0392b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+        .flow-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        .flow-item.active-flow {
+            background: rgba(233,69,96,0.2);
+            border-color: var(--highlight);
+            color: #fff;
+        }
+        .arrow {
+            color: var(--highlight);
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        /* 比較テーブル */
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 0.88em;
+        }
+        .compare-table th {
+            background: rgba(233,69,96,0.2);
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--highlight);
+        }
+        .compare-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-dim);
+        }
+        .compare-table tr:hover td {
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* ── ナビゲーション ── */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 40px;
+            background: rgba(10,10,30,0.85);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            z-index: 100;
+        }
+        .nav-btn {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text);
+            padding: 8px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover {
+            background: rgba(233,69,96,0.2);
+            border-color: var(--highlight);
+        }
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .progress-bar {
+            flex: 1;
+            margin: 0 30px;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--highlight), var(--gold));
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+        .page-indicator {
+            font-size: 0.8em;
+            color: var(--text-dim);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* TOC slide */
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .toc-list li {
+            padding: 12px 18px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.92em;
+        }
+        .toc-list li:hover {
+            background: rgba(233,69,96,0.15);
+            border-color: var(--highlight);
+            transform: translateX(6px);
+        }
+        .toc-list li span.toc-num {
+            color: var(--highlight);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        /* キーワードタグ */
+        .keyword-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .keyword-tag {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.82em;
+            color: var(--text-dim);
+        }
+
+        /* スクロール対応 */
+        .slide::-webkit-scrollbar { width: 4px; }
+        .slide::-webkit-scrollbar-track { background: transparent; }
+        .slide::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide.active .card,
+        .slide.active .highlight-box,
+        .slide.active .tip-box,
+        .slide.active .warning-box {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        .slide.active .grid-2 .card:nth-child(2),
+        .slide.active .grid-3 .card:nth-child(2) { animation-delay: 0.1s; }
+        .slide.active .grid-2 .card:nth-child(3),
+        .slide.active .grid-3 .card:nth-child(3) { animation-delay: 0.2s; }
+        .slide.active .grid-3 .card:nth-child(4) { animation-delay: 0.3s; }
+
+        .big-emoji {
+            font-size: 4em;
+            margin-bottom: 16px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-top: 20px;
+        }
+
+        .metric {
+            font-size: 2.2em;
+            font-weight: 900;
+            color: var(--gold);
+        }
+        .metric-label {
+            font-size: 0.85em;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        .compact-list li {
+            margin-bottom: 4px;
+            font-size: 0.88em;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container" id="slideContainer">
+
+        <!-- ======== SLIDE 0: タイトル ======== -->
+        <div class="slide bg-default active" data-slide="0">
+            <div class="content" style="text-align:center;">
+                <div class="big-emoji">🌍</div>
+                <h1 style="font-size:3em;">eBay輸出ビジネス<br>完全入門ガイド</h1>
+                <p class="subtitle" style="font-size:1.2em; max-width:700px; margin:20px auto;">
+                    日本にいながらドルを稼ぐ。<br>
+                    副業で月10万円の利益を目指すための、ゼロからのロードマップ。
+                </p>
+                <div class="keyword-tags" style="justify-content:center; margin-top:30px;">
+                    <span class="keyword-tag">📦 海外輸出</span>
+                    <span class="keyword-tag">💰 副業</span>
+                    <span class="keyword-tag">🌐 190カ国</span>
+                    <span class="keyword-tag">🇯🇵 日本限定品</span>
+                    <span class="keyword-tag">📈 円安メリット</span>
+                </div>
+                <p style="color:var(--text-dim); margin-top:40px; font-size:0.85em;">← / → キーまたは画面クリックで操作</p>
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 1: 目次 ======== -->
+        <div class="slide bg-night" data-slide="1">
+            <span class="slide-number">目次</span>
+            <h2>今日伝えること</h2>
+            <p class="subtitle">全10章のステップ形式で解説します</p>
+            <ul class="toc-list" id="tocList">
+                <li onclick="goToSlide(2)"><span class="toc-num">01</span> eBay輸出とは？ ― 4つのメリット</li>
+                <li onclick="goToSlide(3)"><span class="toc-num">02</span> 全体の流れ ― 6ステップ</li>
+                <li onclick="goToSlide(4)"><span class="toc-num">03</span> アカウント作成 & Payoneer登録</li>
+                <li onclick="goToSlide(5)"><span class="toc-num">04</span> ビジネスポリシーの設定</li>
+                <li onclick="goToSlide(6)"><span class="toc-num">05</span> 配送会社の選び方</li>
+                <li onclick="goToSlide(7)"><span class="toc-num">06</span> アカウント育成 & 評価集め</li>
+                <li onclick="goToSlide(8)"><span class="toc-num">07</span> 商品リサーチの基本</li>
+                <li onclick="goToSlide(9)"><span class="toc-num">08</span> 出品 & 梱包 & 発送</li>
+                <li onclick="goToSlide(10)"><span class="toc-num">09</span> トラブル対応 & アカウント防衛</li>
+                <li onclick="goToSlide(11)"><span class="toc-num">10</span> 売上アップ施策 & まとめ</li>
+            </ul>
+        </div>
+
+        <!-- ======== SLIDE 2: eBay輸出とは ======== -->
+        <div class="slide bg-ocean" data-slide="2">
+            <span class="slide-number">Chapter 01</span>
+            <h2>eBay輸出とは？ ― 4つのメリット</h2>
+            <p class="subtitle">なぜ今、海外輸出なのか</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="icon">💴</div>
+                    <h3>消費税の還付</h3>
+                    <p>海外販売は消費税が免税。仕入れ時に支払った消費税10%が<strong style="color:var(--gold)">全額還付</strong>される。年間で数百万円の還付も現実的。</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🏆</div>
+                    <h3>競合が圧倒的に少ない</h3>
+                    <p>日本人アクティブセラーは<strong style="color:var(--gold)">約5,000〜10,000人</strong>。ヤフオク1,800万人と比べて桁違いに少ない。</p>
+                </div>
+                <div class="card">
+                    <div class="icon">💵</div>
+                    <h3>円安 = ボーナスタイム</h3>
+                    <p>$100の売上が、1ドル=100円なら1万円。1ドル=150円なら<strong style="color:var(--gold)">1.5万円</strong>。同じ売上でも利益が増加。</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🌐</div>
+                    <h3>世界第2位の巨大市場</h3>
+                    <p>190カ国・約<strong style="color:var(--gold)">1.4億人</strong>のバイヤー。取扱高は約10兆円。メルカリの10倍以上の市場規模。</p>
+                </div>
+            </div>
+
+            <div class="tip-box" style="margin-top:20px;">
+                <strong>💡 ポイント：</strong> クレジットカードがあれば初期費用ゼロから始められる。ポイント還元の恩恵も大きい。
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 3: 全体の流れ ======== -->
+        <div class="slide bg-default" data-slide="3">
+            <span class="slide-number">Chapter 02</span>
+            <h2>eBay輸出の全体フロー</h2>
+            <p class="subtitle">この6ステップで商品を売るまでの道筋が見えます</p>
+
+            <div class="flow-arrow">
+                <div class="flow-item active-flow">①アカウント登録</div>
+                <span class="arrow">→</span>
+                <div class="flow-item">②配送会社の契約</div>
+                <span class="arrow">→</span>
+                <div class="flow-item">③商品リサーチ</div>
+                <span class="arrow">→</span>
+                <div class="flow-item">④出品</div>
+                <span class="arrow">→</span>
+                <div class="flow-item">⑤仕入れ</div>
+                <span class="arrow">→</span>
+                <div class="flow-item">⑥梱包 & 発送</div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 24px;">
+                <strong>🔥 無在庫販売が可能！</strong><br>
+                eBayでは「売れてから仕入れる」が公式に認められている。30日以内にバイヤーへ届ければOK。キャッシュフローが良く、在庫リスクがない。
+            </div>
+
+            <div class="two-col" style="margin-top:20px;">
+                <div>
+                    <h3>無在庫販売のメリット</h3>
+                    <ul>
+                        <li>先にお金が入ってきてから仕入れできる</li>
+                        <li>在庫を抱えるリスクがゼロ</li>
+                        <li>出品数を大量に増やせる</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>無在庫販売の注意点</h3>
+                    <ul>
+                        <li>薄利多売になりやすい（ニッチ戦略が重要）</li>
+                        <li>在庫管理が煩雑（仕入元の在庫切れリスク）</li>
+                        <li>在庫切れキャンセルは<span style="color:var(--highlight)">Defect</span>につながる</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 4: アカウント作成 ======== -->
+        <div class="slide bg-warm" data-slide="4">
+            <span class="slide-number">Chapter 03</span>
+            <h2>アカウント作成 & 初期設定</h2>
+            <p class="subtitle">最初にやるべき準備を一気に片付けよう</p>
+
+            <div class="two-col">
+                <div>
+                    <h3>🔑 eBayアカウント作成</h3>
+                    <ol class="step-list">
+                        <li><strong>ebay.com</strong> にアクセス → 「register」</li>
+                        <li><strong>Business account</strong> を選択（個人事業主でもOK）</li>
+                        <li>メールアドレス・パスワード・屋号を入力</li>
+                        <li>メール確認リンクをクリックして有効化</li>
+                    </ol>
+
+                    <div class="warning-box" style="margin-top:14px;">
+                        <strong>⚠️ 必ずBusiness account！</strong><br>
+                        消費税還付・信頼性UPの観点から、必ずビジネスアカウントで登録する。開業届は後から提出してもOK。
+                    </div>
+                </div>
+                <div>
+                    <h3>💳 Payoneer登録（資金決済）</h3>
+                    <ul>
+                        <li>eBayの売上金がPayoneer経由で銀行口座に振り込まれる</li>
+                        <li>eBayとPayoneerは<strong>ともにビジネスアカウント</strong>でなければ連携不可</li>
+                        <li>為替手数料：日本の銀行への送金時に<strong style="color:var(--gold)">約2%</strong></li>
+                        <li>身分証明書（運転免許 or パスポート）が必要</li>
+                    </ul>
+
+                    <h3 style="margin-top:20px;">📦 その他の初期設定</h3>
+                    <ul class="compact-list">
+                        <li>Seller Hub（管理画面）の導入</li>
+                        <li>自動フィードバック設定をON</li>
+                        <li>Out of Stock設定をON</li>
+                        <li>未払い注文の自動キャンセル設定</li>
+                        <li>表示通貨をUSD（ドル）に変更</li>
+                        <li>言語設定を英語に統一</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 5: ビジネスポリシー ======== -->
+        <div class="slide bg-forest" data-slide="5">
+            <span class="slide-number">Chapter 04</span>
+            <h2>ビジネスポリシーの設定</h2>
+            <p class="subtitle">3つのポリシーを事前に作成してから出品する</p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="icon">💳</div>
+                    <h3>ペイメント</h3>
+                    <p>支払い方法の設定。「購入と同時に支払い必須」にする（Buy It Now用）。eBay側が管理するため、セラーの設定はシンプル。</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🚚</div>
+                    <h3>シッピング</h3>
+                    <p>配送方法・送料・ハンドリングタイムの設定。 <strong style="color:var(--gold)">最重要ポリシー</strong>。</p>
+                    <p style="margin-top:8px;">発送除外国の設定も忘れずに。</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🔄</div>
+                    <h3>リターン</h3>
+                    <p>返品条件の設定。<strong>返品受付あり</strong>が推奨。60日間・返送料セラー負担にするとSEO上位表示に有利。</p>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top:20px;">
+                <strong>🚚 シッピングポリシーの核心</strong>
+                <div style="margin-top:10px;">
+                    <table class="compare-table">
+                        <tr>
+                            <th>配送レベル</th>
+                            <th>到着日数（米国）</th>
+                            <th>主な手段</th>
+                            <th>特徴</th>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-red">Expedited</span></td>
+                            <td>1〜4営業日</td>
+                            <td>DHL / FedEx / UPS</td>
+                            <td>最速・SEO最有利・セラー保護対象</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-blue">Standard</span></td>
+                            <td>4〜10営業日</td>
+                            <td>EMS / ヤマト国際宅急便</td>
+                            <td>中速・追跡あり・契約不要</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-green">Economy</span></td>
+                            <td>11〜23営業日</td>
+                            <td>小形包装物 / SpeedPAK Economy</td>
+                            <td>最安・軽量商品向け</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="tip-box">
+                <strong>💡 推奨：</strong>まずは<strong>Expedited Shipping</strong>に統一。SEO上有利で、セラー保護プログラム（未着Defect削除等）の対象になる。
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 6: 配送会社 ======== -->
+        <div class="slide bg-sunset" data-slide="6">
+            <span class="slide-number">Chapter 05</span>
+            <h2>配送会社の選び方</h2>
+            <p class="subtitle">送料 = 利益に直結。最適な選択を</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3>主要3社の比較</h3>
+                    <table class="compare-table">
+                        <tr>
+                            <th>配送会社</th>
+                            <th>速度</th>
+                            <th>コスト</th>
+                            <th>契約</th>
+                        </tr>
+                        <tr>
+                            <td><strong>DHL</strong></td>
+                            <td>1〜3日</td>
+                            <td>◎ アジア圏最安</td>
+                            <td>個人事業主以上</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FedEx</strong></td>
+                            <td>1〜3日</td>
+                            <td>◎ 米国EU最安</td>
+                            <td>個人事業主以上</td>
+                        </tr>
+                        <tr>
+                            <td><strong>日本郵便</strong></td>
+                            <td>4〜14日</td>
+                            <td>○ EMSは割高</td>
+                            <td>不要（誰でも利用可）</td>
+                        </tr>
+                    </table>
+
+                    <div class="warning-box" style="margin-top:14px;">
+                        <strong>⚠️ 容積重量に注意！</strong><br>
+                        DHL/FedExは「実重量」「容積重量（縦×横×高さ÷5000）」の重い方で送料計算。梱包はコンパクトに。
+                    </div>
+                </div>
+                <div>
+                    <h3>初心者におすすめの方法</h3>
+                    <div class="card" style="margin-bottom:14px;">
+                        <h3>🌟 CPaSS（eBay公式）</h3>
+                        <p>契約なしでDHL/FedExを割引料金で利用できる。ラベル発行・集荷手配もeBay上で完結。<strong style="color:var(--gold)">初心者は最初にCPaSSを使うのがベスト。</strong></p>
+                    </div>
+                    <div class="card" style="margin-bottom:14px;">
+                        <h3>🆕 SpeedPAK Economy</h3>
+                        <p>ローソン・郵便局から発送可能。米国向け限定だが、軽量・低価格商品に最適。8〜12営業日で到着。</p>
+                    </div>
+                    <div class="card">
+                        <h3>📦 e-Logi</h3>
+                        <p>FedEx運営の配送代行サービス。DHL/FedExと直接契約できない場合の代替手段。DDU（関税バイヤー負担）で発送可能。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 7: アカウント育成 ======== -->
+        <div class="slide bg-night" data-slide="7">
+            <span class="slide-number">Chapter 06</span>
+            <h2>アカウント育成 & 評価集め</h2>
+            <p class="subtitle">信用経済のeBayでは、アカウントの評価が売上に直結する</p>
+
+            <div class="two-col">
+                <div>
+                    <h3>🎯 セラーレベル（3段階）</h3>
+                    <div class="card" style="margin-bottom:10px; border-left: 3px solid var(--gold);">
+                        <h3 style="color:var(--gold)">⭐ Top Rated Seller（TRS）</h3>
+                        <p>最高レベル。SEO優遇・手数料10%割引・TRSバッジ表示。<br><strong>これを目指す！</strong></p>
+                    </div>
+                    <div class="card" style="margin-bottom:10px; border-left: 3px solid var(--blue-light);">
+                        <h3 style="color:var(--blue-light)">📊 Above Standard</h3>
+                        <p>標準レベル。特に優遇もペナルティもなし。</p>
+                    </div>
+                    <div class="card" style="border-left: 3px solid var(--highlight);">
+                        <h3 style="color:var(--highlight)">❌ Below Standard</h3>
+                        <p>最低レベル。手数料6%上乗せ・SEO降格・リミットアップ不可。<strong>絶対に避ける！</strong></p>
+                    </div>
+                </div>
+                <div>
+                    <h3>📝 評価集めの方法 (Feedback)</h3>
+                    <ol class="step-list">
+                        <li><strong>安い商品を購入する</strong>（ステッカー、ペン、エアポッズケース等）</li>
+                        <li><strong>送料無料の商品を選ぶ</strong></li>
+                        <li><strong>評価数が多いセラーから買う</strong>（自動フィードバック設定で即座にPositiveがもらえる）</li>
+                        <li><strong>1日3点まで</strong>にする（10点以上でアカウント停止事例あり）</li>
+                        <li><strong>同じセラーからまとめ買いしない</strong>（1取引=1評価）</li>
+                    </ol>
+
+                    <div class="warning-box" style="margin-top:14px;">
+                        <strong>🛡️ Defect（×印）を絶対に避ける</strong><br>
+                        <ul class="compact-list">
+                            <li>ケース未対応 → 即対応、解決を優先</li>
+                            <li>在庫切れキャンセル → 無在庫最大のリスク</li>
+                        </ul>
+                        <p style="margin-top:8px;">全取引の2%を超えるとBelow Standardに降格。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 8: 商品リサーチ ======== -->
+        <div class="slide bg-ocean" data-slide="8">
+            <span class="slide-number">Chapter 07</span>
+            <h2>商品リサーチの基本</h2>
+            <p class="subtitle">「マーケットイン」で需要のある商品をリサーチする</p>
+
+            <div class="two-col">
+                <div>
+                    <h3>🔍 リサーチの鉄則</h3>
+                    <div class="highlight-box">
+                        <strong>マーケットイン = 売れている商品を見つけて仕入れる</strong><br>
+                        <span style="color:var(--highlight)">✕ プロダクトアウト = 自分が売りたい物を出品 → 赤字リスク大</span>
+                    </div>
+                    
+                    <h3 style="margin-top:16px;">📊 Terapeak（テラピーク）でリサーチ</h3>
+                    <ol class="step-list">
+                        <li>Seller Hub → Research → Terapeak</li>
+                        <li>キーワード入力、期間:「Last 7 days」</li>
+                        <li>Seller Location: <strong>Japan</strong></li>
+                        <li>Condition: <strong>Used</strong>、Price: $70以下</li>
+                        <li><strong>Total Sold</strong>（販売数）を確認</li>
+                        <li>同じ商品をメルカリ・ヤフオクで検索し仕入れ値を把握</li>
+                    </ol>
+                </div>
+                <div>
+                    <h3>🇯🇵 日本限定品が売れる3ジャンル</h3>
+                    <div class="card" style="margin-bottom:10px;">
+                        <h3>🎌 アニメ・マンガ好き</h3>
+                        <p>フィギュア、ポケモンカード、ジャンプ、CD/DVD、コスプレグッズ</p>
+                    </div>
+                    <div class="card" style="margin-bottom:10px;">
+                        <h3>🏯 日本文化好き</h3>
+                        <p>盆栽道具、こけし、茶道具、将棋駒、着物、大工道具</p>
+                    </div>
+                    <div class="card" style="margin-bottom:10px;">
+                        <h3>📷 日本メーカー好き</h3>
+                        <p>フィルムカメラ、レトロゲーム（ファミコン、SFC、ゲームキューブ）、SONY製品、トヨタ純正パーツ</p>
+                    </div>
+
+                    <h3 style="margin-top:12px;">📦 おすすめ仕入れ先</h3>
+                    <div class="keyword-tags">
+                        <span class="keyword-tag">メルカリ</span>
+                        <span class="keyword-tag">ヤフオク</span>
+                        <span class="keyword-tag">専門店</span>
+                        <span class="keyword-tag">古物市場</span>
+                        <span class="keyword-tag">ネットショップ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 9: 出品 & 梱包 ======== -->
+        <div class="slide bg-warm" data-slide="9">
+            <span class="slide-number">Chapter 08</span>
+            <h2>出品 & 梱包 & 発送</h2>
+            <p class="subtitle">売れる商品ページと丁寧な梱包がリピーターを生む</p>
+
+            <div class="two-col">
+                <div>
+                    <h3>📝 出品のポイント</h3>
+                    <div class="card" style="margin-bottom:10px;">
+                        <h3>タイトル（80文字をフル活用）</h3>
+                        <p>ブランド名 + 型番 + 特徴 + 付属品。なるべく80文字使い切る。重要なキーワードは前方に配置。</p>
+                    </div>
+                    <div class="card" style="margin-bottom:10px;">
+                        <h3>写真（8枚以上推奨、最大24枚）</h3>
+                        <ul class="compact-list">
+                            <li>白背景で撮影する</li>
+                            <li>明るく、余白は少なめに</li>
+                            <li>1枚目に最も魅力的な写真を</li>
+                            <li>商品以外の余計なものは写さない</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>価格設定</h3>
+                        <ul class="compact-list">
+                            <li>ebay手数料：約13〜15%</li>
+                            <li>Payoneer為替手数料：約2%</li>
+                            <li>送料込み価格がSEO上有利</li>
+                            <li>Allow Offers（価格交渉）ONでSEO向上</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>📦 梱包の基本</h3>
+                    <div class="tip-box">
+                        <strong>丁寧な梱包 → 高評価 → リピーター獲得 → 売上UP</strong>
+                    </div>
+                    <h3 style="margin-top:12px;">必要な道具</h3>
+                    <div class="keyword-tags">
+                        <span class="keyword-tag">OPPテープ</span>
+                        <span class="keyword-tag">秤（はかり）</span>
+                        <span class="keyword-tag">プチプチ</span>
+                        <span class="keyword-tag">隙間埋め用紙</span>
+                        <span class="keyword-tag">ダンボール</span>
+                        <span class="keyword-tag">箱切り名人</span>
+                        <span class="keyword-tag">メジャー</span>
+                    </div>
+
+                    <h3 style="margin-top:16px;">⚠️ 梱包の注意点</h3>
+                    <ul class="compact-list">
+                        <li>商品の汚れは事前に取り除く</li>
+                        <li>サイズに合った箱を選ぶ（容積重量に注意）</li>
+                        <li>壊れ物は必ずプチプチ + 箱詰め</li>
+                        <li>壊れ物シールを外側に貼る</li>
+                        <li>過剰なサービスは逆効果</li>
+                    </ul>
+
+                    <h3 style="margin-top:16px;">🔖 追跡番号は必ずアップロード</h3>
+                    <p style="font-size:0.9em;">ハンドリングタイム内に発送し、追跡番号をeBayに登録。TRS維持に必須。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 10: トラブル対応 ======== -->
+        <div class="slide bg-default" data-slide="10">
+            <span class="slide-number">Chapter 09</span>
+            <h2>トラブル対応 & アカウント防衛</h2>
+            <p class="subtitle">トラブルは必ず起きる。正しい対処法を知っておく</p>
+
+            <div class="two-col">
+                <div>
+                    <h3>🆘 ケースオープン（バイヤーからの申し立て）</h3>
+                    <table class="compare-table">
+                        <tr><th>原因</th><th>対処法</th></tr>
+                        <tr>
+                            <td>商品未着</td>
+                            <td>配送会社に追跡確認 → バイヤーに逐一連絡 → 紛失なら返金</td>
+                        </tr>
+                        <tr>
+                            <td>商品の破損</td>
+                            <td>写真で確認 → 返品 or 全額返金 → 保険請求</td>
+                        </tr>
+                        <tr>
+                            <td>偽物と主張</td>
+                            <td>証拠写真を要求 → 事実確認 → 返品 or 返金</td>
+                        </tr>
+                        <tr>
+                            <td>説明と異なる</td>
+                            <td>謝罪 → 一部返金 or 返品受付</td>
+                        </tr>
+                    </table>
+
+                    <div class="warning-box" style="margin-top:14px;">
+                        <strong>🚨 エスカレーションを防ぐ</strong><br>
+                        バイヤーが納得せずeBayに直訴すると「エスカレーション」。セラーは不利。<strong>期限内に誠実に対応</strong>し、エスカされない対応を。
+                    </div>
+                </div>
+                <div>
+                    <h3>😤 ネガティブフィードバックへの対処</h3>
+                    <ol class="step-list">
+                        <li><strong>バイヤーに変更を依頼</strong>：何が問題だったか確認 → 解決策提案（一部返金等）→ Request Revision送信</li>
+                        <li><strong>eBayに削除申し立て</strong>：関税が理由の場合は削除されやすい。eBay Japanのセラーポータルから問い合わせ</li>
+                    </ol>
+
+                    <h3 style="margin-top:20px;">🛡️ アカウントを守る3つのルール</h3>
+                    <div class="card">
+                        <ul>
+                            <li><strong>Seller Hub → Tasksは毎日確認</strong>（対応漏れ防止）</li>
+                            <li><strong>追跡番号は必ず付ける</strong>（書留 or クーリエ利用）</li>
+                            <li><strong>VeRoプログラムに注意</strong>（知的財産保護。偽ブランド品は即削除＋ペナルティ）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 11: 施策 & まとめ ======== -->
+        <div class="slide bg-forest" data-slide="11">
+            <span class="slide-number">Chapter 10</span>
+            <h2>売上アップ施策 & まとめ</h2>
+            <p class="subtitle">基盤ができたら、さらに売上を伸ばす施策を</p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="icon">📣</div>
+                    <h3>Promoted Listings</h3>
+                    <p>成果報酬型広告。売れた時のみ手数料発生（2%〜）。商品の視認性が<strong style="color:var(--gold)">最大36%向上</strong>。</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🌍</div>
+                    <h3>eBaymag（多国展開）</h3>
+                    <p>無料の公式ツール。1回の出品で<strong style="color:var(--gold)">最大8カ国</strong>に同時出品。自動翻訳・在庫連動あり。</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🏷️</div>
+                    <h3>セール & クーポン</h3>
+                    <p>Sale eventで一時的な値下げ → 購買意欲UP。クーポンでリピーター育成。年末商戦に効果大。</p>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top:20px;">
+                <strong>🎄 年末商戦（10〜12月）が最大のチャンス！</strong><br>
+                月収100万円超えも可能。おもちゃ・ゲーム・フィギュア・時計が特に売れる。9月から仕入れ準備を開始するのがベスト。
+            </div>
+
+            <div style="margin-top: 28px; text-align:center;">
+                <h2 style="font-size:1.8em;">🚀 まとめ：最初の一歩チェックリスト</h2>
+                <div class="grid-2" style="max-width:900px; margin:16px auto 0;">
+                    <div class="card" style="text-align:left;">
+                        <ul>
+                            <li>☐ eBay Business アカウント作成</li>
+                            <li>☐ Payoneer連携 & 銀行口座登録</li>
+                            <li>☐ eBay Japan販売サポート申し込み（リミットアップ）</li>
+                            <li>☐ ストア登録（ベーシックプラン推奨）</li>
+                            <li>☐ ビジネスポリシー3つ作成</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="text-align:left;">
+                        <ul>
+                            <li>☐ CPaSS登録（配送手段の確保）</li>
+                            <li>☐ 評価集め開始（購入5〜10件）</li>
+                            <li>☐ Terapeakでリサーチ開始</li>
+                            <li>☐ 最初の出品 → 初売上を目指す</li>
+                            <li>☐ Top Rated Seller達成を目標に</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== SLIDE 12: エンド ======== -->
+        <div class="slide bg-night" data-slide="12">
+            <div class="content" style="text-align:center;">
+                <div class="big-emoji">🎯</div>
+                <h1 style="font-size:2.8em;">始めるなら<br>円安の今が好機。</h1>
+                <p class="subtitle" style="font-size:1.15em; max-width:600px; margin:20px auto;">
+                    正しいやり方を学び、着実に積み上げれば<br>
+                    月10万円の副収入は現実的なゴールです。
+                </p>
+                <div style="margin-top:40px;">
+                    <div class="grid-3" style="max-width:800px; margin:0 auto;">
+                        <div class="card" style="text-align:center;">
+                            <div class="metric">¥0</div>
+                            <div class="metric-label">初期費用</div>
+                        </div>
+                        <div class="card" style="text-align:center;">
+                            <div class="metric">2-3ヶ月</div>
+                            <div class="metric-label">初売上までの目安</div>
+                        </div>
+                        <div class="card" style="text-align:center;">
+                            <div class="metric">¥10万+</div>
+                            <div class="metric-label">月利益の目標</div>
+                        </div>
+                    </div>
+                </div>
+                <p style="color:var(--text-dim); margin-top:40px; font-size:0.9em;">
+                    まずはアカウント作成から始めましょう 💪
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ナビゲーション -->
+    <div class="nav-bar">
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()">← 前へ</button>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="page-indicator" id="pageIndicator"></span>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()" style="margin-left:16px;">次へ →</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        function updateSlide(newIndex, direction = 'next') {
+            if (newIndex < 0 || newIndex >= totalSlides) return;
+            
+            const oldSlide = slides[currentSlide];
+            const newSlideEl = slides[newIndex];
+
+            oldSlide.classList.remove('active');
+            oldSlide.classList.add(direction === 'next' ? 'prev' : '');
+            
+            // Reset all
+            slides.forEach(s => {
+                s.classList.remove('active', 'prev');
+            });
+
+            newSlideEl.classList.add('active');
+            newSlideEl.scrollTop = 0;
+            currentSlide = newIndex;
+
+            // Update UI
+            document.getElementById('progressFill').style.width = 
+                ((currentSlide / (totalSlides - 1)) * 100) + '%';
+            document.getElementById('pageIndicator').textContent = 
+                (currentSlide + 1) + ' / ' + totalSlides;
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() { updateSlide(currentSlide + 1, 'next'); }
+        function prevSlide() { updateSlide(currentSlide - 1, 'prev'); }
+        function goToSlide(index) { updateSlide(index, index > currentSlide ? 'next' : 'prev'); }
+
+        // キーボード操作
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+        });
+
+        // 初期表示
+        updateSlide(0);
+    </script>
+</body>
+</html>
