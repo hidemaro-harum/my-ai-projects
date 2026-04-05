@@ -41,32 +41,23 @@
         .slide {
             position: absolute;
             inset: 0;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             padding: 60px 80px;
             opacity: 0;
-            visibility: hidden;
-            transform: translateX(0);
-            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
             pointer-events: none;
             overflow-y: auto;
         }
         .slide.active {
+            display: flex;
             opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
             pointer-events: auto;
+            animation: slideIn 0.4s ease forwards;
         }
-        .slide.prev {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(-60px);
-        }
-        .slide.next {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(60px);
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ── 背景グラデーション ── */
@@ -1027,26 +1018,15 @@
         const totalSlides = slides.length;
         let currentSlide = 0;
 
-        function updateSlide(newIndex, direction = 'next') {
+        function updateSlide(newIndex) {
             if (newIndex < 0 || newIndex >= totalSlides || newIndex === currentSlide) return;
 
-            // 全スライドから遷移クラスを除去
-            slides.forEach(s => {
-                s.classList.remove('active', 'prev', 'next');
-            });
-
-            // 古いスライドを退場方向に配置
-            const oldSlide = slides[currentSlide];
-            if (direction === 'next') {
-                oldSlide.classList.add('prev');   // 左に退場
-            } else {
-                oldSlide.classList.add('next');   // 右に退場
-            }
+            // 全スライドを非アクティブに
+            slides.forEach(s => s.classList.remove('active'));
 
             // 新しいスライドをアクティブ化
-            const newSlideEl = slides[newIndex];
-            newSlideEl.classList.add('active');
-            newSlideEl.scrollTop = 0;
+            slides[newIndex].classList.add('active');
+            slides[newIndex].scrollTop = 0;
             currentSlide = newIndex;
 
             // UI更新
@@ -1058,9 +1038,9 @@
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
         }
 
-        function nextSlide() { updateSlide(currentSlide + 1, 'next'); }
-        function prevSlide() { updateSlide(currentSlide - 1, 'prev'); }
-        function goToSlide(index) { updateSlide(index, index > currentSlide ? 'next' : 'prev'); }
+        function nextSlide() { updateSlide(currentSlide + 1); }
+        function prevSlide() { updateSlide(currentSlide - 1); }
+        function goToSlide(index) { updateSlide(index); }
 
         // キーボード操作
         document.addEventListener('keydown', (e) => {
