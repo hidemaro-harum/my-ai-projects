@@ -69,7 +69,7 @@
   /* --- Layout --- */
   --sidebar-width: 280px;
   --content-max-width: 900px;
-  --content-max-width-wide: 1200px;
+  --content-max-width-wide: 100%;
   --header-height: 64px;
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -685,32 +685,43 @@ tbody tr:hover {
 /* --- Wide content layout (for mapping tables) --- */
 .content-wrapper.wide {
   max-width: var(--content-max-width-wide);
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
 }
 
 /* --- Mapping table specific --- */
-.mapping-table td {
-  max-width: 200px;
+.mapping-table {
+  font-size: var(--font-size-sm);
+  width: 100%;
+  table-layout: auto;
+}
+
+.mapping-table td,
+.mapping-table th {
   word-break: break-word;
+  padding: var(--space-3) var(--space-4);
+  line-height: 1.6;
 }
 
 .mapping-table td:first-child {
-  max-width: 160px;
   white-space: nowrap;
+  font-weight: 600;
 }
 
-/* description列 (5列目) のオーバーフロー制御 */
+/* DESCRIPTION列に余裕を持たせる */
 .mapping-table td:nth-child(5),
-.mapping-table td:nth-child(6),
-.mapping-table td:nth-child(7),
-.mapping-table td:nth-child(8),
-.mapping-table td:nth-child(9),
-.mapping-table td:nth-child(10) {
-  font-size: var(--font-size-xs);
-  max-width: 180px;
+.mapping-table td:nth-child(6) {
+  min-width: 220px;
 }
 
-.mapping-table {
-  font-size: var(--font-size-xs);
+/* 出力例・備考列 */
+.mapping-table td:last-child {
+  min-width: 140px;
+}
+
+/* テーブルコンテナの横スクロール */
+.tab-content {
+  overflow-x: auto;
 }
 
 /* --- SVG diagram dark mode --- */
