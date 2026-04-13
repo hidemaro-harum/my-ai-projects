@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>操作マニュアル — RPM ドキュメント</title>
+  <meta name="description" content="RPM（返礼品マスター管理システム）の操作マニュアル。メニュー項目ごとのステップバイステップ操作手順。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="mobile-header">
+  <button class="hamburger" aria-label="メニューを開く">☰</button>
+  <span style="font-weight:600; margin-left:12px;">操作マニュアル</span>
+</div>
+<div class="sidebar-overlay"></div>
+
+<div class="layout">
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo"><div class="logo-icon">📦</div>RPM Docs</div>
+    <div class="sidebar-version"><span class="version-badge">V1.0</span></div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section-title">ドキュメント</div>
+    <a href="index.html"><span class="nav-icon">🏠</span>トップページ</a>
+    <a href="manual.html" class="active"><span class="nav-icon">📖</span>操作マニュアル</a>
+    <a href="spec.html"><span class="nav-icon">📋</span>仕様書</a>
+    <a href="mapping.html"><span class="nav-icon">🔗</span>マッピング定義</a>
+    <a href="faq.html"><span class="nav-icon">❓</span>FAQ</a>
+    <div class="nav-section-title">ツール</div>
+    <a href="setup.html"><span class="nav-icon">⚙️</span>自治体セットアップ</a>
+    <a href="quick-ref.html"><span class="nav-icon">📄</span>早見表</a>
+  </div>
+</nav>
+
+<main class="main-content">
+<div class="content-wrapper">
+
+<div class="page-header">
+  <h1>📖 操作マニュアル</h1>
+  <p class="subtitle">メニュー項目ごとのステップバイステップ操作手順</p>
+</div>
+
+<!-- 目次 -->
+<div class="card" style="margin-bottom:var(--space-8);">
+  <div class="card-title">📋 目次</div>
+  <div class="card-desc" style="column-count:2; column-gap:2rem;">
+    <a href="#sec-batch" style="display:block; padding:2px 0;">0. 一括連携</a>
+    <a href="#sec-import" style="display:block; padding:2px 0;">1. ヒアリングシート取込</a>
+    <a href="#sec-choice" style="display:block; padding:2px 0;">2. チョイス連携</a>
+    <a href="#sec-furunavi" style="display:block; padding:2px 0;">3. ふるなび連携</a>
+    <a href="#sec-satofull" style="display:block; padding:2px 0;">4. さとふる連携</a>
+    <a href="#sec-rakuten" style="display:block; padding:2px 0;">5. 楽天連携</a>
+    <a href="#sec-system" style="display:block; padding:2px 0;">6. システム管理</a>
+    <a href="#sec-selection" style="display:block; padding:2px 0;">選択行出力</a>
+    <a href="#sec-mapping-edit" style="display:block; padding:2px 0;">マッピング定義の編集</a>
+  </div>
+</div>
+
+<div class="callout callout-warning">
+  <span class="callout-icon">⚠️</span>
+  <div><strong>重要: </strong>すべてのエクスポート機能は <strong>master_data シートをアクティブ</strong> にし、<strong>転記したい行を選択した状態</strong> で実行してください。</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="sec-batch">📦 0. 一括連携</h2>
+<p>複数サイトへのデータ生成をまとめて行うためのメニューです。通常はこの手順で全サイト分のデータを一括作成します。</p>
+
+<h3>0-1. 選択行を一括エクスポート（シート生成）</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">master_data で選択した行を、チェックボックスで選んだ全サイトに一括変換します。各サイトのエクスポートシートが自動生成されます。</div>
+</div>
+<ol class="step-list">
+  <li class="step-item"><div class="step-content"><strong>master_data シートを開く</strong><p>シートタブで「master_data」をクリックしてアクティブにします。</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>転記したい行を選択</strong><p>データ行（2行目以降）をドラッグ選択します。全行を対象にする場合は行番号をクリックして範囲選択します。</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>メニュー → マスター管理 → 0. 一括連携 → 0-1. 選択行を一括エクスポート</strong><p>チェックボックスダイアログが表示されます。出力したいサイトにチェックを入れて「実行」を押します。</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>完了を確認</strong><p>各サイトのエクスポートシート（choice_export, furunavi_export 等）が自動生成されます。この時点ではカテゴリ・ジャンルIDは空欄です。</p></div></li>
+</ol>
+
+<h3>0-2. カテゴリ・ジャンルID一括挿入</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">各サイトのエクスポートシートに対して、Gemini AIがカテゴリやジャンルIDを自動推論して挿入します。</div>
+</div>
+<div class="callout callout-info">
+  <span class="callout-icon">🤖</span>
+  <div><strong>AI推論の対象:</strong> チョイス・ふるなび・さとふるはカテゴリ、楽天はジャンルIDが対象です。精度は約90%のため、結果は必ず目視チェックしてください。</div>
+</div>
+
+<h3>0-3. 楽天 商品属性を挿入（ジャンルIDから）</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">楽天のジャンルIDが確定している行に対して、楽天APIから商品属性（重量・容量など）の定義を取得し、SKU行に自動注入します。ジャンルIDが空欄のSKU行はスキップされます。</div>
+</div>
+
+<h3>0-4. 一括バリデーション</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">全サイトのエクスポートシートを一括でバリデーション（文字数制限・必須項目チェック）します。エラーはセルの黄色ハイライトとノート（コメント）で確認できます。</div>
+</div>
+<div class="callout callout-tip">
+  <span class="callout-icon">✅</span>
+  <div>バリデーションエラーは master_data の元データを修正してから、再度エクスポートを実行すると自動的に解消されます。</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="sec-import">📥 1. ヒアリングシート取込</h2>
+<p>事業者のExcelヒアリングシートを master_data に取り込む機能です。</p>
+
+<h3>1-1. Excelファイル取込</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">setting シートのB1セルに指定されたGoogle DriveフォルダからExcelファイル（.xlsx/.xls）を読み込み、スプレッドシートに変換します。</div>
+</div>
+<ol class="step-list">
+  <li class="step-item"><div class="step-content"><strong>Google DriveにExcelファイルをアップロード</strong><p>setting シートのB1セルに記載されたフォルダURLを開き、ヒアリングシート（.xlsx）をアップロードします。</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>メニュー → 1-1. Excelファイル取込</strong><p>フォルダ内のExcelファイルがスプレッドシート形式に変換されます。処理済みファイルは自動スキップされます。</p></div></li>
+</ol>
+
+<h3>1-2. マスターへ転記実行</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">変換後のシートデータを mapping_def の定義に従って master_data に転記します。サンプル・テスト行は自動スキップされます。</div>
+</div>
+
+<h3>1-3. 完了ファイルをゴミ箱へ</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">取込完了済みの一時シートを削除し、Excelファイルをゴミ箱に移動します。</div>
+</div>
+
+<h3>1-4. 環境依存文字チェック</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">master_data 内の環境依存文字（①②③、㈱、髙など）を検出し、セルをハイライトします。Shift-JISで表現できない文字が各サイトのCSV出力時に文字化けするのを防ぎます。</div>
+</div>
+
+<h3>1-5. 環境依存文字を一括変換</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">検出された環境依存文字をサイト互換の文字に自動変換します（例: ① → (1)、㈱ → (株)）。</div>
+</div>
+<div class="callout callout-tip">
+  <span class="callout-icon">💡</span>
+  <div><strong>変換先のカスタマイズ:</strong> char_check_report シートの「変換先」列（E列）を手動で編集すると、1-5 実行時にその値で置換されます。</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="sec-choice">🟢 2. チョイス連携</h2>
+<p>ふるさとチョイスへの新規登録データを作成する機能です。</p>
+
+<div class="callout callout-info">
+  <span class="callout-icon">📌</span>
+  <div>チョイスでは <strong>親品（single/parent）のみ</strong> を転記対象とします。子SKU（バリエーション）は自動でスキップされ、2-5で別途処理します。</div>
+</div>
+
+<h3>2-1. チョイス用シート作成（カテゴリ除く）</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">master_data の選択行を mapping_choice の定義に従い choice_export シートに変換します。カテゴリは空欄で出力されます。</div>
+</div>
+
+<h3>2-2. カテゴリ一括付与</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">AIが返礼品名・商品カテゴリから最適なチョイスカテゴリを推論し、choice_export に注入します。信頼度アイコン（✅高信頼 ⚠️中信頼 ❓低信頼）も表示されます。</div>
+</div>
+
+<h3>2-3. バリデーション</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">品名の文字数制限（半角換算36文字）、必須項目チェックを実行します。違反セルは黄色ハイライト＋ノートで表示されます。</div>
+</div>
+
+<h3>2-4. チョイス用データ出力 (TSV)</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">choice_export のデータをTSV形式でダイアログに表示します。「コピー」ボタンでクリップボードにコピーし、チョイスの一括登録画面にそのまま貼り付けられます。</div>
+</div>
+<div class="callout callout-warning">
+  <span class="callout-icon">📋</span>
+  <div><strong>出力方式:</strong> チョイスはファイルダウンロードではなく、<strong>コピー＆ペースト</strong> 方式です。ダイアログの「コピー」ボタンを押してから、チョイス管理画面に貼り付けてください。</div>
+</div>
+
+<h3>2-5. 子品TSV作成（バリエーション）</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc"><span class="tooltip-trigger">マルチSKU<span class="tooltip-content">1つの返礼品に複数の容量やセット構成がある場合の仕組み。親品（代表商品）と子品（各バリエーション）で構成されます。</span></span>商品の子品（バリエーション）データを choice_child_export シートに生成します。choice_export の親品から自動突合します。</div>
+</div>
+
+<h3>2-6. 子品TSVデータ出力</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">choice_child_export のデータをTSV形式でダイアログに表示します。コピー＆ペーストで登録してください。</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="sec-furunavi">🔵 3. ふるなび連携</h2>
+<p>ふるなびへの新規登録・更新データを作成する機能です。</p>
+
+<div class="callout callout-info">
+  <span class="callout-icon">📌</span>
+  <div>ふるなびでは <strong>子品（single/child）のみ</strong> を転記対象とします。マルチSKU商品の親行（parent）は自動でスキップされます。</div>
+</div>
+
+<h3>3-1. ふるなび用シート作成</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">master_data の選択行を mapping_furunavi の定義に従い furunavi_export シートに変換します。</div>
+</div>
+
+<h3>3-2. カテゴリ一括推論</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">AIが最適なふるなびカテゴリ＋サブカテゴリを推論し、furunavi_export に注入します。</div>
+</div>
+
+<h3>3-3. バリデーション</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">返礼品名75文字制限等をチェックします。</div>
+</div>
+
+<h3>3-4. ふるなび用データ出力 (CSV)</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">furunavi_export のデータをShift-JIS形式のCSVでダウンロードします。</div>
+</div>
+
+<h3>3-5. 更新用データ作成（受付期間）</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">既にふるなびに登録済みの商品に対して、受付期間（公開開始日・終了日）を更新するためのデータを作成します。</div>
+</div>
+<ol class="step-list">
+  <li class="step-item"><div class="step-content"><strong>ふるなび管理画面からCSVをダウンロード</strong><p>現在の登録商品データをCSVでダウンロードします。</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>furunavi_update_import シートに貼り付け</strong><p>ダウンロードしたCSVの内容をシートに貼り付けます。</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>メニュー → 3-5. 更新用データ作成</strong><p>master_data の受付期間情報をもとに更新用データが生成されます。</p></div></li>
+</ol>
+
+<h3>3-6. 更新用データ出力 (CSV)</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">更新用データをCSV形式でダウンロードします。ふるなび管理画面の「一括更新」機能でアップロードできます。</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="sec-satofull">🟠 4. さとふる連携</h2>
+<p>さとふるへの新規登録データを作成する機能です。</p>
+
+<div class="callout callout-info">
+  <span class="callout-icon">📌</span>
+  <div>さとふるでは <strong>子品（single/child）のみ</strong> を転記対象とします（ふるなびと同じルール）。</div>
+</div>
+
+<h3>4-1. さとふる用シート作成</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">master_data の選択行を mapping_satofull の定義に従い satofull_export シートに変換します。</div>
+</div>
+
+<h3>4-2. カテゴリ一括推論</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">AIが最適なさとふるカテゴリを推論し、satofull_export に注入します。</div>
+</div>
+
+<h3>4-3. バリデーション</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">お礼品名50文字制限、伝票用お礼品名16文字制限等をチェックします。</div>
+</div>
+
+<h3>4-4. さとふる用データ出力 (CSV)</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">satofull_export のデータをShift-JIS形式のCSVでダウンロードします。</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="sec-rakuten">🔴 5. 楽天連携</h2>
+<p>楽天市場への商品登録データを作成する機能です。楽天は他サイトと異なり、<strong>ジャンルIDの推論</strong>と<strong>商品属性の自動生成</strong>が含まれます。</p>
+
+<div class="callout callout-info">
+  <span class="callout-icon">📌</span>
+  <div>楽天では <span class="tooltip-trigger">Item行<span class="tooltip-content">商品の基本情報（商品名、説明文、画像、バリエーション定義）を格納する行。1商品につき1行。</span></span>（親品）＋ <span class="tooltip-trigger">SKU行<span class="tooltip-content">価格・在庫・商品属性を格納する行。マルチSKU商品では子品ごとに1行ずつ生成される。</span></span>（子品）＋ Option行（オプション）の <strong>3層構造</strong> でデータが生成されます。</div>
+</div>
+
+<h3>5-1. 楽天用シート作成（ジャンルID除く）</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">master_data の選択行を rakuten_export シートに変換します。ジャンルIDと商品属性は空欄で出力されます。HTMLテンプレートやオプションセットが複数ある場合は選択ダイアログが表示されます。</div>
+</div>
+
+<h3>5-2. ジャンルID一括推論</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">Gemini AI が返礼品名・カテゴリ情報から楽天の最適なジャンルIDを自動推論します。推論結果には信頼度アイコンが付きます:</div>
+</div>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>アイコン</th><th>信頼度</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td>✅</td><td>高</td><td>genre_config の EXACT ルールでマッチ。手動追加した確定値。</td></tr>
+      <tr><td>⚠️</td><td>中</td><td>AI推論＋API検証で確認済み。目視チェック推奨。</td></tr>
+      <tr><td>❓</td><td>低</td><td>AI推論のみ。API検証未通過のため要確認。</td></tr>
+      <tr><td>❌</td><td>失敗</td><td>推論できず。手動でジャンルIDを入力してください。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>5-3. 商品属性を生成（ジャンルIDから）</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">確定したジャンルIDをもとに楽天APIから属性定義を取得し、master_data の値とマッチングして SKU行に注入します。必須属性が欠けている場合は黄色ハイライトで表示されます。</div>
+</div>
+
+<h3>5-4. バリデーション</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">楽天固有の文字数制限・Shift-JISバイト数制限・HTMLタグ検証を行います。</div>
+</div>
+
+<h3>5-5. 楽天用データ出力 (CSV)</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">rakuten_export のデータをShift-JIS形式のCSVでダウンロードします。楽天RMSの「CSVで一括更新」機能でアップロードできます。</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="sec-system">⚙️ 6. システム管理</h2>
+
+<h3>6-1. ダッシュボードを更新</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">dashboard シートと dashboard_issues シートを最新状態に更新します。「今どこが止まっていて、次に何を直すか」を確認できます。各エクスポート完了時にも自動更新されます。</div>
+</div>
+
+<h3>6-2. 楽天ジャンルツリー同期</h3>
+<div class="card">
+  <div class="card-title">概要</div>
+  <div class="card-desc">楽天APIからジャンルツリー（カテゴリ階層）の最新データを取得し、ローカルの参照用シートに同期します。ジャンルIDの推論精度向上に使われます。</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="sec-selection">🎯 選択行出力</h2>
+<p>エクスポートシートのデータ出力時に、特定の行だけを出力対象にする機能です。</p>
+
+<ol class="step-list">
+  <li class="step-item"><div class="step-content"><strong>エクスポートシートを開く</strong><p>例: choice_export, furunavi_export, satofull_export, rakuten_export のいずれかを開きます。</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>出力したい行を選択</strong><p>出力したいデータ行をドラッグ選択します。</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>データ出力メニューを実行</strong><p>「選択行のみ出力しますか？」という確認ダイアログが表示されます。「はい」を選ぶと選択行のみが出力されます。</p></div></li>
+</ol>
+
+<!-- ============================================== -->
+<h2 id="sec-mapping-edit">🔧 マッピング定義の編集</h2>
+<p>新しい自治体を担当する場合や、出力ルールを変更する場合にマッピングシートを編集します。</p>
+
+<div class="callout callout-warning">
+  <span class="callout-icon">⚠️</span>
+  <div>マッピングシートの<strong>A〜D列</strong>（楽天はA〜E列）はシステムが読み取る列です。列の追加・削除は行わないでください。値の変更は問題ありません。</div>
+</div>
+
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>列</th><th>内容</th><th>編集可否</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A列</strong></td><td>出力先カラム名</td><td>⚠️ 変更時はCSV/TSVのヘッダーに影響</td></tr>
+      <tr><td><strong>B列</strong></td><td>master_data の参照カラム名（＋で複数結合可）</td><td>✅ 参照先の変更が可能</td></tr>
+      <tr><td><strong>C列</strong></td><td>データ型（FIXED, TEXT_LIMIT_* 等）</td><td>✅ 変換ルールの変更が可能</td></tr>
+      <tr><td><strong>D列</strong></td><td>デフォルト値 / テンプレート</td><td>✅ 固定テキストやテンプレートの変更が可能</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>マッピングシートの全項目の詳細は <a href="mapping.html">マッピング定義リファレンス</a> を参照してください。</p>
+
+<footer class="site-footer">
+  <p>RPM V1.0 — 操作マニュアル</p>
+  <p>最終更新: 2026年4月</p>
+</footer>
+
+</div></main>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仕様書 — RPM ドキュメント</title>
+  <meta name="description" content="RPM（返礼品マスター管理システム）の技術仕様書。システム構成、データ変換エンジン、AI推論パイプラインの詳細。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="mobile-header"><button class="hamburger" aria-label="メニューを開く">☰</button><span style="font-weight:600; margin-left:12px;">仕様書</span></div>
+<div class="sidebar-overlay"></div>
+<div class="layout">
+<nav class="sidebar">
+  <div class="sidebar-header"><div class="sidebar-logo"><div class="logo-icon">📦</div>RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.0</span></div></div>
+  <div class="sidebar-nav">
+    <div class="nav-section-title">ドキュメント</div>
+    <a href="index.html"><span class="nav-icon">🏠</span>トップページ</a>
+    <a href="manual.html"><span class="nav-icon">📖</span>操作マニュアル</a>
+    <a href="spec.html" class="active"><span class="nav-icon">📋</span>仕様書</a>
+    <a href="mapping.html"><span class="nav-icon">🔗</span>マッピング定義</a>
+    <a href="faq.html"><span class="nav-icon">❓</span>FAQ</a>
+    <div class="nav-section-title">ツール</div>
+    <a href="setup.html"><span class="nav-icon">⚙️</span>自治体セットアップ</a>
+    <a href="quick-ref.html"><span class="nav-icon">📄</span>早見表</a>
+  </div>
+</nav>
+<main class="main-content"><div class="content-wrapper">
+
+<div class="page-header">
+  <h1>📋 仕様書</h1>
+  <p class="subtitle">システム構成・データ変換エンジン・AI推論パイプラインの技術仕様</p>
+</div>
+
+<!-- 目次 -->
+<div class="card" style="margin-bottom:var(--space-8);">
+  <div class="card-title">📋 目次</div>
+  <div class="card-desc" style="column-count:2; column-gap:2rem;">
+    <a href="#overview" style="display:block; padding:2px 0;">1. システム概要</a>
+    <a href="#architecture" style="display:block; padding:2px 0;">2. アーキテクチャ</a>
+    <a href="#sheets" style="display:block; padding:2px 0;">3. シート構成</a>
+    <a href="#engine" style="display:block; padding:2px 0;">4. データ変換エンジン</a>
+    <a href="#output" style="display:block; padding:2px 0;">5. サイト別出力仕様</a>
+    <a href="#multi-sku" style="display:block; padding:2px 0;">6. マルチSKU仕様</a>
+    <a href="#ai" style="display:block; padding:2px 0;">7. AI推論エンジン</a>
+    <a href="#validation" style="display:block; padding:2px 0;">8. バリデーション仕様</a>
+    <a href="#dashboard" style="display:block; padding:2px 0;">9. ダッシュボード仕様</a>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="overview">🌐 1. システム概要</h2>
+<p>RPM（返礼品マスター管理システム）は Google Apps Script（GAS）で構築された、ふるさと納税返礼品データの<strong>一元管理・4サイト一括変換システム</strong>です。</p>
+
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>項目</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>プラットフォーム</td><td>Google Sheets + Google Apps Script</td></tr>
+      <tr><td>AI エンジン</td><td>Gemini 2.5 Flash（15 RPM制限）</td></tr>
+      <tr><td>外部 API</td><td>楽天市場 API（ジャンルツリー・属性取得）</td></tr>
+      <tr><td>出力文字コード</td><td>Shift-JIS（CP932）— 全サイト共通</td></tr>
+      <tr><td>ソースファイル</td><td>18ファイル / 約700KB</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================== -->
+<h2 id="architecture">🏗️ 2. アーキテクチャ</h2>
+<h3>ファイル構成</h3>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>ファイル</th><th>責務</th><th>サイズ</th></tr></thead>
+    <tbody>
+      <tr><td><code>Menu.js</code></td><td>メニュー定義・ヘルプガイド</td><td>36KB</td></tr>
+      <tr><td><code>Import_Master.js</code></td><td>Excel取込・マスター転記</td><td>22KB</td></tr>
+      <tr><td><code>Export_Choice.js</code></td><td>チョイスエクスポート</td><td>56KB</td></tr>
+      <tr><td><code>Export_Furunavi.js</code></td><td>ふるなびエクスポート</td><td>22KB</td></tr>
+      <tr><td><code>Export_Satofull.js</code></td><td>さとふるエクスポート</td><td>13KB</td></tr>
+      <tr><td><code>Export_Rakuten.js</code></td><td>楽天エクスポート (3層構造)</td><td>86KB</td></tr>
+      <tr><td><code>Export_Batch.js</code></td><td>一括エクスポート制御</td><td>22KB</td></tr>
+      <tr><td><code>Gemini_API.js</code></td><td>Gemini API統合</td><td>159KB</td></tr>
+      <tr><td><code>Rakuten_API.js</code></td><td>楽天API統合</td><td>80KB</td></tr>
+      <tr><td><code>Rakuten_GenreUpdate.js</code></td><td>楽天ジャンルツリー同期</td><td>56KB</td></tr>
+      <tr><td><code>Category_Bridge.js</code></td><td>カテゴリ推論ブリッジ</td><td>75KB</td></tr>
+      <tr><td><code>Choice_Category.js</code></td><td>チョイスカテゴリ推論</td><td>44KB</td></tr>
+      <tr><td><code>Furunavi_Category.js</code></td><td>ふるなびカテゴリ推論</td><td>36KB</td></tr>
+      <tr><td><code>Satofull_Category.js</code></td><td>さとふるカテゴリ推論</td><td>58KB</td></tr>
+      <tr><td><code>Char_Check.js</code></td><td>環境依存文字チェック</td><td>44KB</td></tr>
+      <tr><td><code>Dashboard.js</code></td><td>ダッシュボード集計</td><td>51KB</td></tr>
+      <tr><td><code>Validation.js</code></td><td>バリデーションエンジン</td><td>26KB</td></tr>
+      <tr><td><code>Utils.js</code></td><td>共通ユーティリティ</td><td>38KB</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================== -->
+<h2 id="sheets">📊 3. シート構成</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>シート名</th><th>種別</th><th>説明</th></tr></thead>
+    <tbody>
+      <tr class="table-section-row"><td colspan="3">📥 入力・原本</td></tr>
+      <tr><td><strong>master_data</strong></td><td><span class="badge badge-required">必須</span></td><td>全商品の原本データ。すべての操作の起点。</td></tr>
+      <tr><td><strong>setting</strong></td><td><span class="badge badge-required">必須</span></td><td>フォルダURL・API設定値の管理。</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">⚙️ マッピング定義</td></tr>
+      <tr><td>mapping_def</td><td><span class="badge badge-setting">設定</span></td><td>ヒアリングシート → master_data のカラム対応定義（113項目）</td></tr>
+      <tr><td>mapping_choice</td><td><span class="badge badge-setting">設定</span></td><td>master_data → チョイスの変換ルール（108項目）</td></tr>
+      <tr><td>mapping_furunavi</td><td><span class="badge badge-setting">設定</span></td><td>master_data → ふるなびの変換ルール（22項目）</td></tr>
+      <tr><td>mapping_satofull</td><td><span class="badge badge-setting">設定</span></td><td>master_data → さとふるの変換ルール（27項目）</td></tr>
+      <tr><td>mapping_rakuten</td><td><span class="badge badge-setting">設定</span></td><td>master_data → 楽天の変換ルール（138項目、targetType付き）</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">🎨 テンプレート・辞書</td></tr>
+      <tr><td>template_rakuten</td><td><span class="badge badge-setting">設定</span></td><td>楽天の商品説明HTMLテンプレート</td></tr>
+      <tr><td>database_options</td><td><span class="badge badge-setting">設定</span></td><td>楽天の商品オプション定義</td></tr>
+      <tr><td>genre_config</td><td><span class="badge badge-setting">設定</span></td><td>楽天ジャンルIDの EXACT/SYNONYM ルール（2,800+エントリ）</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">📤 エクスポートシート</td></tr>
+      <tr><td>choice_export</td><td><span class="badge badge-choice">出力</span></td><td>チョイス用の変換結果</td></tr>
+      <tr><td>choice_child_export</td><td><span class="badge badge-choice">出力</span></td><td>チョイス子品（バリエーション）の変換結果</td></tr>
+      <tr><td>furunavi_export</td><td><span class="badge badge-furunavi">出力</span></td><td>ふるなび用の変換結果</td></tr>
+      <tr><td>furunavi_update_export</td><td><span class="badge badge-furunavi">出力</span></td><td>ふるなび更新用の変換結果</td></tr>
+      <tr><td>satofull_export</td><td><span class="badge badge-satofull">出力</span></td><td>さとふる用の変換結果</td></tr>
+      <tr><td>rakuten_export</td><td><span class="badge badge-rakuten">出力</span></td><td>楽天用の変換結果（3層構造）</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">📊 管理・ログ</td></tr>
+      <tr><td>dashboard</td><td><span class="badge badge-auto">管理</span></td><td>全体の進捗サマリー</td></tr>
+      <tr><td>dashboard_issues</td><td><span class="badge badge-auto">管理</span></td><td>修正が必要な項目の明細一覧</td></tr>
+      <tr><td>sys_log</td><td><span class="badge badge-setting">ログ</span></td><td>ファイル取込等のシステムログ</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================== -->
+<h2 id="engine">🔄 4. データ変換エンジン</h2>
+<p>マッピングシートの <code>data_type</code> 列で指定される変換ルールの全種別です。</p>
+
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>data_type</th><th>動作</th><th>使用サイト</th></tr></thead>
+    <tbody>
+      <tr class="table-section-row"><td colspan="3">基本型</td></tr>
+      <tr><td><code>DIRECT</code></td><td>マスターの値をそのまま出力</td><td>全サイト</td></tr>
+      <tr><td><code>FIXED</code></td><td>default_value の固定値を出力</td><td>全サイト</td></tr>
+      <tr><td><code>EMPTY</code></td><td>常に空欄を出力</td><td>全サイト</td></tr>
+      <tr><td><code>NUMBER</code></td><td>数値のみ出力（カンマ除去）</td><td>全サイト</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">文字列加工型</td></tr>
+      <tr><td><code>TEXT_LIMIT_*</code></td><td>文字数制限付きテキスト出力（例: TEXT_LIMIT_75 = 75文字以内）</td><td>全サイト</td></tr>
+      <tr><td><code>PREFIX</code></td><td>default_valueをプレフィックスとして付与（例: 【ふるさと納税】）</td><td>楽天</td></tr>
+      <tr><td><code>HTML_TEXT_1500</code></td><td>改行をbrタグに変換、1500文字制限</td><td>さとふる</td></tr>
+      <tr><td><code>HTML_TEMPLATE</code></td><td>テンプレートシートからHTML生成</td><td>楽天</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">マッチング・変換型</td></tr>
+      <tr><td><code>MATCH_FLAG</code></td><td>マスター値がdefault_valueと一致なら1、不一致なら0</td><td>チョイス</td></tr>
+      <tr><td><code>MATCH_ON_OFF</code></td><td>一致ならon、不一致ならoff</td><td>ふるなび</td></tr>
+      <tr><td><code>BOOL_TO_INT</code></td><td>真偽値を0/1に変換</td><td>チョイス</td></tr>
+      <tr><td><code>BOOL_TO_ON_OFF</code></td><td>真偽値をon/offに変換</td><td>ふるなび</td></tr>
+      <tr><td><code>CONTAINS_FLAG</code></td><td>マスター値にキーワードが含まれれば1、なければ0</td><td>チョイス</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">日付型</td></tr>
+      <tr><td><code>DATE_CHOICE</code></td><td>空欄/5年以上先→「通年」、それ以外はそのまま出力</td><td>チョイス、さとふる</td></tr>
+      <tr><td><code>DATE_START</code></td><td>日付に「00:00:00」を付与</td><td>チョイス</td></tr>
+      <tr><td><code>DATE_END</code></td><td>日付に「23:59:00」を付与</td><td>チョイス</td></tr>
+      <tr><td><code>DATE_SLASH</code></td><td>YYYY/MM/DD形式に変換</td><td>さとふる</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">特殊変換型</td></tr>
+      <tr><td><code>ALLERGY_CHOICE</code></td><td>アレルギー情報から1:含む/2:含まないに変換</td><td>チョイス</td></tr>
+      <tr><td><code>JIBA_NUM</code></td><td>丸数字（①）を半角数字（1）+パイプに変換</td><td>チョイス</td></tr>
+      <tr><td><code>DELIVERY_COMPANY_CONVERT</code></td><td>配送業者名を数値IDに変換</td><td>チョイス</td></tr>
+      <tr><td><code>DATE_TYPE_CONVERT</code></td><td>着日指定文字列を数値IDに変換</td><td>チョイス</td></tr>
+      <tr><td><code>AREA_CODE_CONVERT</code></td><td>都道府県名をエリアコードに変換</td><td>チョイス</td></tr>
+      <tr><td><code>AREA_CODE_SATOFULL</code></td><td>都道府県名をさとふる独自コードに変換</td><td>さとふる</td></tr>
+      <tr><td><code>SATOFULL_TEMP</code></td><td>温度帯をさとふる数値コード（1/2/3）に変換</td><td>さとふる</td></tr>
+      <tr><td><code>EXTRACT_FILENAME</code></td><td>画像URLからファイル名のみ抽出</td><td>さとふる</td></tr>
+      <tr><td><code>SKU_PIPE_JOIN</code></td><td>子品の内容量をパイプ区切りで結合</td><td>楽天</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">カテゴリ推論型</td></tr>
+      <tr><td><code>CHOICE_CATEGORY</code></td><td>Gemini APIでチョイスカテゴリを推論</td><td>チョイス</td></tr>
+      <tr><td><code>SATOFULL_CATEGORY</code></td><td>Gemini APIでさとふるカテゴリを推論</td><td>さとふる</td></tr>
+      <tr><td><code>CATEGORY_LOOKUP</code></td><td>Gemini API＋楽天APIでジャンルIDを推論</td><td>楽天</td></tr>
+
+      <tr class="table-section-row"><td colspan="3">ヒアリングシート取込型（mapping_def専用）</td></tr>
+      <tr><td><code>LOOKUP</code></td><td>参照シートから値を検索して変換</td><td>mapping_def</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================== -->
+<h2 id="output">📤 5. サイト別出力仕様</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>サイト</th><th>出力形式</th><th>文字コード</th><th>行構造</th><th>カラム数</th><th>出力方式</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge badge-choice">チョイス</span></td><td>TSV</td><td>Shift-JIS</td><td>1行/商品</td><td>108</td><td>コピー＆ペースト</td></tr>
+      <tr><td><span class="badge badge-furunavi">ふるなび</span></td><td>CSV</td><td>Shift-JIS</td><td>1行/商品</td><td>22</td><td>ファイルダウンロード</td></tr>
+      <tr><td><span class="badge badge-satofull">さとふる</span></td><td>CSV</td><td>Shift-JIS</td><td>1行/商品</td><td>27</td><td>ファイルダウンロード</td></tr>
+      <tr><td><span class="badge badge-rakuten">楽天</span></td><td>CSV</td><td>Shift-JIS</td><td>3層（Item/SKU/Option）</td><td>138</td><td>ファイルダウンロード</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================== -->
+<h2 id="multi-sku">🔗 6. マルチSKU仕様</h2>
+<p>1つの返礼品に複数のバリエーション（容量違い、セット違い）がある場合の仕組みです。</p>
+
+<h3>master_data での定義方法</h3>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>行タイプ</th><th>商品管理ID</th><th>親商品コード</th><th>SKUコード</th><th>バリエーション名</th></tr></thead>
+    <tbody>
+      <tr><td><strong>親行（parent）</strong></td><td>ABC-001</td><td>ABC-001</td><td>ABC-001</td><td>セット内容</td></tr>
+      <tr><td>子行（child）</td><td>ABC-001</td><td>ABC-001</td><td>ABC-001_01</td><td></td></tr>
+      <tr><td>子行（child）</td><td>ABC-001</td><td>ABC-001</td><td>ABC-001_02</td><td></td></tr>
+      <tr><td><strong>単品（single）</strong></td><td>DEF-002</td><td>DEF-002</td><td>DEF-002</td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>サイト別の取り扱い</h3>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>サイト</th><th>転記対象</th><th>マルチSKUの処理</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge badge-choice">チョイス</span></td><td>親品（single/parent）のみ</td><td>子品は 2-5 で別途 choice_child_export に生成</td></tr>
+      <tr><td><span class="badge badge-furunavi">ふるなび</span></td><td>子品（single/child）のみ</td><td>親行は自動スキップ</td></tr>
+      <tr><td><span class="badge badge-satofull">さとふる</span></td><td>子品（single/child）のみ</td><td>親行は自動スキップ</td></tr>
+      <tr><td><span class="badge badge-rakuten">楽天</span></td><td>全行</td><td>自動グルーピング（Item行＋SKU行＋Option行）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================== -->
+<h2 id="ai">🤖 7. AI推論エンジン</h2>
+
+<h3>ジャンルID推論パイプライン（楽天）</h3>
+<p>5段階のハイブリッドパイプラインでジャンルIDを決定します。</p>
+
+<ol class="step-list">
+  <li class="step-item"><div class="step-content"><strong>テキスト正規化</strong><p>genre_config の SYNONYM ルールで商品テキストを正規化（例: 「紅ほっぺ」→「いちご」）</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>フィードバック参照</strong><p>genre_config の EXACT ルールに完全一致があれば即座に確定（最高優先度）</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>候補ID生成</strong><p>genre_config の SEED ルールからジャンルIDの候補リストを生成</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>AI推論</strong><p>Gemini 2.5 Flash が商品情報と候補リストからスコアリングして最適なジャンルIDを選定</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>API検証</strong><p>楽天APIで推論結果のジャンルIDが有効かを検証。無効な場合はフォールバック候補を試行</p></div></li>
+</ol>
+
+<div class="callout callout-info">
+  <span class="callout-icon">📊</span>
+  <div><strong>genre_config の規模:</strong> 2,800+ エントリの同義語辞書と種別辞書を学習データとして蓄積。水産物、肉類、米、果物、菓子、酒類、非食品、工芸品の8カテゴリを完全網羅。</div>
+</div>
+
+<h3>レート制限</h3>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>API</th><th>制限</th><th>対応策</th></tr></thead>
+    <tbody>
+      <tr><td>Gemini 2.5 Flash</td><td>15 RPM（リクエスト/分）</td><td>自動リトライ + 指数バックオフ</td></tr>
+      <tr><td>楽天API</td><td>なし（有料プラン）</td><td>—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================== -->
+<h2 id="validation">✅ 8. バリデーション仕様</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>サイト</th><th>チェック項目</th><th>制限値</th></tr></thead>
+    <tbody>
+      <tr class="table-section-row"><td colspan="3">🟢 チョイス</td></tr>
+      <tr><td></td><td>お礼の品名</td><td>半角換算36文字以内</td></tr>
+      <tr><td></td><td>説明 / 容量 / 消費期限</td><td>各1000文字以内</td></tr>
+      <tr><td></td><td>キャッチコピー</td><td>40文字以内</td></tr>
+      <tr class="table-section-row"><td colspan="3">🔵 ふるなび</td></tr>
+      <tr><td></td><td>返礼品名</td><td>全角75文字以内</td></tr>
+      <tr><td></td><td>説明文</td><td>5000文字以内（HTML可）</td></tr>
+      <tr><td></td><td>容量</td><td>250文字以内（配送についてと合算500文字）</td></tr>
+      <tr class="table-section-row"><td colspan="3">🟠 さとふる</td></tr>
+      <tr><td></td><td>お礼品名</td><td>全角50文字以内</td></tr>
+      <tr><td></td><td>伝票用お礼品名</td><td>16文字以内</td></tr>
+      <tr><td></td><td>お礼品説明(一覧)</td><td>200文字以内</td></tr>
+      <tr><td></td><td>お礼品説明(詳細用)</td><td>1500文字以内</td></tr>
+      <tr class="table-section-row"><td colspan="3">🔴 楽天</td></tr>
+      <tr><td></td><td>キャッチコピー</td><td>174文字以内</td></tr>
+      <tr><td></td><td>Shift-JISバイト数</td><td>各フィールドのバイト制限</td></tr>
+      <tr><td></td><td>HTMLタグ</td><td>閉じタグの整合性チェック</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================================== -->
+<h2 id="dashboard">📊 9. ダッシュボード仕様</h2>
+<p>全体の進捗と課題を可視化するダッシュボードです。各エクスポート完了時に自動更新されます。</p>
+
+<h3>優先度レベル</h3>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>レベル</th><th>意味</th><th>対象</th></tr></thead>
+    <tbody>
+      <tr><td style="color:#ef4444; font-weight:700;">P1</td><td>即時修正必須</td><td>必須項目の空欄、文字数超過（致命的）</td></tr>
+      <tr><td style="color:#f59e0b; font-weight:700;">P2</td><td>要確認</td><td>推論精度が低い、黄色ハイライト項目</td></tr>
+      <tr><td style="color:#3b82f6; font-weight:700;">P3</td><td>推奨</td><td>SEO最適化、説明文の改善</td></tr>
+      <tr><td style="color:#94a3b8; font-weight:700;">P4</td><td>情報</td><td>正常完了の確認、統計情報</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer class="site-footer">
+  <p>RPM V1.0 — 仕様書</p>
+  <p>最終更新: 2026年4月</p>
+</footer>
+
+</div></main>
+</div>
+<script src="js/main.js"></script>
+</body>
+</html>

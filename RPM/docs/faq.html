@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ・用語集 — RPM ドキュメント</title>
+  <meta name="description" content="RPMのよくある質問、トラブルシューティング、専門用語の解説。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="mobile-header"><button class="hamburger" aria-label="メニューを開く">☰</button><span style="font-weight:600; margin-left:12px;">FAQ</span></div>
+<div class="sidebar-overlay"></div>
+<div class="layout">
+<nav class="sidebar">
+  <div class="sidebar-header"><div class="sidebar-logo"><div class="logo-icon">📦</div>RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.0</span></div></div>
+  <div class="sidebar-nav">
+    <div class="nav-section-title">ドキュメント</div>
+    <a href="index.html"><span class="nav-icon">🏠</span>トップページ</a>
+    <a href="manual.html"><span class="nav-icon">📖</span>操作マニュアル</a>
+    <a href="spec.html"><span class="nav-icon">📋</span>仕様書</a>
+    <a href="mapping.html"><span class="nav-icon">🔗</span>マッピング定義</a>
+    <a href="faq.html" class="active"><span class="nav-icon">❓</span>FAQ</a>
+    <div class="nav-section-title">ツール</div>
+    <a href="setup.html"><span class="nav-icon">⚙️</span>自治体セットアップ</a>
+    <a href="quick-ref.html"><span class="nav-icon">📄</span>早見表</a>
+  </div>
+</nav>
+<main class="main-content"><div class="content-wrapper">
+
+<div class="page-header">
+  <h1>❓ FAQ・用語集</h1>
+  <p class="subtitle">よくある質問、トラブルシューティング、専門用語の解説</p>
+</div>
+
+<!-- FAQ -->
+<h2 id="faq">よくある質問</h2>
+
+<h3>基本操作</h3>
+
+<div class="accordion-item">
+  <button class="accordion-q">master_data 以外のシートを開いた状態で実行するとエラーになります</button>
+  <div class="accordion-a"><div class="accordion-a-inner">すべてのエクスポート機能は <strong>master_data シートをアクティブにした状態</strong> で実行する必要があります。シートのタブを切り替えてから再度やり直してください。</div></div>
+</div>
+
+<div class="accordion-item">
+  <button class="accordion-q">「転記対象のデータ行が選択されていません」と表示されます</button>
+  <div class="accordion-a"><div class="accordion-a-inner">master_data の行（ヘッダーの1行目以外）を正しくドラッグ選択してください。1行目（ヘッダー行）のみを選択しているとこのエラーが出ます。</div></div>
+</div>
+
+<div class="accordion-item">
+  <button class="accordion-q">「子SKUが含まれています」というダイアログが表示されます</button>
+  <div class="accordion-a"><div class="accordion-a-inner">チョイスの転記では、マルチSKU商品の「子SKU」行は転記対象外です。親品（商品管理ID＝親商品コード＝SKUコードの行）のみが対象です。子SKUはバリエーションとして 2-5 で別途処理します。ダイアログで「OK」を押せば親品のみで続行します。</div></div>
+</div>
+
+<h3>カテゴリ・ジャンルID</h3>
+
+<div class="accordion-item">
+  <button class="accordion-q">カテゴリの推論結果が間違っています</button>
+  <div class="accordion-a"><div class="accordion-a-inner">AIによるカテゴリ推論は100%正確ではありません。推論結果は直接セルを編集して修正できます。また、genre_config シートの EXACT ルールを追加すると、次回から正しいジャンルIDが優先的に使われます。</div></div>
+</div>
+
+<div class="accordion-item">
+  <button class="accordion-q">楽天のジャンルIDが「❌ 推論失敗」になります</button>
+  <div class="accordion-a"><div class="accordion-a-inner">AIが自信を持って分類できなかった場合に発生します。以下を試してください：<br><br>
+  ① master_data の「商品カテゴリ」列に適切な値を入力する<br>
+  ② genre_config シートにEXACTルールを手動で追加する<br>
+  ③ rakuten_export のジャンルID列に直接ジャンルIDを入力し、5-3 で属性を生成する</div></div>
+</div>
+
+<h3>バリデーション</h3>
+
+<div class="accordion-item">
+  <button class="accordion-q">バリデーションでセルが黄色くなりました</button>
+  <div class="accordion-a"><div class="accordion-a-inner">黄色ハイライト＝文字数制限超過 or 必須項目が空欄の警告です。セルにカーソルを合わせるとノート（コメント）に詳細が表示されます。master_data の元データを修正してから、再度エクスポート → バリデーション を実行してください。</div></div>
+</div>
+
+<h3>マッピング・データ</h3>
+
+<div class="accordion-item">
+  <button class="accordion-q">mapping_* シートの設定を変更したい</button>
+  <div class="accordion-a"><div class="accordion-a-inner">mapping シートは4列構成です：<br>
+  <strong>A列：</strong>出力先カラム名<br>
+  <strong>B列：</strong>master_data の参照カラム名（+で複数結合可）<br>
+  <strong>C列：</strong>データ型（FIXED, EMPTY, TEXT_LIMIT_* 等）<br>
+  <strong>D列：</strong>デフォルト値 / テンプレート / セパレータ<br><br>
+  変更後は再度エクスポートを実行すると反映されます。詳細は <a href="mapping.html">マッピング定義リファレンス</a> を参照してください。</div></div>
+</div>
+
+<div class="accordion-item">
+  <button class="accordion-q">マルチSKU商品（バリエーション）はどう扱えばいい？</button>
+  <div class="accordion-a"><div class="accordion-a-inner">master_data で以下のように設定します：<br><br>
+  ① <strong>親行:</strong> 商品管理ID＝親商品コード＝SKUコード（3つが同じ値）<br>
+  ② <strong>子行:</strong> 親商品コード＝親のコード、SKUコードは親と異なる値<br>
+  ③ 親行の「バリエーション名」列にバリエーション名（例: セット内容）を入力<br><br>
+  チョイスは「親品のみ転記 → 2-5で子品を別途生成」、ふるなび/さとふるは「子品のみ転記」、楽天は「全行を自動グルーピング」で処理されます。</div></div>
+</div>
+
+<div class="accordion-item">
+  <button class="accordion-q">データ出力のCSV/TSVの文字コードは？</button>
+  <div class="accordion-a"><div class="accordion-a-inner">ふるなび・さとふる・楽天のCSV出力はすべて <strong>Shift-JIS（CP932）</strong> で出力されます。Shift-JIS で表現できない環境依存文字がデータに含まれている場合は、「1-4. 環境依存文字チェック」→「1-5. 一括変換」で事前に安全な文字へ変換してください。<br><br>チョイスはスプレッドシート上にTSVとして出力され、コピー＆ペーストで登録します。</div></div>
+</div>
+
+<!-- トラブルシューティング -->
+<h2 id="troubleshooting">🔧 トラブルシューティング</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>症状</th><th>原因</th><th>対処法</th></tr></thead>
+    <tbody>
+      <tr><td>メニューが表示されない</td><td>スクリプトが初期化されていない</td><td>ページを再読み込み（F5）。初回のみ権限の承認が必要です。</td></tr>
+      <tr><td>「権限が必要です」と表示される</td><td>Google OAuth認証が未完了</td><td>「権限を確認」→「許可」を押してください。</td></tr>
+      <tr><td>処理が途中で止まる / タイムアウト</td><td>大量データ or API制限</td><td>行数を分割して実行。楽天AI推論は15 RPM制限あり。</td></tr>
+      <tr><td>出力結果がおかしい</td><td>mapping_* の設定ミス</td><td>mapping のB列（参照カラム名）がmaster_data のヘッダーと完全一致しているか確認。</td></tr>
+      <tr><td>ヒアリングシートが取り込めない</td><td>フォーマットの不一致</td><td>Excel内に「商品ID」ヘッダーが含まれるシートが必要。mapping_def を確認。</td></tr>
+      <tr><td>CSV出力で文字化けする</td><td>環境依存文字が含まれている</td><td>1-4（環境依存文字チェック）→ 1-5（一括変換）を実行。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 用語集 -->
+<h2 id="glossary">📘 用語集</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>用語</th><th>説明</th></tr></thead>
+    <tbody>
+      <tr><td><strong>RPM</strong></td><td>返礼品マスター管理システム（Reimehin Product Manager）。このシステムの略称。</td></tr>
+      <tr><td><strong>master_data</strong></td><td>全返礼品の原本データを格納するメインシート。すべてのエクスポートの起点。</td></tr>
+      <tr><td><strong>mapping_*</strong></td><td>master_data から各サイトへのカラム変換ルール定義シートの総称。</td></tr>
+      <tr><td><strong>data_type</strong></td><td>mapping シートで指定されるデータ変換種別（FIXED, TEXT_LIMIT_* 等）。</td></tr>
+      <tr><td><strong>SKU</strong></td><td>Stock Keeping Unit。商品の最小管理単位。1つの返礼品の各バリエーション。</td></tr>
+      <tr><td><strong>マルチSKU</strong></td><td>1つの返礼品に複数のバリエーション（容量違い、セット違い等）がある形態。親品と子品で構成。</td></tr>
+      <tr><td><strong>親品（parent）</strong></td><td>マルチSKU商品の代表行。商品管理ID＝親商品コード＝SKUコードが同じ値。</td></tr>
+      <tr><td><strong>子品（child）</strong></td><td>マルチSKU商品の各バリエーション行。SKUコードが親と異なる値。</td></tr>
+      <tr><td><strong>single</strong></td><td>バリエーションなしの単品商品。親品と同じ扱い。</td></tr>
+      <tr><td><strong>Item行</strong></td><td>楽天の3層構造における商品基本情報行（商品名、説明文、画像等）。</td></tr>
+      <tr><td><strong>SKU行</strong></td><td>楽天の3層構造における価格・在庫・属性行。マルチSKUでは子品ごとに1行。</td></tr>
+      <tr><td><strong>Option行</strong></td><td>楽天の3層構造における商品オプション行（のし、名入れ等）。</td></tr>
+      <tr><td><strong>ジャンルID</strong></td><td>楽天市場の商品カテゴリを識別する数値ID。AI推論で自動取得。</td></tr>
+      <tr><td><strong>genre_config</strong></td><td>楽天ジャンルIDの推論精度を向上させるための辞書シート。EXACT/SYNONYM/SEEDルール。</td></tr>
+      <tr><td><strong>EXACT ルール</strong></td><td>genre_config における最高優先度の確定ルール。完全一致でジャンルIDを即座に決定。</td></tr>
+      <tr><td><strong>SYNONYM ルール</strong></td><td>genre_config における同義語変換ルール（例: 「紅ほっぺ」→「いちご」）。</td></tr>
+      <tr><td><strong>Shift-JIS</strong></td><td>日本語文字コードの一種。各ポータルサイトがCSVアップロード時に要求する文字コード。</td></tr>
+      <tr><td><strong>環境依存文字</strong></td><td>Shift-JIS で表現できない文字（①、㈱、髙など）。CSV出力時に文字化けの原因。</td></tr>
+      <tr><td><strong>バリデーション</strong></td><td>文字数制限・必須項目等のチェック。違反セルは黄色ハイライト＋ノートで表示。</td></tr>
+      <tr><td><strong>Gemini API</strong></td><td>Google の Gemini 2.5 Flash AI モデル。カテゴリ・ジャンルID推論に使用。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer class="site-footer">
+  <p>RPM V1.0 — FAQ・用語集</p>
+  <p>最終更新: 2026年4月</p>
+</footer>
+
+</div></main>
+</div>
+<script src="js/main.js"></script>
+</body>
+</html>

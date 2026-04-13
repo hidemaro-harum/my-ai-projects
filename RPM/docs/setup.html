@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自治体セットアップ — RPM ドキュメント</title>
+  <meta name="description" content="新しい自治体を担当する際の設定変更チェックリスト。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="mobile-header"><button class="hamburger" aria-label="メニューを開く">☰</button><span style="font-weight:600; margin-left:12px;">自治体セットアップ</span></div>
+<div class="sidebar-overlay"></div>
+<div class="layout">
+<nav class="sidebar">
+  <div class="sidebar-header"><div class="sidebar-logo"><div class="logo-icon">📦</div>RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.0</span></div></div>
+  <div class="sidebar-nav">
+    <div class="nav-section-title">ドキュメント</div>
+    <a href="index.html"><span class="nav-icon">🏠</span>トップページ</a>
+    <a href="manual.html"><span class="nav-icon">📖</span>操作マニュアル</a>
+    <a href="spec.html"><span class="nav-icon">📋</span>仕様書</a>
+    <a href="mapping.html"><span class="nav-icon">🔗</span>マッピング定義</a>
+    <a href="faq.html"><span class="nav-icon">❓</span>FAQ</a>
+    <div class="nav-section-title">ツール</div>
+    <a href="setup.html" class="active"><span class="nav-icon">⚙️</span>自治体セットアップ</a>
+    <a href="quick-ref.html"><span class="nav-icon">📄</span>早見表</a>
+  </div>
+</nav>
+<main class="main-content"><div class="content-wrapper">
+
+<div class="page-header">
+  <h1>⚙️ 自治体セットアップガイド</h1>
+  <p class="subtitle">新しい自治体を担当する際の設定変更チェックリスト</p>
+</div>
+
+<div class="callout callout-warning">
+  <span class="callout-icon">⚠️</span>
+  <div>RPMは自治体ごとに固定テキスト（自治体名、問い合わせ先、注意事項等）を設定する必要があります。新しい自治体を担当する際は、以下のチェックリストに沿って設定を変更してください。</div>
+</div>
+
+<h2 id="setting">📋 1. setting シートの設定</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>セル</th><th>内容</th><th>変更例</th></tr></thead>
+    <tbody>
+      <tr><td><strong>B1</strong></td><td>ヒアリングシート格納フォルダのURL</td><td>Google DriveフォルダのURLを貼り付け</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="furunavi-setup">📋 2. mapping_furunavi の変更箇所</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>カラム名</th><th>変更内容</th><th>D列（default_value）の変更例</th></tr></thead>
+    <tbody>
+      <tr><td><strong>都道府県</strong></td><td>自治体の都道府県名に変更</td><td><code>新潟県</code></td></tr>
+      <tr><td><strong>市町村名</strong></td><td>自治体の市町村名に変更</td><td><code>南魚沼市</code></td></tr>
+      <tr><td><strong>配送について</strong></td><td>注意事項テキストの自治体名部分を変更</td><td><code>※住民票が南魚沼市内にある方…</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="choice-setup">📋 3. mapping_choice の変更箇所</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>カラム名</th><th>変更内容</th><th>D列（default_value）の変更例</th></tr></thead>
+    <tbody>
+      <tr><td><strong>申込期日</strong></td><td>注意事項テキストの自治体名部分を変更</td><td><code>※住民票が南魚沼市内にある方…</code></td></tr>
+      <tr><td><strong>発送期日</strong></td><td>配送注意事項テキストを自治体ルールに合わせる</td><td>自治体固有の注意書き</td></tr>
+      <tr><td><strong>アレルギー特記事項</strong></td><td>必要に応じてアレルギー表示の注記を変更</td><td>—</td></tr>
+      <tr><td><strong>お礼の品に関するお問い合わせ先</strong></td><td>自治体の窓口情報に変更</td><td><code>○○役場 ふるさと納税係 TEL:…</code></td></tr>
+      <tr><td><strong>登録年度</strong></td><td>該当年度に変更</td><td><code>2026</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="satofull-setup">📋 4. mapping_satofull の変更箇所</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>カラム名</th><th>変更内容</th><th>D列（default_value）の変更例</th></tr></thead>
+    <tbody>
+      <tr><td><strong>受付時期</strong></td><td>注意事項テキストの自治体名部分を変更</td><td><code>※住民票が南魚沼市内にある方…</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="rakuten-setup">📋 5. mapping_rakuten の変更箇所</h2>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>カラム名</th><th>変更内容</th><th>D列（default_value）の変更例</th></tr></thead>
+    <tbody>
+      <tr><td><strong>非製品属性タグID</strong></td><td>自治体ごとの楽天タグIDに変更</td><td><code>100000|100000|200000</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="template-setup">📋 6. テンプレートの変更</h2>
+<div class="card">
+  <div class="card-title">template_rakuten シート</div>
+  <div class="card-desc">楽天の商品説明HTMLテンプレートに自治体名やロゴを反映してください。テンプレート内の <code>{{自治体名}}</code> 等のプレースホルダーを検索して置換します。</div>
+</div>
+<div class="card">
+  <div class="card-title">database_options シート</div>
+  <div class="card-desc">楽天の商品オプション（のし、名入れ等）を自治体の対応状況に合わせて設定してください。</div>
+</div>
+
+<h2 id="checklist">✅ セットアップ完了チェックリスト</h2>
+<div class="card">
+  <div class="card-desc" style="font-size:var(--font-size-base);">
+    <p>☐ setting シートのフォルダURLを設定した</p>
+    <p>☐ mapping_furunavi の都道府県・市町村名を変更した</p>
+    <p>☐ mapping_furunavi の「配送について」注意文を変更した</p>
+    <p>☐ mapping_choice の申込期日・発送期日の注意文を変更した</p>
+    <p>☐ mapping_choice の問い合わせ先を変更した</p>
+    <p>☐ mapping_choice の登録年度を変更した</p>
+    <p>☐ mapping_satofull の受付時期の注意文を変更した</p>
+    <p>☐ mapping_rakuten の非製品属性タグIDを変更した</p>
+    <p>☐ template_rakuten の自治体情報を反映した</p>
+    <p>☐ テストデータで一括エクスポート → バリデーションを実行して確認した</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>RPM V1.0 — 自治体セットアップガイド</p>
+  <p>最終更新: 2026年4月</p>
+</footer>
+
+</div></main>
+</div>
+<script src="js/main.js"></script>
+</body>
+</html>
