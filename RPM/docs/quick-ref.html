@@ -85,7 +85,7 @@
 <div class="sidebar-overlay"></div>
 <div class="layout">
 <nav class="sidebar">
-  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.0</span></div></div>
+  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.1</span></div></div>
   <div class="sidebar-nav">
     <div class="nav-section-title">ドキュメント</div>
     <a href="index.html"><span class="nav-icon">🏠</span>トップページ</a>
@@ -113,72 +113,73 @@
 
 <div class="ref-grid">
 
-  <!-- 0. 一括連携 -->
-  <div class="ref-section">
-    <div class="ref-section-title">📦 0. 一括連携</div>
-    <div class="ref-item"><span class="ref-id">0-1</span><div>選択行を一括エクスポート<br><span class="ref-desc">全サイトのシートを一括生成（カテゴリ除く）</span></div></div>
-    <div class="ref-item"><span class="ref-id">0-2</span><div>カテゴリ・ジャンルID一括挿入<br><span class="ref-desc">AI がカテゴリ/ジャンルIDを推論して挿入</span></div></div>
-    <div class="ref-item"><span class="ref-id">0-3</span><div>楽天 商品属性を挿入<br><span class="ref-desc">ジャンルIDから商品属性を自動生成</span></div></div>
-    <div class="ref-item"><span class="ref-id">0-4</span><div>一括バリデーション<br><span class="ref-desc">全サイトの文字数・必須項目を一括チェック</span></div></div>
-  </div>
-
   <!-- 1. ヒアリングシート取込 -->
   <div class="ref-section">
     <div class="ref-section-title">📥 1. ヒアリングシート取込</div>
-    <div class="ref-item"><span class="ref-id">1-1</span><div>Excelファイル取込<br><span class="ref-desc">DriveフォルダからExcelを読み込み変換</span></div></div>
-    <div class="ref-item"><span class="ref-id">1-2</span><div>マスターへ転記実行<br><span class="ref-desc">変換データをmaster_dataに転記</span></div></div>
+    <div class="ref-item"><span class="ref-id">1-1</span><div>Excelファイル取込<br><span class="ref-desc">成功済みはスキップ、失敗ファイルは再試行</span></div></div>
+    <div class="ref-item"><span class="ref-id">1-2</span><div>マスターへ転記実行<br><span class="ref-desc">排他制御＋ファイル単位で安全に転記</span></div></div>
     <div class="ref-item"><span class="ref-id">1-3</span><div>完了ファイルをゴミ箱へ<br><span class="ref-desc">処理済みシート削除＋Excel移動</span></div></div>
     <div class="ref-item"><span class="ref-id">1-4</span><div>環境依存文字チェック<br><span class="ref-desc">①㈱髙等のShift-JIS非対応文字を検出</span></div></div>
     <div class="ref-item"><span class="ref-id">1-5</span><div>環境依存文字を一括変換<br><span class="ref-desc">検出文字を安全な文字へ自動変換</span></div></div>
   </div>
 
-  <!-- 2. チョイス -->
+  <!-- 2. 一括連携 -->
   <div class="ref-section">
-    <div class="ref-section-title" style="color:var(--color-choice);">🟢 2. チョイス連携</div>
-    <div class="ref-item"><span class="ref-id">2-1</span><div>チョイス用シート作成<br><span class="ref-desc">カテゴリ除く。親品のみ転記。</span></div></div>
-    <div class="ref-item"><span class="ref-id">2-2</span><div>カテゴリ一括付与<br><span class="ref-desc">AIでカテゴリ推論＋信頼度表示</span></div></div>
-    <div class="ref-item"><span class="ref-id">2-3</span><div>バリデーション<br><span class="ref-desc">品名36文字(半角換算)等のチェック</span></div></div>
-    <div class="ref-item"><span class="ref-id">2-4</span><div>チョイス用データ出力 (TSV)<br><span class="ref-desc">📋 コピー＆ペースト方式</span></div></div>
-    <div class="ref-item"><span class="ref-id">2-5</span><div>子品TSV作成<br><span class="ref-desc">マルチSKUのバリエーション生成</span></div></div>
-    <div class="ref-item"><span class="ref-id">2-6</span><div>子品TSVデータ出力<br><span class="ref-desc">📋 コピー＆ペースト方式</span></div></div>
+    <div class="ref-section-title">📦 2. 一括連携</div>
+    <div class="ref-item"><span class="ref-id">2-1</span><div>選択行を一括エクスポート<br><span class="ref-desc">全サイトのシートを一括生成（カテゴリ除く）</span></div></div>
+    <div class="ref-item"><span class="ref-id">2-2</span><div>カテゴリ・ジャンルID一括挿入<br><span class="ref-desc">辞書・ルール・AIで推論して挿入</span></div></div>
+    <div class="ref-item"><span class="ref-id">2-3</span><div>楽天 商品属性を挿入<br><span class="ref-desc">ジャンルIDから商品属性を自動生成</span></div></div>
+    <div class="ref-item"><span class="ref-id">2-4</span><div>一括バリデーション<br><span class="ref-desc">全サイトの文字数・必須項目を一括チェック</span></div></div>
   </div>
 
-  <!-- 3. ふるなび -->
+  <!-- 3. チョイス -->
   <div class="ref-section">
-    <div class="ref-section-title" style="color:var(--color-furunavi);">🔵 3. ふるなび連携</div>
-    <div class="ref-item"><span class="ref-id">3-1</span><div>ふるなび用シート作成<br><span class="ref-desc">子品のみ転記。</span></div></div>
-    <div class="ref-item"><span class="ref-id">3-2</span><div>カテゴリ一括推論<br><span class="ref-desc">AIでカテゴリ＋サブカテゴリ推論</span></div></div>
-    <div class="ref-item"><span class="ref-id">3-3</span><div>バリデーション<br><span class="ref-desc">返礼品名75文字等のチェック</span></div></div>
-    <div class="ref-item"><span class="ref-id">3-4</span><div>ふるなび用データ出力 (CSV)<br><span class="ref-desc">💾 Shift-JIS CSVダウンロード</span></div></div>
-    <div class="ref-item"><span class="ref-id">3-5</span><div>更新用データ作成 (受付期間)<br><span class="ref-desc">既存商品の受付期間更新</span></div></div>
-    <div class="ref-item"><span class="ref-id">3-6</span><div>更新用データ出力 (CSV)<br><span class="ref-desc">💾 CSVダウンロード</span></div></div>
+    <div class="ref-section-title" style="color:var(--color-choice);">🟢 3. チョイス連携</div>
+    <div class="ref-item"><span class="ref-id">3-1</span><div>チョイス用シート作成<br><span class="ref-desc">カテゴリ除く。親品のみ転記。</span></div></div>
+    <div class="ref-item"><span class="ref-id">3-2</span><div>カテゴリ一括付与<br><span class="ref-desc">AIでカテゴリ推論＋信頼度表示</span></div></div>
+    <div class="ref-item"><span class="ref-id">3-3</span><div>バリデーション<br><span class="ref-desc">品名36文字(半角換算)等のチェック</span></div></div>
+    <div class="ref-item"><span class="ref-id">3-4</span><div>チョイス用データ出力 (TSV)<br><span class="ref-desc">📋 メモ帳へコピー → TSV保存</span></div></div>
+    <div class="ref-item"><span class="ref-id">3-5</span><div>子品TSV作成<br><span class="ref-desc">マルチSKUのバリエーション生成</span></div></div>
+    <div class="ref-item"><span class="ref-id">3-6</span><div>子品TSVデータ出力<br><span class="ref-desc">📋 メモ帳へコピー → TSV保存</span></div></div>
   </div>
 
-  <!-- 4. さとふる -->
+  <!-- 4. ふるなび -->
   <div class="ref-section">
-    <div class="ref-section-title" style="color:var(--color-satofull);">🟠 4. さとふる連携</div>
-    <div class="ref-item"><span class="ref-id">4-1</span><div>さとふる用シート作成<br><span class="ref-desc">子品のみ転記。</span></div></div>
-    <div class="ref-item"><span class="ref-id">4-2</span><div>カテゴリ一括推論<br><span class="ref-desc">AIでカテゴリ推論</span></div></div>
-    <div class="ref-item"><span class="ref-id">4-3</span><div>バリデーション<br><span class="ref-desc">お礼品名50文字、伝票用16文字等</span></div></div>
-    <div class="ref-item"><span class="ref-id">4-4</span><div>さとふる用データ出力 (CSV)<br><span class="ref-desc">💾 Shift-JIS CSVダウンロード</span></div></div>
+    <div class="ref-section-title" style="color:var(--color-furunavi);">🔵 4. ふるなび連携</div>
+    <div class="ref-item"><span class="ref-id">4-1</span><div>ふるなび用シート作成<br><span class="ref-desc">子品のみ転記。</span></div></div>
+    <div class="ref-item"><span class="ref-id">4-2</span><div>カテゴリ一括推論<br><span class="ref-desc">AIでカテゴリ＋サブカテゴリ推論</span></div></div>
+    <div class="ref-item"><span class="ref-id">4-3</span><div>バリデーション<br><span class="ref-desc">返礼品名75文字等のチェック</span></div></div>
+    <div class="ref-item"><span class="ref-id">4-4</span><div>ふるなび用データ出力 (TSV)<br><span class="ref-desc">💾 Shift-JIS タブ区切り</span></div></div>
+    <div class="ref-item"><span class="ref-id">4-4b</span><div>ふるなび用データ出力 (CSV)<br><span class="ref-desc">💾 Shift-JIS カンマ区切り</span></div></div>
+    <div class="ref-item"><span class="ref-id">4-5</span><div>更新用データ作成 (受付期間)<br><span class="ref-desc">既存商品の受付期間更新</span></div></div>
+    <div class="ref-item"><span class="ref-id">4-6</span><div>更新用データ出力 (CSV)<br><span class="ref-desc">💾 CSVダウンロード</span></div></div>
   </div>
 
-  <!-- 5. 楽天 -->
+  <!-- 5. さとふる -->
   <div class="ref-section">
-    <div class="ref-section-title" style="color:var(--color-rakuten);">🔴 5. 楽天連携</div>
-    <div class="ref-item"><span class="ref-id">5-1</span><div>楽天用シート作成<br><span class="ref-desc">ジャンルID除く。3層構造（Item/SKU/Option）。</span></div></div>
-    <div class="ref-item"><span class="ref-id">5-2</span><div>ジャンルID一括推論<br><span class="ref-desc">Gemini AI＋楽天APIでジャンルID推論</span></div></div>
-    <div class="ref-item"><span class="ref-id">5-3</span><div>商品属性を生成<br><span class="ref-desc">ジャンルIDから属性定義取得＋注入</span></div></div>
-    <div class="ref-item"><span class="ref-id">5-4</span><div>バリデーション<br><span class="ref-desc">バイト数制限＋HTMLタグ検証</span></div></div>
-    <div class="ref-item"><span class="ref-id">5-5</span><div>楽天用データ出力 (CSV)<br><span class="ref-desc">💾 Shift-JIS CSVダウンロード</span></div></div>
+    <div class="ref-section-title" style="color:var(--color-satofull);">🟠 5. さとふる連携</div>
+    <div class="ref-item"><span class="ref-id">5-1</span><div>さとふる用シート作成<br><span class="ref-desc">子品のみ転記。</span></div></div>
+    <div class="ref-item"><span class="ref-id">5-2</span><div>カテゴリ一括推論<br><span class="ref-desc">AIでカテゴリ推論</span></div></div>
+    <div class="ref-item"><span class="ref-id">5-3</span><div>バリデーション<br><span class="ref-desc">お礼品名50文字、伝票用16文字等</span></div></div>
+    <div class="ref-item"><span class="ref-id">5-4</span><div>さとふる用データ出力 (CSV)<br><span class="ref-desc">💾 Shift-JIS CSVダウンロード</span></div></div>
   </div>
 
-  <!-- 6. システム管理 -->
+  <!-- 6. 楽天 -->
+  <div class="ref-section">
+    <div class="ref-section-title" style="color:var(--color-rakuten);">🔴 6. 楽天連携</div>
+    <div class="ref-item"><span class="ref-id">6-1</span><div>楽天用シート作成<br><span class="ref-desc">ジャンルID除く。3層構造（Item/SKU/Option）。</span></div></div>
+    <div class="ref-item"><span class="ref-id">6-2</span><div>ジャンルID一括推論<br><span class="ref-desc">Gemini AI＋楽天APIでジャンルID推論</span></div></div>
+    <div class="ref-item"><span class="ref-id">6-3</span><div>商品属性を生成<br><span class="ref-desc">ジャンルIDから属性定義取得＋注入</span></div></div>
+    <div class="ref-item"><span class="ref-id">6-4</span><div>バリデーション<br><span class="ref-desc">バイト数制限＋HTMLタグ検証</span></div></div>
+    <div class="ref-item"><span class="ref-id">6-5</span><div>楽天用データ出力 (CSV)<br><span class="ref-desc">💾 Shift-JIS CSVダウンロード</span></div></div>
+  </div>
+
+  <!-- 7. システム管理 -->
   <div class="ref-section ref-full">
-    <div class="ref-section-title">⚙️ 6. システム管理</div>
+    <div class="ref-section-title">⚙️ 7. システム管理</div>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 var(--space-8);">
-      <div class="ref-item"><span class="ref-id">6-1</span><div>ダッシュボードを更新<br><span class="ref-desc">進捗サマリー＋課題一覧を更新</span></div></div>
-      <div class="ref-item"><span class="ref-id">6-2</span><div>楽天ジャンルツリー同期<br><span class="ref-desc">楽天APIからカテゴリ階層データを同期</span></div></div>
+      <div class="ref-item"><span class="ref-id">7-1</span><div>ダッシュボードを更新<br><span class="ref-desc">進捗サマリー＋課題一覧を更新</span></div></div>
+      <div class="ref-item"><span class="ref-id">7-2</span><div>楽天ジャンルツリー同期<br><span class="ref-desc">楽天APIからカテゴリ階層データを同期</span></div></div>
     </div>
   </div>
 
@@ -186,15 +187,16 @@
   <div class="ref-section ref-full" style="background:var(--color-primary-light); border-color:var(--color-primary);">
     <div class="ref-section-title" style="color:var(--color-primary);">⚡ 推奨フロー（初回一括）</div>
     <div style="font-size:var(--font-size-sm); line-height:2;">
-      <strong>① master_data に入力</strong> → <strong>② 行選択</strong> → <strong>③ 0-1（一括エクスポート）</strong> → <strong>④ 0-2（カテゴリ一括挿入）</strong> → <strong>⑤ 0-3（楽天属性）</strong> → <strong>⑥ 0-4（一括バリデーション）</strong> → <strong>⑦ 各サイトのデータ出力（2-4, 3-4, 4-4, 5-5）</strong>
+      <strong>① master_data に入力</strong> → <strong>② 行選択</strong> → <strong>③ 2-1（一括エクスポート）</strong> → <strong>④ 2-2（カテゴリ一括挿入）</strong> → <strong>⑤ 2-3（楽天属性）</strong> → <strong>⑥ 2-4（一括バリデーション）</strong> → <strong>⑦ 各サイトのデータ出力（3-4, 4-4/4-4b, 5-4, 6-5）</strong><br>
+      ※ チョイスはコピー後、メモ帳で <code>.tsv</code> 保存してからアップロード
     </div>
   </div>
 
 </div><!-- .ref-grid -->
 
 <footer class="site-footer">
-  <p>RPM V1.0 — クイックリファレンス</p>
-  <p>最終更新: 2026年4月</p>
+  <p>RPM V1.1 — クイックリファレンス</p>
+  <p>最終更新: 2026年7月</p>
 </footer>
 
 </div></main>
