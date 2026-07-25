@@ -13,7 +13,7 @@
 <div class="sidebar-overlay"></div>
 <div class="layout">
 <nav class="sidebar">
-  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.0</span></div></div>
+  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.1</span></div></div>
   <div class="sidebar-nav">
     <div class="nav-section-title">ドキュメント</div>
     <a href="index.html"><span class="nav-icon">🏠</span>トップページ</a>
@@ -44,8 +44,16 @@
     <thead><tr><th>セル</th><th>内容</th><th>変更例</th></tr></thead>
     <tbody>
       <tr><td><strong>B1</strong></td><td>ヒアリングシート格納フォルダのURL</td><td>Google DriveフォルダのURLを貼り付け</td></tr>
+      <tr><td><strong>B10</strong></td><td>楽天APIの <code>serviceSecret</code></td><td>楽天から発行された値を入力</td></tr>
+      <tr><td><strong>B11</strong></td><td>楽天APIの <code>licenseKey</code></td><td>楽天から発行された値を入力</td></tr>
+      <tr><td><strong>B12</strong></td><td>Gemini APIキー（シート設定時の予備欄）</td><td>原則はスクリプトプロパティ <code>GEMINI_API_KEY</code> に設定</td></tr>
     </tbody>
   </table>
+</div>
+
+<div class="callout callout-info">
+  <span class="callout-icon">🔐</span>
+  <div>Gemini APIキーは、シート上に表示されないスクリプトプロパティ <code>GEMINI_API_KEY</code> への設定を推奨します。未設定の場合のみ、setting シートの B12 が参照されます。</div>
 </div>
 
 <h2 id="furunavi-setup">📋 2. mapping_furunavi の変更箇所</h2>
@@ -108,6 +116,8 @@
 <div class="card">
   <div class="card-desc" style="font-size:var(--font-size-base);">
     <p>☐ setting シートのフォルダURLを設定した</p>
+    <p>☐ 楽天APIを利用する場合は B10・B11 の認証情報を設定した</p>
+    <p>☐ Gemini APIキーをスクリプトプロパティ <code>GEMINI_API_KEY</code> に設定した</p>
     <p>☐ mapping_furunavi の都道府県・市町村名を変更した</p>
     <p>☐ mapping_furunavi の「配送について」注意文を変更した</p>
     <p>☐ mapping_choice の申込期日・発送期日の注意文を変更した</p>
@@ -121,8 +131,8 @@
 </div>
 
 <footer class="site-footer">
-  <p>RPM V1.0 — 自治体セットアップガイド</p>
-  <p>最終更新: 2026年4月</p>
+  <p>RPM V1.1 — 自治体セットアップガイド</p>
+  <p>最終更新: 2026年7月</p>
 </footer>
 
 </div></main>

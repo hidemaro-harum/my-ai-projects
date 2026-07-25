@@ -13,7 +13,7 @@
 <div class="sidebar-overlay"></div>
 <div class="layout">
 <nav class="sidebar">
-  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.0</span></div></div>
+  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.1</span></div></div>
   <div class="sidebar-nav">
     <div class="nav-section-title">ドキュメント</div>
     <a href="index.html"><span class="nav-icon">🏠</span>トップページ</a>
@@ -50,7 +50,17 @@
 
 <div class="accordion-item">
   <button class="accordion-q">「子SKUが含まれています」というダイアログが表示されます</button>
-  <div class="accordion-a"><div class="accordion-a-inner">チョイスの転記では、マルチSKU商品の「子SKU」行は転記対象外です。親品（商品管理ID＝親商品コード＝SKUコードの行）のみが対象です。子SKUはバリエーションとして 2-5 で別途処理します。ダイアログで「OK」を押せば親品のみで続行します。</div></div>
+  <div class="accordion-a"><div class="accordion-a-inner">チョイスの転記では、マルチSKU商品の「子SKU」行は転記対象外です。親品（商品管理ID＝親商品コード＝SKUコードの行）のみが対象です。子SKUはバリエーションとして 3-5 で別途処理します。ダイアログで「OK」を押せば親品のみで続行します。</div></div>
+</div>
+
+<div class="accordion-item">
+  <button class="accordion-q">「別のユーザーが取込・転記処理を実行中です」と表示されます</button>
+  <div class="accordion-a"><div class="accordion-a-inner">V1.1では二重取込を防ぐため、Excel取込とマスター転記を同時に1件だけ実行します。先に開始した処理が完了してから、1-1または1-2をもう一度実行してください。</div></div>
+</div>
+
+<div class="accordion-item">
+  <button class="accordion-q">Excel取込でエラーになったファイルは再実行できますか？</button>
+  <div class="accordion-a"><div class="accordion-a-inner">はい。V1.1では「変換成功」のログがあるファイルだけを処理済みとして扱います。エラーになったファイルは原因を修正した後、1-1を再実行すると再処理されます。</div></div>
 </div>
 
 <h3>カテゴリ・ジャンルID</h3>
@@ -65,7 +75,7 @@
   <div class="accordion-a"><div class="accordion-a-inner">AIが自信を持って分類できなかった場合に発生します。以下を試してください：<br><br>
   ① master_data の「商品カテゴリ」列に適切な値を入力する<br>
   ② genre_config シートにEXACTルールを手動で追加する<br>
-  ③ rakuten_export のジャンルID列に直接ジャンルIDを入力し、5-3 で属性を生成する</div></div>
+  ③ rakuten_export のジャンルID列に直接ジャンルIDを入力し、6-3 で属性を生成する</div></div>
 </div>
 
 <h3>バリデーション</h3>
@@ -93,12 +103,17 @@
   ① <strong>親行:</strong> 商品管理ID＝親商品コード＝SKUコード（3つが同じ値）<br>
   ② <strong>子行:</strong> 親商品コード＝親のコード、SKUコードは親と異なる値<br>
   ③ 親行の「バリエーション名」列にバリエーション名（例: セット内容）を入力<br><br>
-  チョイスは「親品のみ転記 → 2-5で子品を別途生成」、ふるなび/さとふるは「子品のみ転記」、楽天は「全行を自動グルーピング」で処理されます。</div></div>
+  チョイスは「親品のみ転記 → 3-5で子品を別途生成」、ふるなび/さとふるは「子品のみ転記」、楽天は「全行を自動グルーピング」で処理されます。</div></div>
 </div>
 
 <div class="accordion-item">
   <button class="accordion-q">データ出力のCSV/TSVの文字コードは？</button>
-  <div class="accordion-a"><div class="accordion-a-inner">ふるなび・さとふる・楽天のCSV出力はすべて <strong>Shift-JIS（CP932）</strong> で出力されます。Shift-JIS で表現できない環境依存文字がデータに含まれている場合は、「1-4. 環境依存文字チェック」→「1-5. 一括変換」で事前に安全な文字へ変換してください。<br><br>チョイスはスプレッドシート上にTSVとして出力され、コピー＆ペーストで登録します。</div></div>
+  <div class="accordion-a"><div class="accordion-a-inner">ふるなび・さとふる・楽天は <strong>Shift-JIS（CP932）</strong> でダウンロードされます。Shift-JISで表現できない文字がある場合は、「1-4. 環境依存文字チェック」→「1-5. 一括変換」を実行してください。<br><br>チョイスは3-4または3-6の画面でコピーし、<strong>メモ帳へ貼り付けて拡張子 <code>.tsv</code> で保存</strong>したファイルをアップロードします。管理画面へ直接貼り付けないでください。</div></div>
+</div>
+
+<div class="accordion-item">
+  <button class="accordion-q">複数人で同時にCSVを出力しても大丈夫ですか？</button>
+  <div class="accordion-a"><div class="accordion-a-inner">はい。V1.1では出力対象の選択行をユーザー・シート単位で管理します。別ユーザーや別サイトの選択状態が混ざらず、さとふる・楽天・ふるなび更新CSVでは選択行出力時もヘッダー行が保持されます。</div></div>
 </div>
 
 <!-- トラブルシューティング -->
@@ -109,7 +124,7 @@
     <tbody>
       <tr><td>メニューが表示されない</td><td>スクリプトが初期化されていない</td><td>ページを再読み込み（F5）。初回のみ権限の承認が必要です。</td></tr>
       <tr><td>「権限が必要です」と表示される</td><td>Google OAuth認証が未完了</td><td>「権限を確認」→「許可」を押してください。</td></tr>
-      <tr><td>処理が途中で止まる / タイムアウト</td><td>大量データ or API制限</td><td>行数を分割して実行。楽天AI推論は15 RPM制限あり。</td></tr>
+      <tr><td>処理が途中で止まる / タイムアウト</td><td>大量データまたはAPIの一時制限</td><td>行数を分割して再実行。Gemini・楽天APIは自動リトライしますが、長時間処理は分割を推奨します。</td></tr>
       <tr><td>出力結果がおかしい</td><td>mapping_* の設定ミス</td><td>mapping のB列（参照カラム名）がmaster_data のヘッダーと完全一致しているか確認。</td></tr>
       <tr><td>ヒアリングシートが取り込めない</td><td>フォーマットの不一致</td><td>Excel内に「商品ID」ヘッダーが含まれるシートが必要。mapping_def を確認。</td></tr>
       <tr><td>CSV出力で文字化けする</td><td>環境依存文字が含まれている</td><td>1-4（環境依存文字チェック）→ 1-5（一括変換）を実行。</td></tr>
@@ -136,20 +151,20 @@
       <tr><td><strong>SKU行</strong></td><td>楽天の3層構造における価格・在庫・属性行。マルチSKUでは子品ごとに1行。</td></tr>
       <tr><td><strong>Option行</strong></td><td>楽天の3層構造における商品オプション行（のし、名入れ等）。</td></tr>
       <tr><td><strong>ジャンルID</strong></td><td>楽天市場の商品カテゴリを識別する数値ID。AI推論で自動取得。</td></tr>
-      <tr><td><strong>genre_config</strong></td><td>楽天ジャンルIDの推論精度を向上させるための辞書シート。EXACT/SYNONYM/SEEDルール。</td></tr>
+      <tr><td><strong>genre_config</strong></td><td>カテゴリ・楽天ジャンルIDの推論精度を向上させる共通辞書シート。EXACT/SYNONYM/RULE等のルールを保持。</td></tr>
       <tr><td><strong>EXACT ルール</strong></td><td>genre_config における最高優先度の確定ルール。完全一致でジャンルIDを即座に決定。</td></tr>
       <tr><td><strong>SYNONYM ルール</strong></td><td>genre_config における同義語変換ルール（例: 「紅ほっぺ」→「いちご」）。</td></tr>
       <tr><td><strong>Shift-JIS</strong></td><td>日本語文字コードの一種。各ポータルサイトがCSVアップロード時に要求する文字コード。</td></tr>
       <tr><td><strong>環境依存文字</strong></td><td>Shift-JIS で表現できない文字（①、㈱、髙など）。CSV出力時に文字化けの原因。</td></tr>
       <tr><td><strong>バリデーション</strong></td><td>文字数制限・必須項目等のチェック。違反セルは黄色ハイライト＋ノートで表示。</td></tr>
-      <tr><td><strong>Gemini API</strong></td><td>Google の Gemini 2.5 Flash AI モデル。カテゴリ・ジャンルID推論に使用。</td></tr>
+      <tr><td><strong>Gemini API</strong></td><td>Googleの生成AI API。利用可能なFlash系モデルを優先順に切り替え、カテゴリ・ジャンルID・属性推論に使用。</td></tr>
     </tbody>
   </table>
 </div>
 
 <footer class="site-footer">
-  <p>RPM V1.0 — FAQ・用語集</p>
-  <p>最終更新: 2026年4月</p>
+  <p>RPM V1.1 — FAQ・用語集</p>
+  <p>最終更新: 2026年7月</p>
 </footer>
 
 </div></main>

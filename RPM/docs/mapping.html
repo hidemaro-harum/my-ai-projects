@@ -13,7 +13,7 @@
 <div class="sidebar-overlay"></div>
 <div class="layout">
 <nav class="sidebar">
-  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.0</span></div></div>
+  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.1</span></div></div>
   <div class="sidebar-nav">
     <div class="nav-section-title">ドキュメント</div>
     <a href="index.html"><span class="nav-icon">🏠</span>トップページ</a>
@@ -366,7 +366,7 @@
 <td>UCxxxxxxxx</td>
 <td></td>
 </tr>
-<tr class="table-section-row"><td colspan="10">━━━ 掲載・受付期間 ━━━ 返礼品の掲載スケジュールや受付期間の設定です。ふるなびの更新用データ（3-5）でも使用されます。</td></tr>
+<tr class="table-section-row"><td colspan="10">━━━ 掲載・受付期間 ━━━ 返礼品の掲載スケジュールや受付期間の設定です。ふるなびの更新用データ（4-5）でも使用されます。</td></tr>
 <tr>
 <td><strong>通年掲載/季節限定掲載</strong></td>
 <td>通年掲載/季節限定掲載</td>
@@ -1478,7 +1478,7 @@
 <td>|</td>
 <td>【命名規則】商品名＋容量＋事業者名＋｜＋購買キーワード＋管理番号（半角0.5文字換算で36文字以内制限）</td>
 <td>本マグロ中トロ500g○○水産|海鮮 刺身 ABC-001</td>
-<td>「|」はキーワード区切りとして使用されます。バリデーション（2-3）で文字数チェックされます。</td>
+<td>「|」はキーワード区切りとして使用されます。バリデーション（3-3）で文字数チェックされます。</td>
 </tr>
 <tr>
 <td><strong>事業者ID</strong></td>
@@ -2035,7 +2035,7 @@
 <td></td>
 <td></td>
 </tr>
-<tr class="table-section-row"><td colspan="7">━━━ カテゴリ ━━━ チョイスの商品カテゴリです。メニュー「2-2. カテゴリ一括付与」で自動設定されます。</td></tr>
+<tr class="table-section-row"><td colspan="7">━━━ カテゴリ ━━━ チョイスの商品カテゴリです。メニュー「3-2. カテゴリ一括付与」で自動設定されます。</td></tr>
 <tr>
 <td><strong>（必須）カテゴリー</strong></td>
 <td></td>
@@ -2043,7 +2043,7 @@
 <td></td>
 <td>Gemini APIの推論結果を用いて、最大3つまでカテゴリーを自動出力します（要目視チェック）。</td>
 <td>肉|ハンバーグ</td>
-<td>メニュー2-2で自動入力されます。手動での修正も可能です。</td>
+<td>メニュー3-2で自動入力されます。手動での修正も可能です。</td>
 </tr>
 <tr class="table-section-row"><td colspan="7">━━━ 画像 ━━━ 商品ページに表示する画像です。メイン画像1枚 + スライド画像最大8枚です。</td></tr>
 <tr>
@@ -2363,7 +2363,7 @@
 <td>2026/12/31 23:59:00</td>
 <td></td>
 </tr>
-<tr class="table-section-row"><td colspan="7">━━━ マルチSKU（バリエーション） ━━━ 複数バリエーション（容量違い、セット違い等）がある場合の親子関連です。メニュー「2-5. 子品TSV作成」で使用されます。</td></tr>
+<tr class="table-section-row"><td colspan="7">━━━ マルチSKU（バリエーション） ━━━ 複数バリエーション（容量違い、セット違い等）がある場合の親子関連です。メニュー「3-5. 子品TSV作成」で使用されます。</td></tr>
 <tr>
 <td><strong>親お礼の品ID</strong></td>
 <td></td>
@@ -2480,14 +2480,14 @@
 <td></td>
 <td>返礼品名を全角75文字以内で出力します。命名規則: 返礼品名 数量 事業者名 | 地域名 SEOキーワード。</td>
 <td>【ふるさと納税】本マグロ中トロ 500g ○○水産 | 新潟県 魚沼</td>
-<td>バリデーション（3-3）で文字数チェックされます。</td>
+<td>バリデーション（4-3）で文字数チェックされます。</td>
 </tr>
 <tr>
 <td><strong>カテゴリ</strong></td>
 <td></td>
 <td><code>EMPTY</code></td>
 <td></td>
-<td>ふるなびのカテゴリコードです。メニュー「3-2. カテゴリ一括推論」で自動設定されます。</td>
+<td>ふるなびのカテゴリコードです。メニュー「4-2. カテゴリ一括推論」で自動設定されます。</td>
 <td>魚介類</td>
 <td>Gemini APIで推論されます。目視チェック推奨。</td>
 </tr>
@@ -2681,7 +2681,7 @@
 <td>|</td>
 <td>お礼品名を全角50文字以内で出力します。命名規則はチョイスと同様: 商品名＋容量＋事業者名＋｜＋キーワード。</td>
 <td>本マグロ中トロ500g○○水産|海鮮</td>
-<td>バリデーション（4-3）で50文字チェックされます。</td>
+<td>バリデーション（5-3）で50文字チェックされます。</td>
 </tr>
 <tr>
 <td><strong>伝票用お礼品名</strong></td>
@@ -2690,7 +2690,7 @@
 <td></td>
 <td>配送伝票に印字する短縮品名です。16文字以内制限。手動で入力してください。</td>
 <td>マグロ中トロ</td>
-<td>16文字以内。バリデーション（4-3）でチェックされます。</td>
+<td>16文字以内。バリデーション（5-3）でチェックされます。</td>
 </tr>
 <tr class="table-section-row"><td colspan="7">━━━ 説明文 ━━━ 一覧表示用と詳細表示用の2種類の説明文があります。詳細用はHTMLタグが利用可能です。</td></tr>
 <tr>
@@ -2735,7 +2735,7 @@
 <td>カテゴリーID</td>
 <td><code>SATOFULL_CATEGORY</code></td>
 <td></td>
-<td>さとふるのカテゴリIDです。メニュー「4-2. カテゴリ一括推論」で自動設定されます。</td>
+<td>さとふるのカテゴリIDです。メニュー「5-2. カテゴリ一括推論」で自動設定されます。</td>
 <td>0101</td>
 <td>カテゴリ一覧ExcelからIDを特定して入力。Gemini APIで推論可能。</td>
 </tr>
@@ -3009,8 +3009,8 @@
 <td><code>DIRECT</code></td>
 <td></td>
 <td>ITEM</td>
-<td>受付終了日を楽天フォーマットに自動変換します。開始日時に値があり終了日時が空の場合は「2999-12-31 00:00」（無期限）が自動設定されます。</td>
-<td>2999-12-31 00:00</td>
+<td>受付終了日を楽天フォーマットに自動変換します。開始日時に値があり終了日時が空の場合は「2999-12-31 23:59」（無期限）が自動設定されます。</td>
+<td>2999-12-31 23:59</td>
 <td>両方空の場合は両方空欄のまま出力されます。</td>
 </tr>
 <tr class="table-section-row"><td colspan="8">━━━ ジャンル・タグ ━━━ 楽天市場のジャンル分類と非製品属性タグの設定です。ジャンルIDはAI推論で自動設定されます。</td></tr>
@@ -3020,7 +3020,7 @@
 <td><code>CATEGORY_LOOKUP</code></td>
 <td></td>
 <td>ITEM</td>
-<td>Gemini APIと楽天APIの組み合わせで自動推論されます。推論できなかった場合は空欄＋黄色塗りつぶしになるため、手動でジャンルIDを調査して入力してください。精度は約90%です。</td>
+<td>Gemini APIと楽天APIの組み合わせで自動推論されます。推論できなかった場合は空欄＋黄色塗りつぶしになるため、手動でジャンルIDを調査して入力してください。APIの応答や商品情報によって結果が変わるため、出力後に確認してください。</td>
 <td>509780</td>
 <td>genre_configシートに学習データを蓄積することで精度が向上します。</td>
 </tr>
@@ -4339,8 +4339,8 @@
 </div>
 
 <footer class="site-footer">
-  <p>RPM V1.0 — マッピング定義リファレンス</p>
-  <p>最終更新: 2026年4月</p>
+  <p>RPM V1.1 — マッピング定義リファレンス</p>
+  <p>最終更新: 2026年7月</p>
 </footer>
 
 </div></main>

@@ -13,7 +13,7 @@
 <div class="sidebar-overlay"></div>
 <div class="layout">
 <nav class="sidebar">
-  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.0</span></div></div>
+  <div class="sidebar-header"><div class="sidebar-logo"><img src="img/logo.svg" alt="みつめ" width="32" height="32" style="border-radius:6px">RPM Docs</div><div class="sidebar-version"><span class="version-badge">V1.1</span></div></div>
   <div class="sidebar-nav">
     <div class="nav-section-title">ドキュメント</div>
     <a href="index.html"><span class="nav-icon">🏠</span>トップページ</a>
@@ -58,10 +58,10 @@
     <thead><tr><th>項目</th><th>内容</th></tr></thead>
     <tbody>
       <tr><td>プラットフォーム</td><td>Google Sheets + Google Apps Script</td></tr>
-      <tr><td>AI エンジン</td><td>Gemini 2.5 Flash（15 RPM制限）</td></tr>
+      <tr><td>AI エンジン</td><td>Gemini Flash系（利用可能モデルを優先順に自動選択）</td></tr>
       <tr><td>外部 API</td><td>楽天市場 API（ジャンルツリー・属性取得）</td></tr>
-      <tr><td>出力文字コード</td><td>Shift-JIS（CP932）— 全サイト共通</td></tr>
-      <tr><td>ソースファイル</td><td>18ファイル / 約700KB</td></tr>
+      <tr><td>出力文字コード</td><td>ふるなび・さとふる・楽天: Shift-JIS（CP932）／チョイス: 画面からコピーしてTSV保存</td></tr>
+      <tr><td>ソースファイル</td><td>18ファイル / 約938KB</td></tr>
     </tbody>
   </table>
 </div>
@@ -74,15 +74,15 @@
     <thead><tr><th>ファイル</th><th>責務</th><th>サイズ</th></tr></thead>
     <tbody>
       <tr><td><code>Menu.js</code></td><td>メニュー定義・ヘルプガイド</td><td>36KB</td></tr>
-      <tr><td><code>Import_Master.js</code></td><td>Excel取込・マスター転記</td><td>22KB</td></tr>
+      <tr><td><code>Import_Master.js</code></td><td>Excel取込・排他制御・ファイル単位のマスター転記</td><td>26KB</td></tr>
       <tr><td><code>Export_Choice.js</code></td><td>チョイスエクスポート</td><td>56KB</td></tr>
       <tr><td><code>Export_Furunavi.js</code></td><td>ふるなびエクスポート</td><td>22KB</td></tr>
       <tr><td><code>Export_Satofull.js</code></td><td>さとふるエクスポート</td><td>13KB</td></tr>
       <tr><td><code>Export_Rakuten.js</code></td><td>楽天エクスポート (3層構造)</td><td>86KB</td></tr>
       <tr><td><code>Export_Batch.js</code></td><td>一括エクスポート制御</td><td>22KB</td></tr>
       <tr><td><code>Gemini_API.js</code></td><td>Gemini API統合</td><td>159KB</td></tr>
-      <tr><td><code>Rakuten_API.js</code></td><td>楽天API統合</td><td>80KB</td></tr>
-      <tr><td><code>Rakuten_GenreUpdate.js</code></td><td>楽天ジャンルツリー同期</td><td>56KB</td></tr>
+      <tr><td><code>Rakuten_API.js</code></td><td>楽天API統合・ジャンルツリー同期</td><td>83KB</td></tr>
+      <tr><td><code>Rakuten_GenreUpdate.js</code></td><td>ジャンルID推論・商品属性更新・学習フィードバック</td><td>56KB</td></tr>
       <tr><td><code>Category_Bridge.js</code></td><td>カテゴリ推論ブリッジ</td><td>75KB</td></tr>
       <tr><td><code>Choice_Category.js</code></td><td>チョイスカテゴリ推論</td><td>44KB</td></tr>
       <tr><td><code>Furunavi_Category.js</code></td><td>ふるなびカテゴリ推論</td><td>36KB</td></tr>
@@ -90,7 +90,21 @@
       <tr><td><code>Char_Check.js</code></td><td>環境依存文字チェック</td><td>44KB</td></tr>
       <tr><td><code>Dashboard.js</code></td><td>ダッシュボード集計</td><td>51KB</td></tr>
       <tr><td><code>Validation.js</code></td><td>バリデーションエンジン</td><td>26KB</td></tr>
-      <tr><td><code>Utils.js</code></td><td>共通ユーティリティ</td><td>38KB</td></tr>
+      <tr><td><code>Utils.js</code></td><td>CSV/TSV生成・選択行管理・共通ユーティリティ</td><td>40KB</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>実行安全性（V1.1）</h3>
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>制御</th><th>仕様</th></tr></thead>
+    <tbody>
+      <tr><td>排他制御</td><td>Excel取込とマスター転記はドキュメントロックを取得し、複数ユーザーの同時実行を防止</td></tr>
+      <tr><td>処理済み判定</td><td>sys_logの成功ステータス（変換成功／転記成功）のみを処理済みとして採用。エラーは再試行可能</td></tr>
+      <tr><td>ファイル単位コミット</td><td>対象ファイル内の全シートを検証してから、master_dataへまとめて書き込み</td></tr>
+      <tr><td>ロールバック</td><td>マスター追記後、成功ログ確定前に失敗した場合は追記範囲をクリア</td></tr>
+      <tr><td>選択行の分離</td><td>CSV選択状態をユーザー・シート単位で保存し、生成成功後に削除</td></tr>
     </tbody>
   </table>
 </div>
@@ -194,8 +208,8 @@
   <table>
     <thead><tr><th>サイト</th><th>出力形式</th><th>文字コード</th><th>行構造</th><th>カラム数</th><th>出力方式</th></tr></thead>
     <tbody>
-      <tr><td><span class="badge badge-choice">チョイス</span></td><td>TSV</td><td>Shift-JIS</td><td>1行/商品</td><td>108</td><td>コピー＆ペースト</td></tr>
-      <tr><td><span class="badge badge-furunavi">ふるなび</span></td><td>CSV</td><td>Shift-JIS</td><td>1行/商品</td><td>22</td><td>ファイルダウンロード</td></tr>
+      <tr><td><span class="badge badge-choice">チョイス</span></td><td>TSV</td><td>メモ帳で保存</td><td>1行/商品</td><td>108</td><td>コピー → メモ帳 → TSVアップロード</td></tr>
+      <tr><td><span class="badge badge-furunavi">ふるなび</span></td><td>TSV / CSV</td><td>Shift-JIS</td><td>1行/商品</td><td>22</td><td>ファイルダウンロード</td></tr>
       <tr><td><span class="badge badge-satofull">さとふる</span></td><td>CSV</td><td>Shift-JIS</td><td>1行/商品</td><td>27</td><td>ファイルダウンロード</td></tr>
       <tr><td><span class="badge badge-rakuten">楽天</span></td><td>CSV</td><td>Shift-JIS</td><td>3層（Item/SKU/Option）</td><td>138</td><td>ファイルダウンロード</td></tr>
     </tbody>
@@ -224,7 +238,7 @@
   <table>
     <thead><tr><th>サイト</th><th>転記対象</th><th>マルチSKUの処理</th></tr></thead>
     <tbody>
-      <tr><td><span class="badge badge-choice">チョイス</span></td><td>親品（single/parent）のみ</td><td>子品は 2-5 で別途 choice_child_export に生成</td></tr>
+      <tr><td><span class="badge badge-choice">チョイス</span></td><td>親品（single/parent）のみ</td><td>子品は 3-5 で別途 choice_child_export に生成</td></tr>
       <tr><td><span class="badge badge-furunavi">ふるなび</span></td><td>子品（single/child）のみ</td><td>親行は自動スキップ</td></tr>
       <tr><td><span class="badge badge-satofull">さとふる</span></td><td>子品（single/child）のみ</td><td>親行は自動スキップ</td></tr>
       <tr><td><span class="badge badge-rakuten">楽天</span></td><td>全行</td><td>自動グルーピング（Item行＋SKU行＋Option行）</td></tr>
@@ -248,7 +262,7 @@
 
 <div class="callout callout-info">
   <span class="callout-icon">📊</span>
-  <div><strong>genre_config の規模:</strong> 2,800+ エントリの同義語辞書と種別辞書を学習データとして蓄積。水産物、肉類、米、果物、菓子、酒類、非食品、工芸品の8カテゴリを完全網羅。</div>
+  <div><strong>genre_config の規模:</strong> 2,800+ エントリの同義語辞書と種別辞書を蓄積。楽天だけでなく、チョイス・ふるなび・さとふるの商品テキスト正規化とカテゴリ候補生成にも共通利用します。</div>
 </div>
 
 <h3>レート制限</h3>
@@ -256,8 +270,8 @@
   <table>
     <thead><tr><th>API</th><th>制限</th><th>対応策</th></tr></thead>
     <tbody>
-      <tr><td>Gemini 2.5 Flash</td><td>15 RPM（リクエスト/分）</td><td>自動リトライ + 指数バックオフ</td></tr>
-      <tr><td>楽天API</td><td>なし（有料プラン）</td><td>—</td></tr>
+      <tr><td>Gemini Flash系</td><td>利用プランとモデルに依存</td><td>モデルフォールバック、自動リトライ、Retry-After対応、指数バックオフ</td></tr>
+      <tr><td>楽天API</td><td>429応答時に制限</td><td>Retry-After対応、自動リトライ、実行内・6時間キャッシュ</td></tr>
     </tbody>
   </table>
 </div>
@@ -307,8 +321,8 @@
 </div>
 
 <footer class="site-footer">
-  <p>RPM V1.0 — 仕様書</p>
-  <p>最終更新: 2026年4月</p>
+  <p>RPM V1.1 — 仕様書</p>
+  <p>最終更新: 2026年7月</p>
 </footer>
 
 </div></main>
