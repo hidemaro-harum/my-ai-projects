@@ -107,7 +107,7 @@
 <h3>1-5. 環境依存文字を一括変換</h3>
 <div class="card">
   <div class="card-title">概要</div>
-  <div class="card-desc">検出された環境依存文字をサイト互換の文字に自動変換します（例: ① → (1)、㈱ → (株)）。</div>
+  <div class="card-desc">char_check_report で選択した検出結果だけをサイト互換の文字へ変換します（例: ① → (1)、㈱ → (株)）。同じセル内の別の文字は変更しません。</div>
 </div>
 <div class="callout callout-tip">
   <span class="callout-icon">💡</span>
@@ -139,11 +139,15 @@
   <span class="callout-icon">🤖</span>
   <div><strong>推論対象:</strong> チョイス・ふるなび・さとふるはカテゴリ、楽天はジャンルIDです。緑・黄・赤のセル色と判定根拠を確認し、結果は必ず目視チェックしてください。必要なシートやヘッダーがない場合は、V1.1から成功扱いにせずエラーを表示します。</div>
 </div>
+<div class="callout callout-tip">
+  <span class="callout-icon">🛡️</span>
+  <div><strong>既存値を保護:</strong> 入力済みカテゴリは通常の再実行ではスキップされます。上書きを選んだ場合も、新しい推論に失敗した行は既存値を保持します。</div>
+</div>
 
 <h3>2-3. 楽天 商品属性を挿入（ジャンルIDから）</h3>
 <div class="card">
   <div class="card-title">概要</div>
-  <div class="card-desc">楽天のジャンルIDが確定している行に対して、楽天APIから商品属性（重量・容量など）の定義を取得し、SKU行に自動注入します。ジャンルIDが空欄のSKU行はスキップされます。</div>
+  <div class="card-desc">楽天のジャンルIDが確定している行に対して、楽天APIから商品属性（重量・容量など）の定義を取得し、SKU行に自動注入します。ジャンルIDが空欄のSKU行はスキップされ、API取得に失敗した行の既存属性は保持されます。</div>
 </div>
 
 <h3>2-4. 一括バリデーション</h3>
@@ -329,7 +333,7 @@
 <h3>6-3. 商品属性を生成（ジャンルIDから）</h3>
 <div class="card">
   <div class="card-title">概要</div>
-  <div class="card-desc">確定したジャンルIDをもとに楽天APIから属性定義を取得し、master_data の値とマッチングして SKU行に注入します。必須属性が欠けている場合は黄色ハイライトで表示されます。</div>
+  <div class="card-desc">確定したジャンルIDをもとに楽天APIから属性定義を取得し、master_data の値とマッチングして SKU行に注入します。必須属性が欠けている場合は黄色ハイライトで表示されます。API取得に失敗した場合は、既存の商品属性を消去せずエラーを表示します。</div>
 </div>
 
 <h3>6-4. バリデーション</h3>
@@ -356,7 +360,7 @@
 <h3>7-2. 楽天ジャンルツリー同期</h3>
 <div class="card">
   <div class="card-title">概要</div>
-  <div class="card-desc">楽天APIからジャンルツリー（カテゴリ階層）の最新データを取得し、ローカルの参照用シートに同期します。ジャンルIDの推論精度向上に使われます。</div>
+  <div class="card-desc">楽天APIからジャンルツリー（カテゴリ階層）の最新データを取得し、ローカルの参照用シートに同期します。28分で安全停止して進捗キューを保存し、未完了の場合は時間主導トリガーで自動再開します。認証エラーは再試行せず停止します。</div>
 </div>
 
 <!-- ============================================== -->
@@ -398,7 +402,7 @@
 
 <footer class="site-footer">
   <p>RPM V1.1 — 操作マニュアル</p>
-  <p>最終更新: 2026年7月</p>
+  <p>最終更新: 2026年8月</p>
 </footer>
 
 </div></main>

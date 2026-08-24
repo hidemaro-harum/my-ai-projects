@@ -58,10 +58,10 @@
     <thead><tr><th>項目</th><th>内容</th></tr></thead>
     <tbody>
       <tr><td>プラットフォーム</td><td>Google Sheets + Google Apps Script</td></tr>
-      <tr><td>AI エンジン</td><td>Gemini Flash系（利用可能モデルを優先順に自動選択）</td></tr>
+      <tr><td>AI エンジン</td><td>Gemini 3.6 Flashを優先し、2.5 Flash系へ自動フォールバック</td></tr>
       <tr><td>外部 API</td><td>楽天市場 API（ジャンルツリー・属性取得）</td></tr>
       <tr><td>出力文字コード</td><td>ふるなび・さとふる・楽天: Shift-JIS（CP932）／チョイス: 画面からコピーしてTSV保存</td></tr>
-      <tr><td>ソースファイル</td><td>18ファイル / 約938KB</td></tr>
+      <tr><td>ソースファイル</td><td>18ファイル / 約972KB</td></tr>
     </tbody>
   </table>
 </div>
@@ -73,29 +73,29 @@
   <table>
     <thead><tr><th>ファイル</th><th>責務</th><th>サイズ</th></tr></thead>
     <tbody>
-      <tr><td><code>Menu.js</code></td><td>メニュー定義・ヘルプガイド</td><td>36KB</td></tr>
-      <tr><td><code>Import_Master.js</code></td><td>Excel取込・排他制御・ファイル単位のマスター転記</td><td>26KB</td></tr>
-      <tr><td><code>Export_Choice.js</code></td><td>チョイスエクスポート</td><td>56KB</td></tr>
-      <tr><td><code>Export_Furunavi.js</code></td><td>ふるなびエクスポート</td><td>22KB</td></tr>
-      <tr><td><code>Export_Satofull.js</code></td><td>さとふるエクスポート</td><td>13KB</td></tr>
-      <tr><td><code>Export_Rakuten.js</code></td><td>楽天エクスポート (3層構造)</td><td>86KB</td></tr>
+      <tr><td><code>Menu.js</code></td><td>メニュー定義・ヘルプガイド</td><td>38KB</td></tr>
+      <tr><td><code>Import_Master.js</code></td><td>Excel取込・排他制御・ファイル単位のマスター転記</td><td>28KB</td></tr>
+      <tr><td><code>Export_Choice.js</code></td><td>チョイスエクスポート</td><td>60KB</td></tr>
+      <tr><td><code>Export_Furunavi.js</code></td><td>ふるなびエクスポート</td><td>23KB</td></tr>
+      <tr><td><code>Export_Satofull.js</code></td><td>さとふるエクスポート</td><td>14KB</td></tr>
+      <tr><td><code>Export_Rakuten.js</code></td><td>楽天エクスポート (3層構造)</td><td>88KB</td></tr>
       <tr><td><code>Export_Batch.js</code></td><td>一括エクスポート制御</td><td>22KB</td></tr>
       <tr><td><code>Gemini_API.js</code></td><td>Gemini API統合</td><td>159KB</td></tr>
-      <tr><td><code>Rakuten_API.js</code></td><td>楽天API統合・ジャンルツリー同期</td><td>83KB</td></tr>
+      <tr><td><code>Rakuten_API.js</code></td><td>楽天API統合・ジャンルツリー同期</td><td>98KB</td></tr>
       <tr><td><code>Rakuten_GenreUpdate.js</code></td><td>ジャンルID推論・商品属性更新・学習フィードバック</td><td>56KB</td></tr>
-      <tr><td><code>Category_Bridge.js</code></td><td>カテゴリ推論ブリッジ</td><td>75KB</td></tr>
-      <tr><td><code>Choice_Category.js</code></td><td>チョイスカテゴリ推論</td><td>44KB</td></tr>
-      <tr><td><code>Furunavi_Category.js</code></td><td>ふるなびカテゴリ推論</td><td>36KB</td></tr>
-      <tr><td><code>Satofull_Category.js</code></td><td>さとふるカテゴリ推論</td><td>58KB</td></tr>
+      <tr><td><code>Category_Bridge.js</code></td><td>カテゴリ推論ブリッジ</td><td>76KB</td></tr>
+      <tr><td><code>Choice_Category.js</code></td><td>チョイスカテゴリ推論</td><td>45KB</td></tr>
+      <tr><td><code>Furunavi_Category.js</code></td><td>ふるなびカテゴリ推論</td><td>38KB</td></tr>
+      <tr><td><code>Satofull_Category.js</code></td><td>さとふるカテゴリ推論</td><td>59KB</td></tr>
       <tr><td><code>Char_Check.js</code></td><td>環境依存文字チェック</td><td>44KB</td></tr>
       <tr><td><code>Dashboard.js</code></td><td>ダッシュボード集計</td><td>51KB</td></tr>
-      <tr><td><code>Validation.js</code></td><td>バリデーションエンジン</td><td>26KB</td></tr>
-      <tr><td><code>Utils.js</code></td><td>CSV/TSV生成・選択行管理・共通ユーティリティ</td><td>40KB</td></tr>
+      <tr><td><code>Validation.js</code></td><td>バリデーションエンジン</td><td>28KB</td></tr>
+      <tr><td><code>Utils.js</code></td><td>CSV/TSV生成・選択行管理・共通ユーティリティ</td><td>45KB</td></tr>
     </tbody>
   </table>
 </div>
 
-<h3>実行安全性（V1.1）</h3>
+<h3>実行安全性（2026年8月更新）</h3>
 <div class="table-wrapper">
   <table>
     <thead><tr><th>制御</th><th>仕様</th></tr></thead>
@@ -105,6 +105,10 @@
       <tr><td>ファイル単位コミット</td><td>対象ファイル内の全シートを検証してから、master_dataへまとめて書き込み</td></tr>
       <tr><td>ロールバック</td><td>マスター追記後、成功ログ確定前に失敗した場合は追記範囲をクリア</td></tr>
       <tr><td>選択行の分離</td><td>CSV選択状態をユーザー・シート単位で保存し、生成成功後に削除</td></tr>
+      <tr><td>ヘッダー参照</td><td>マスター・マッピング・更新CSVの列をヘッダー名で解決し、列移動時の誤更新を防止</td></tr>
+      <tr><td>既存値の保護</td><td>カテゴリ推論・楽天APIが失敗した場合は既存カテゴリや商品属性を保持。上書き実行でも新しい推論に失敗した行は消去しない</td></tr>
+      <tr><td>認証情報</td><td>Gemini・楽天APIキーはスクリプトプロパティを優先し、共有シートは移行用フォールバックとしてのみ参照</td></tr>
+      <tr><td>楽天ジャンル同期</td><td>28分で安全停止し、未完了キューを保存して時間主導トリガーで再開。認証エラーは再試行せず停止</td></tr>
     </tbody>
   </table>
 </div>
@@ -117,7 +121,7 @@
     <tbody>
       <tr class="table-section-row"><td colspan="3">📥 入力・原本</td></tr>
       <tr><td><strong>master_data</strong></td><td><span class="badge badge-required">必須</span></td><td>全商品の原本データ。すべての操作の起点。</td></tr>
-      <tr><td><strong>setting</strong></td><td><span class="badge badge-required">必須</span></td><td>フォルダURL・API設定値の管理。</td></tr>
+      <tr><td><strong>setting</strong></td><td><span class="badge badge-required">必須</span></td><td>フォルダURL等の運用設定。API認証情報はスクリプトプロパティを優先。</td></tr>
 
       <tr class="table-section-row"><td colspan="3">⚙️ マッピング定義</td></tr>
       <tr><td>mapping_def</td><td><span class="badge badge-setting">設定</span></td><td>ヒアリングシート → master_data のカラム対応定義（113項目）</td></tr>
@@ -256,7 +260,7 @@
   <li class="step-item"><div class="step-content"><strong>テキスト正規化</strong><p>genre_config の SYNONYM ルールで商品テキストを正規化（例: 「紅ほっぺ」→「いちご」）</p></div></li>
   <li class="step-item"><div class="step-content"><strong>フィードバック参照</strong><p>genre_config の EXACT ルールに完全一致があれば即座に確定（最高優先度）</p></div></li>
   <li class="step-item"><div class="step-content"><strong>候補ID生成</strong><p>genre_config の SEED ルールからジャンルIDの候補リストを生成</p></div></li>
-  <li class="step-item"><div class="step-content"><strong>AI推論</strong><p>Gemini 2.5 Flash が商品情報と候補リストからスコアリングして最適なジャンルIDを選定</p></div></li>
+  <li class="step-item"><div class="step-content"><strong>AI推論</strong><p>Gemini 3.6 Flashを優先し、利用可能なFlash系モデルで商品情報と候補リストをスコアリングして最適なジャンルIDを選定</p></div></li>
   <li class="step-item"><div class="step-content"><strong>API検証</strong><p>楽天APIで推論結果のジャンルIDが有効かを検証。無効な場合はフォールバック候補を試行</p></div></li>
 </ol>
 
@@ -270,10 +274,15 @@
   <table>
     <thead><tr><th>API</th><th>制限</th><th>対応策</th></tr></thead>
     <tbody>
-      <tr><td>Gemini Flash系</td><td>利用プランとモデルに依存</td><td>モデルフォールバック、自動リトライ、Retry-After対応、指数バックオフ</td></tr>
+      <tr><td>Gemini Flash系</td><td>利用プランとモデルに依存</td><td>モデルフォールバック、自動リトライ、Retry-After対応、指数バックオフ、一時ブロック中モデルの呼び出し抑止</td></tr>
       <tr><td>楽天API</td><td>429応答時に制限</td><td>Retry-After対応、自動リトライ、実行内・6時間キャッシュ</td></tr>
     </tbody>
   </table>
+</div>
+
+<div class="callout callout-warning">
+  <span class="callout-icon">⏱️</span>
+  <div><strong>長時間処理:</strong> 楽天ジャンルツリー同期は自動再開に対応しています。チョイス・ふるなび・さとふるのカテゴリAI一括判定は、件数が多い場合は対象を分割して実行してください。</div>
 </div>
 
 <!-- ============================================== -->
@@ -322,7 +331,7 @@
 
 <footer class="site-footer">
   <p>RPM V1.1 — 仕様書</p>
-  <p>最終更新: 2026年7月</p>
+  <p>最終更新: 2026年8月</p>
 </footer>
 
 </div></main>

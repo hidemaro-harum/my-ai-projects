@@ -71,11 +71,21 @@
 </div>
 
 <div class="accordion-item">
+  <button class="accordion-q">カテゴリ推論を再実行すると、手入力した値は消えますか？</button>
+  <div class="accordion-a"><div class="accordion-a-inner">通常の再実行では、入力済みのカテゴリをスキップするため消えません。確認ダイアログで上書きを選んだ場合も、新しい推論に失敗した行は既存値を保持します。</div></div>
+</div>
+
+<div class="accordion-item">
   <button class="accordion-q">楽天のジャンルIDが「❌ 推論失敗」になります</button>
   <div class="accordion-a"><div class="accordion-a-inner">AIが自信を持って分類できなかった場合に発生します。以下を試してください：<br><br>
   ① master_data の「商品カテゴリ」列に適切な値を入力する<br>
   ② genre_config シートにEXACTルールを手動で追加する<br>
   ③ rakuten_export のジャンルID列に直接ジャンルIDを入力し、6-3 で属性を生成する</div></div>
+</div>
+
+<div class="accordion-item">
+  <button class="accordion-q">楽天APIがエラーになったとき、入力済みの商品属性はどうなりますか？</button>
+  <div class="accordion-a"><div class="accordion-a-inner">既存の商品属性は保持されます。APIから新しい属性定義を正常に取得できた場合だけ属性欄を更新します。認証エラーの場合は、Apps Scriptのスクリプトプロパティ <code>RAKUTEN_SERVICE_SECRET</code> と <code>RAKUTEN_LICENSE_KEY</code> を確認してください。</div></div>
 </div>
 
 <h3>バリデーション</h3>
@@ -124,7 +134,7 @@
     <tbody>
       <tr><td>メニューが表示されない</td><td>スクリプトが初期化されていない</td><td>ページを再読み込み（F5）。初回のみ権限の承認が必要です。</td></tr>
       <tr><td>「権限が必要です」と表示される</td><td>Google OAuth認証が未完了</td><td>「権限を確認」→「許可」を押してください。</td></tr>
-      <tr><td>処理が途中で止まる / タイムアウト</td><td>大量データまたはAPIの一時制限</td><td>行数を分割して再実行。Gemini・楽天APIは自動リトライしますが、長時間処理は分割を推奨します。</td></tr>
+      <tr><td>処理が途中で止まる / タイムアウト</td><td>大量データまたはAPIの一時制限</td><td>カテゴリAI一括判定は行数を分割して再実行。楽天ジャンルツリー同期は進捗を保存し、自動再開します。</td></tr>
       <tr><td>出力結果がおかしい</td><td>mapping_* の設定ミス</td><td>mapping のB列（参照カラム名）がmaster_data のヘッダーと完全一致しているか確認。</td></tr>
       <tr><td>ヒアリングシートが取り込めない</td><td>フォーマットの不一致</td><td>Excel内に「商品ID」ヘッダーが含まれるシートが必要。mapping_def を確認。</td></tr>
       <tr><td>CSV出力で文字化けする</td><td>環境依存文字が含まれている</td><td>1-4（環境依存文字チェック）→ 1-5（一括変換）を実行。</td></tr>
@@ -164,7 +174,7 @@
 
 <footer class="site-footer">
   <p>RPM V1.1 — FAQ・用語集</p>
-  <p>最終更新: 2026年7月</p>
+  <p>最終更新: 2026年8月</p>
 </footer>
 
 </div></main>

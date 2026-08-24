@@ -44,8 +44,8 @@
     <thead><tr><th>セル</th><th>内容</th><th>変更例</th></tr></thead>
     <tbody>
       <tr><td><strong>B1</strong></td><td>ヒアリングシート格納フォルダのURL</td><td>Google DriveフォルダのURLを貼り付け</td></tr>
-      <tr><td><strong>B10</strong></td><td>楽天APIの <code>serviceSecret</code></td><td>楽天から発行された値を入力</td></tr>
-      <tr><td><strong>B11</strong></td><td>楽天APIの <code>licenseKey</code></td><td>楽天から発行された値を入力</td></tr>
+      <tr><td><strong>B10</strong></td><td>楽天APIの <code>serviceSecret</code>（移行用の予備欄）</td><td>原則はスクリプトプロパティを使用</td></tr>
+      <tr><td><strong>B11</strong></td><td>楽天APIの <code>licenseKey</code>（移行用の予備欄）</td><td>原則はスクリプトプロパティを使用</td></tr>
       <tr><td><strong>B12</strong></td><td>Gemini APIキー（シート設定時の予備欄）</td><td>原則はスクリプトプロパティ <code>GEMINI_API_KEY</code> に設定</td></tr>
     </tbody>
   </table>
@@ -53,7 +53,18 @@
 
 <div class="callout callout-info">
   <span class="callout-icon">🔐</span>
-  <div>Gemini APIキーは、シート上に表示されないスクリプトプロパティ <code>GEMINI_API_KEY</code> への設定を推奨します。未設定の場合のみ、setting シートの B12 が参照されます。</div>
+  <div>API認証情報は共有シートへ表示せず、Apps Scriptの「プロジェクトの設定」→「スクリプト プロパティ」に保存してください。setting シートの B10〜B12 は既存環境から移行するためのフォールバックです。</div>
+</div>
+
+<div class="table-wrapper">
+  <table>
+    <thead><tr><th>スクリプトプロパティ</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td><code>GEMINI_API_KEY</code></td><td>Gemini APIキー</td></tr>
+      <tr><td><code>RAKUTEN_SERVICE_SECRET</code></td><td>楽天API serviceSecret</td></tr>
+      <tr><td><code>RAKUTEN_LICENSE_KEY</code></td><td>楽天API licenseKey</td></tr>
+    </tbody>
+  </table>
 </div>
 
 <h2 id="furunavi-setup">📋 2. mapping_furunavi の変更箇所</h2>
@@ -116,7 +127,7 @@
 <div class="card">
   <div class="card-desc" style="font-size:var(--font-size-base);">
     <p>☐ setting シートのフォルダURLを設定した</p>
-    <p>☐ 楽天APIを利用する場合は B10・B11 の認証情報を設定した</p>
+    <p>☐ 楽天APIを利用する場合は <code>RAKUTEN_SERVICE_SECRET</code> と <code>RAKUTEN_LICENSE_KEY</code> をスクリプトプロパティに設定した</p>
     <p>☐ Gemini APIキーをスクリプトプロパティ <code>GEMINI_API_KEY</code> に設定した</p>
     <p>☐ mapping_furunavi の都道府県・市町村名を変更した</p>
     <p>☐ mapping_furunavi の「配送について」注意文を変更した</p>
@@ -132,7 +143,7 @@
 
 <footer class="site-footer">
   <p>RPM V1.1 — 自治体セットアップガイド</p>
-  <p>最終更新: 2026年7月</p>
+  <p>最終更新: 2026年8月</p>
 </footer>
 
 </div></main>

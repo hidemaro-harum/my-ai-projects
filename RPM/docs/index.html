@@ -74,24 +74,24 @@
   </div>
 </div>
 
-<!-- V1.1 更新内容 -->
-<h2 id="v11-updates">✨ V1.1 の主な更新</h2>
+<!-- 2026年8月 更新内容 -->
+<h2 id="aug-2026-updates">✨ 2026年8月の安全性アップデート</h2>
 <div class="card-grid reveal">
   <div class="card">
-    <div class="card-title">🛡️ 取込・転記の安全性を強化</div>
-    <div class="card-desc">同時実行をロックし、ファイル単位で一括転記。ログ確定前に失敗した場合は追記内容を自動で戻し、二重取込を防ぎます。</div>
+    <div class="card-title">🛡️ API失敗時も既存値を保護</div>
+    <div class="card-desc">カテゴリ推論や楽天APIが失敗しても、入力済みのカテゴリ・ジャンル属性を消去しません。再実行時も既存値を優先します。</div>
   </div>
   <div class="card">
-    <div class="card-title">🔁 失敗ファイルを正しく再試行</div>
-    <div class="card-desc">成功ログだけを処理済みとして扱います。一時的な変換エラーは次回実行時に再処理できます。</div>
+    <div class="card-title">🔐 API認証情報を安全に管理</div>
+    <div class="card-desc">楽天APIとGemini APIのキーはスクリプトプロパティを優先。共有シートへ認証情報を表示しない運用に対応しました。</div>
   </div>
   <div class="card">
-    <div class="card-title">🎯 選択行出力を安定化</div>
-    <div class="card-desc">CSVの選択行出力でも必要なヘッダーを保持。選択状態をユーザー・シート単位で管理し、複数人利用時の混線を防ぎます。</div>
+    <div class="card-title">🧠 Geminiモデルを現行化</div>
+    <div class="card-desc">Gemini 3.6 Flashを優先し、利用状況に応じて2.5 Flash系へフォールバック。一時制限中のモデルを連続呼び出ししません。</div>
   </div>
   <div class="card">
-    <div class="card-title">✅ 一括処理の結果を正確に表示</div>
-    <div class="card-desc">カテゴリ・ジャンルID推論の失敗を成功扱いにせず、対象シートやヘッダーの不足をエラーとして案内します。</div>
+    <div class="card-title">🔁 楽天ジャンル同期を継続実行</div>
+    <div class="card-desc">28分で安全停止し、未完了キューを保存して自動再開。APIエラーとタイムアウトを区別し、重複トリガーも防ぎます。</div>
   </div>
 </div>
 
@@ -305,7 +305,7 @@
 <!-- フッター -->
 <footer class="site-footer">
   <p>RPM V1.1 — 返礼品マスター管理システム ドキュメント</p>
-  <p>最終更新: 2026年7月</p>
+  <p>最終更新: 2026年8月</p>
 </footer>
 
 </div><!-- .content-wrapper -->
